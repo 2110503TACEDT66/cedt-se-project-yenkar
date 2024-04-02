@@ -1,0 +1,34 @@
+@startuml Delete Car Provider (DELETE)
+
+header Sample RentalCarBooking Sequence Diagram
+footer Page %page% of %lastpage%
+title "Delete Car Provider (DELETE)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:carProviders" as routerCarProvider
+participant "<<controllers>>\n:carProvidersController" as controllersCarProvider
+participant "<<model>>\n:CarProvider" as modelCarProvider
+database "<<MongoDB>>\n:carproviders" as CarProviderDatabase
+
+
+client->server ++:req.delete('/api/v1/carproviders/:id')
+server->routerCarProvider ++:app.use('/api/v1/carproviders', carProviders)
+routerCarProvider -> controllersCarProvider ++: deleteCarProvider(req, res, next)
+
+    controllersCarProvider->modelCarProvider ++: findById(req.params.id)
+alt carProvider lookup if exists
+    modelCarProvider ->CarProviderDatabase ++: CarProviderSchema
+    CarProviderDatabase --> modelCarProvider--: CarProviderSchema
+    modelCarProvider --> controllersCarProvider--: carProvider
+    controllersCarProvider -> modelCarProvider ++: deleteOne(carProvider)
+    modelCarProvider -> CarProviderDatabase ++ : deleteOne(carProvider)
+    CarProviderDatabase --> modelCarProvider -- : response
+    modelCarProvider --> controllersCarProvider --: response
+    controllersCarProvider --> client--: res.status(200).json({ success: true , data: {} })
+else carProvider not found   
+    controllersCarProvider --> client--: res.status(400).json({ success: false, error: 'Car Provider not found' })
+end
+
+
+@enduml
