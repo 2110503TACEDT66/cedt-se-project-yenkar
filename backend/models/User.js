@@ -66,7 +66,7 @@ UserSchema.pre(
 
 // Sign a token
 UserSchema.methods.getSignedJwtToken = function() {
-    return jwt.sign({id: this._id}, process.env.JWT_SECRET, {
+    return jwt.sign({id: this._id, type: 'user'}, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE
     });
 }
