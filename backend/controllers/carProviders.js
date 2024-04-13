@@ -91,10 +91,12 @@ exports.getCarProvider = async (req, res, next) => {
 // @route   POST /api/v1/carproviders
 // @access  Private
 exports.createCarProvider = async (req, res, next) => {
-  try {
-    const { name, address, telephone, price } = req.body;
+  try {               // Added email password to create car Provider //
+    const { email, password, name, address, telephone, price } = req.body;
 
-    const carProvider = await CarProvider.create({
+    const carProvider = await CarProvider.create({ // Added email password to create car Provider
+      email,
+      password,
       name,
       address,
       telephone,
