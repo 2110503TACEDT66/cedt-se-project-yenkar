@@ -45,7 +45,7 @@ export async function createTransaction(
   transaction: CreateTransactionProps
 ) {
   const response = await fetch(
-    `${process.env.BACKEND_URL}/api/v1/transactions/`,
+    `${process.env.BACKEND_URL}/api/v1/topuptransactions/`,
     {
       method: "POST",
       headers: {
