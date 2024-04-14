@@ -3,7 +3,10 @@
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
 
-export async function checkoutCredits(transaction: CheckoutTransactionParams) {
+export async function checkoutCredits(
+  transaction: CheckoutTransactionParams,
+  token: string
+) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   const amount = Number(transaction.amount) * 100;
@@ -26,6 +29,7 @@ export async function checkoutCredits(transaction: CheckoutTransactionParams) {
       plan: transaction.plan,
       credits: transaction.credits,
       buyerId: transaction.buyerId,
+      token: token,
     },
     mode: "payment",
     success_url: `${process.env.FRONTEND_URL}/profile`,
