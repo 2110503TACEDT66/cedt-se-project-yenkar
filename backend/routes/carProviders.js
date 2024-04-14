@@ -8,7 +8,7 @@ const {
   getNearByCarProviders,
   getCarsForCarProvider
 } = require("../controllers/carProviders");
-
+const { addCar } = require("../controllers/cars");
 const rentingsRouter = require("./rentings");
 const carsRouter = require("./cars")
 
@@ -21,13 +21,12 @@ router
   .post(protect, authorize("admin"), createCarProvider);
 
 router.use("/:carProviderId/rentings", rentingsRouter);
-router.use("/:carProviderId/cars", carsRouter);
-
-router.route("/nearby").get(protect, getNearByCarProviders);
-
 router
   .route("/:id/cars")
   .get(getCarsForCarProvider)
+  .post(protect, addCar);
+
+router.route("/nearby").get(protect, getNearByCarProviders);
 
 router
   .route("/:id")
