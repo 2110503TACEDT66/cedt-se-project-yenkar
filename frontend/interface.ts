@@ -32,3 +32,19 @@ interface CarProps {
   price: number;
   address: string;
 }
+
+interface CheckoutTransactionParams {
+  plan: string;
+  credits: number;
+  amount: number;
+  buyerId: string;
+}
+
+interface CreateTransactionProps {
+  stripeId: string;
+  amount: number;
+  credits: number;
+  plan: string;
+  buyerId: string;
+  createdAt: Date;
+}
