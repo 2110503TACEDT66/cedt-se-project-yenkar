@@ -1,6 +1,7 @@
 "use client";
 import HomeCard from "@/components/HomeCard";
 import NavBar from "@/components/NavBar";
+import { checkoutCredits, createTransaction } from "@/libs/transaction.actions";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -142,6 +143,63 @@ export default function Home() {
             text="Reservation"
           />
         </div>
+      </div>
+      <div
+        className="bg-red-600 w-[100%] h-96 flex flex-col 
+      justify-center items-center mt-20 gap-3
+      "
+      >
+        <button
+          className="
+        bg-white text-black p-4 rounded-lg
+        hover:bg-black hover:text-white
+        "
+          onClick={async () => {
+            console.log("Create Transaction Test");
+            try {
+              await createTransaction(session?.user.token!, {
+                stripeId: "stripeId",
+                amount: 1000,
+                plan: "plan",
+                credits: 0,
+                buyerId: session?.user._id!,
+                createdAt: new Date(),
+              }).then((res) => {
+                console.log(res);
+              });
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+        >
+          Create Transaction Test
+        </button>
+        <button
+          className="
+        bg-white text-black p-4 rounded-lg
+        hover:bg-black hover:text-white
+        "
+          onClick={async () => {
+            console.log("Create Transaction Test");
+            try {
+              await checkoutCredits(
+                {
+                  plan: "plan",
+                  credits: 0,
+                  amount: 1000,
+                  buyerId: session?.user._id!,
+                },
+                session?.user.token!
+              ).then((res) => {
+                console.log(res);
+              });
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+        >
+          Create Check Out Session
+        </button>
       </div>
     </main>
   );
