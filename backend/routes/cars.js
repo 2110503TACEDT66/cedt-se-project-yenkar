@@ -1,5 +1,5 @@
 const express = require("express");
-const { deleteCar } = require("../controllers/cars");
+const { deleteCar , addCar} = require("../controllers/cars");
 
 // const carsRouter = require("./cars");
 
@@ -8,6 +8,9 @@ const { protect, authorize } = require("../middleware/auth");
 
 // router.use("/:carProviderId/rentings", rentingsRouter);
 
+router
+  .route("/")
+  .post(protect, addCar);
 
 router
   .route("/:id")
