@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const TransactionSchema = new mongoose.Schema({
+const TopUpTransactionSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
@@ -26,4 +26,4 @@ const TransactionSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Transaction", TransactionSchema);
+module.exports = mongoose.model("TopUpTransaction", TopUpTransactionSchema);
