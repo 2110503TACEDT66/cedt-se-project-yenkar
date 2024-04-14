@@ -1,11 +1,12 @@
 const express = require('express');
 const {getRentings, getRenting, addRenting, updateRenting, deleteRenting, getOverdueRentings} = require('../controllers/rentings');
 const { protect, authorize } = require('../middleware/auth');
+const { getCarsForCarProvider } = require('../controllers/carProviders');
 
 const router = express.Router({mergeParams: true});
 
 router.route('/')
-    .get(protect,getRentings)       
+    .get(protect,getRentings)     
     .post(protect,authorize('admin' ,'user'),addRenting);       
 router.route('/nearandover').get(protect, getOverdueRentings);
 router.route('/:id')
