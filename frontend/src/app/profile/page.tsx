@@ -18,11 +18,10 @@ const page = async () => {
 
   return (
     <main>
-      <NavBar stickyState={false} showSignIn={false} session={false} />;
+      <NavBar stickyState={false} showSignIn={false} session={false} />
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-around items-center">
           <div className=" w-[45%] h-[100%] flex flex-col relative justify-center">
-            ''
             <div className=" w-fit h-fit absolute left-16 flex flex-col space-y-3">
               <h1 className="font-kiona text-white text-xl">Name</h1>
               <h1 className="text-6xl z-40 text-white font-poppins text-wrap ">
