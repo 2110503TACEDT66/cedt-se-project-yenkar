@@ -144,7 +144,9 @@ export default function Home() {
           />
         </div>
       </div>
-      <div
+
+      {/* For payment testing */}
+      {/* <div
         className="bg-red-600 w-[100%] h-96 flex flex-col 
       justify-center items-center mt-20 gap-3
       "
@@ -200,7 +202,7 @@ export default function Home() {
         >
           Create Check Out Session
         </button>
-      </div>
+      </div> */}
     </main>
   );
 }
