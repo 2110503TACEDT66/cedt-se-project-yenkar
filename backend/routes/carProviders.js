@@ -9,6 +9,7 @@ const {
 } = require("../controllers/carProviders");
 
 const rentingsRouter = require("./rentings");
+const carsRouter = require("./cars")
 
 const router = express.Router();
 const { protect, authorize } = require("../middleware/auth");
@@ -19,6 +20,7 @@ router
   .post(protect, authorize("admin"), createCarProvider);
 
 router.use("/:carProviderId/rentings", rentingsRouter);
+router.use("/:carProviderId/cars", carsRouter);
 
 router.route("/nearby").get(protect, getNearByCarProviders);
 
