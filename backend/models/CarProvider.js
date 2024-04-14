@@ -81,6 +81,14 @@ CarProviderSchema.virtual("renting", {
   justOne: false,
 });
 
+CarProviderSchema.virtual("cars", {
+  ref: "Car",
+  localField: "_id",
+  foreignField: "carProvider",
+  justOne: false,
+});
+
+
 CarProviderSchema.pre(
   "deleteOne",
   { document: true, query: false },

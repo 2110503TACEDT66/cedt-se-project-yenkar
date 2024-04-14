@@ -14,7 +14,7 @@ exports.getRentings = async (req, res, next) => {
           path: "carProvider",
           select: "name address telephone price src", //  Added price field to populate
         },
-        {
+        { 
           path: "user",
           select: "name email", //  Added user field to populate
         },

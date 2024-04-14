@@ -1,5 +1,6 @@
 const getDistanceMatrix = require("../api/DistanceMatrixAPI");
 const CarProvider = require("../models/CarProvider");
+const Car = require('../models/Car');
 
 // @desc    Get all car providers
 // @route   GET /api/v1/carproviders
@@ -19,7 +20,7 @@ exports.getCarProviders = async (req, res, next) => {
     (match) => `$${match}`
   );
 
-  query = CarProvider.find(JSON.parse(queryStr)).populate("renting");
+  query = CarProvider.find(JSON.parse(queryStr)).populate(["renting","cars"]);
 
   if (req.query.select) {
     const fields = req.query.select.split(",").join(" ");
@@ -200,5 +201,31 @@ exports.getNearByCarProviders = async (req, res, next) => {
     res.status(200).json({ success: true, data: top5NearbyCarProviders });
   } catch (err) {
     res.status(400).json({ success: false, data: err });
+  }
+};
+
+//@desc     Get cars for a car provider
+//@route    GET /api/v1/carproviders/:id/cars
+//@access   Public
+exports.getCarsForCarProvider = async (req, res, next) => {
+  let query
+  try {
+    const carProvider = await CarProvider.findById(req.params.id).populate({
+      path: "cars",
+      select: "brand model price", //  Added price field to populate
+    });
+
+    if (!carProvider)
+      return res.status(400).json({
+        success: false,
+        message: `No car with the ID of ${req.params.id}`,
+      });
+
+    res.status(200).json({ success: true, data: carProvider.cars });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Cannot find car" });
   }
 };

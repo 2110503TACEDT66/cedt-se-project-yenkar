@@ -2,7 +2,6 @@ const Car = require('../models/Car');
 //@desc     Delete a Car
 //@route    DELETE /api/v1/cars/:id
 //@access   Private
-
 exports.deleteCar = async (req, res, next) => {
     try {
         console.log(`req.user = ${req.user}`)
@@ -23,4 +22,57 @@ exports.deleteCar = async (req, res, next) => {
         console.log(error);
     }
    
-}
+};
+
+//@desc     Get all cars
+//@route    GET /api/v1/cars
+//@access   Public
+exports.getCars = async (req, res, next) => {
+    let query;
+    
+      query = Car.find();
+    
+  
+    try {
+      const cars = await query;
+      res
+        .status(200)
+        .json({ success: true, count: cars.length, data: cars });
+    } catch (err) {
+      console.log(err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Cannot find car" });
+    }
+  };
+
+  //@desc     Get all cars
+//@route    GET /api/v1/cars
+//@access   Public
+exports.getSingleCar = async (req, res, next) => {
+    let query;
+    
+      query = Car.findById(req.params.id).populate({
+        path: "renting",
+        select: "rentDate rentTo",
+      });
+
+      if (!query)
+      return res.status(400).json({
+        success: false,
+        message: `No car with the ID of ${req.params.id}`,
+      });
+
+  
+    try {
+      const car = await query;
+      res
+        .status(200)
+        .json({ success: true, data: car });
+    } catch (err) {
+      console.log(err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Cannot find car" });
+    }
+  };

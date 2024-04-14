@@ -23,6 +23,11 @@ const RentingSchema = new mongoose.Schema({
         ref: 'CarProvider',
         required: [true, 'Please add Car Provider']
     },
+    car:{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Car',
+        required: [true, 'Please add Car']
+    },
     createAt: {
         type: Date,
         default: Date.now()
