@@ -6,6 +6,7 @@ const {
   updateCarProvider,
   deleteCarProvider,
   getNearByCarProviders,
+  getCarsForCarProvider
 } = require("../controllers/carProviders");
 
 const rentingsRouter = require("./rentings");
@@ -21,6 +22,10 @@ router
 router.use("/:carProviderId/rentings", rentingsRouter);
 
 router.route("/nearby").get(protect, getNearByCarProviders);
+
+router
+  .route("/:id/cars")
+  .get(getCarsForCarProvider)
 
 router
   .route("/:id")

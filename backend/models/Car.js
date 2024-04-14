@@ -24,6 +24,17 @@ const carSchema = new mongoose.Schema({
     //     type: String,
         
     // }   
+},
+{
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
 });
+
+carSchema.virtual("renting", {
+    ref: "Renting",
+    localField: "_id",
+    foreignField: "car",
+    justOne: false, 
+  });
 
 module.exports = mongoose.model("Car", carSchema);
