@@ -56,8 +56,18 @@ export async function createTransaction(
     throw new Error("Failed to create transaction");
   }
 
-  // TODO: Implementing updateBalance function
-  // updateBalance(token, transaction.buyerId, transaction.amount);
+  await updateBalance(token, transaction.amount);
 
   return response.json();
+}
+
+export async function updateBalance(token: string, balance: number) {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/v1/topUp/`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ balance }),
+  });
 }
