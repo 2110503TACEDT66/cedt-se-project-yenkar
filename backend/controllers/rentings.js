@@ -10,7 +10,7 @@ exports.getRentings = async (req, res, next) => {
   let query;
   if (req.user.role == "admin") {
     if (req.params.carProviderId) {
-      query = Renting.find({ user: req.user.carProviderId }).populate([
+      query = Renting.find({ user: req.user.carProviderId }).populate(["car",
         {
           path: "carProvider",
           select: "name address telephone price src", //  Added price field to populate
@@ -20,12 +20,12 @@ exports.getRentings = async (req, res, next) => {
           select: "name email", //  Added user field to populate
         },
         // {
-        //   path:"cars",
+        //   path:"car",
         //   select: "brand model price"
         // }
       ]);
     } else {
-      query = Renting.find().populate([
+      query = Renting.find().populate(["car",
         {
           path: "carProvider",
           select: "name address telephone price src", //  Added price field to populate
@@ -35,13 +35,13 @@ exports.getRentings = async (req, res, next) => {
           select: "name email", //  Added user field to populate
         },
         // {
-        //   path:"cars",
+        //   path:"car",
         //   select: "brand model price"
         // }
       ]);
     }
   } else {
-    query = Renting.find({ user: req.user.id }).populate([
+    query = Renting.find({ user: req.user.id }).populate(["car",
       {
         path: "carProvider",
         select: "name address telephone price src", //  Added price field to populate
@@ -51,7 +51,7 @@ exports.getRentings = async (req, res, next) => {
         select: "name email", //  Added user field to populate
       },
       // {
-      //   path:"cars",
+      //   path:"car",
       //   select: "brand model price"
       // }
     ]);
