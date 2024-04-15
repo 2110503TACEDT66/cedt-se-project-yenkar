@@ -27,12 +27,11 @@ export async function checkoutCredits(
     ],
     metadata: {
       plan: transaction.plan,
-      credits: transaction.credits,
       buyerId: transaction.buyerId,
       token: token,
     },
     mode: "payment",
-    success_url: `${process.env.FRONTEND_URL}/profile`,
+    success_url: `${process.env.FRONTEND_URL}/balance`,
     cancel_url: `${process.env.FRONTEND_URL}/`,
   });
 
