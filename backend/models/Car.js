@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 const CarProvider = require("./CarProvider");
+const Renting = require('../models/Renting');
 
 const carSchema = new mongoose.Schema({
     carProvider: { // carProvider is Reference to which CarProvider's _id
         type: mongoose.Schema.ObjectId,
         ref: 'CarProvider',
-        require: [true, "Please provide car provider"],
+        required: [true, "Please provide car provider"],
     },
     brand: { 
         type: String,
@@ -28,6 +29,14 @@ const carSchema = new mongoose.Schema({
 {
   toJSON: { virtuals: true },
   toObject: { virtuals: true },
+});
+
+// Cascade delete renting when a car is deleted
+carSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
+    console.log(`Renting being remove from car ${this._id}`);
+    await Renting.deleteMany({ car: this._id });
+
+    next();
 });
 
 carSchema.virtual("renting", {
