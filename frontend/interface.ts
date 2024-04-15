@@ -1,8 +1,16 @@
+interface CarProvider{
+  _id:string,
+  email:string,
+  name:string,
+  address:string,
+  telephone:string,
+}
+
 interface CarItem {
   _id: string;
-  name: string;
-  address: string;
-  telephone: string;
+  model: string;
+  brand: string;
+  carProvider: CarProvider
   price: number;
   src?: string;
 }
@@ -26,11 +34,11 @@ interface CreateUserProps {
 
 interface CarProps {
   _id: string;
-  src?: string;
-  name: string;
-  telephone: string;
+  model: string;
+  brand: string;
+  carProvider: CarProvider
   price: number;
-  address: string;
+  src?: string;
 }
 
 interface CheckoutTransactionParams {

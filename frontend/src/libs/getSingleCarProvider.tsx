@@ -1,11 +1,11 @@
-export default async function getSingleCarProvider(id: string, token?: string) {
+export default async function getSingleCarProvider(pid: string, token?: string) {
   const response = await fetch(
-    `${process.env.BACKEND_URL}/api/v1/carproviders/${id}`,
+    `${process.env.BACKEND_URL}/api/v1/carproviders/${pid}`,
     {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
     }
   );
   if (!response.ok) {

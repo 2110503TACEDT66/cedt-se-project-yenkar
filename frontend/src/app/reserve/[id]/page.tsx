@@ -31,6 +31,7 @@ import getSingleCarProvider from "@/libs/getSingleCarProvider";
 import { useRouter } from "next/navigation";
 import createReservation from "@/libs/createReservation";
 import { useToast } from "@/components/ui/use-toast";
+import getSingleCar from "@/libs/getSingleCar";
 
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -53,7 +54,7 @@ const page = ({ params }: { params: { id: string } }) => {
     };
 
     const fetchData = async () => {
-      const carJson = await getSingleCarProvider(params.id);
+      const carJson = await getSingleCar(params.id);
       setCarData(carJson.data);
     };
     fetchData();
@@ -124,9 +125,9 @@ const page = ({ params }: { params: { id: string } }) => {
               <ExploreCard
                 src={carData?.src ?? ""}
                 _id={carData?._id ?? ""}
-                address={carData?.address ?? ""}
-                name={carData?.name ?? ""}
-                telephone={carData?.telephone ?? ""}
+                model={carData?.model ?? ""}
+                brand={carData?.brand ?? ""}
+                carProvider={carData?.carProvider}
                 price={carData?.price ?? 0}
               />
             </div>
@@ -134,22 +135,22 @@ const page = ({ params }: { params: { id: string } }) => {
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
           <div className=" w-[65%] h-[100%] flex flex-col relative ">
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">Name</h1>
+            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6 mb-5">
+              <h1 className="text-2xl font-kiona text-white">model</h1>
               <h1 className="text-5xl font-poppins text-white">
-                {carData?.name ?? ""}
+                {carData?.model ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">Location</h1>
               <h1 className="text-4xl font-poppins text-white">
-                {carData?.address ?? ""}
+                {carData?.carProvider.address ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">Phone</h1>
               <h1 className="text-4xl font-poppins text-white">
-                {carData?.telephone ?? ""}
+                {carData?.carProvider.telephone ?? ""}
               </h1>
             </div>
 
