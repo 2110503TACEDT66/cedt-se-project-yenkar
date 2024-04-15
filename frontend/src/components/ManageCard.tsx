@@ -40,6 +40,7 @@ const ManageCard = ({
   adminView,
   userName,
   src,
+  carProviderId
 }: {
   id: string;
   rentDate: Date;
@@ -51,6 +52,7 @@ const ManageCard = ({
   adminView: boolean;
   userName: string;
   src: string;
+  carProviderId:string
 }) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
@@ -117,13 +119,13 @@ const ManageCard = ({
             src={src ?? "/img/place_holder.jpg"}
             fill={true}
             alt="car"
-            onClick={() => router.push(`/reserve/${carId}`)}
+            onClick={() => router.push(`/reserve?pid=${carProviderId}&cid=${carId}`)}
             className="object-cover rounded-l-lg shadow-xl hover:contrast-150  transition duration-300 ease-in-out "
           />
         </div>
         <div className="p-6 w-[50%] ">
           <h1
-            onClick={() => router.push(`/reserve/${carId}`)}
+            onClick={() => router.push(`/reserve?pid=${carProviderId}&cid=${carId}`)}
             className="text-white font-poppins font-bold text-4xl hover:text-gray-300 transition duration-100 ease-in-out hover:scale-[101%] active:scale-100"
           >
             {adminView ? (

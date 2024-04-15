@@ -1,6 +1,6 @@
 interface CarProvider{
   _id:string,
-  email:string,
+  //email:string,
   name:string,
   address:string,
   telephone:string,

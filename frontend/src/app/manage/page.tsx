@@ -46,17 +46,18 @@ interface ReservationItem {
   createAt: string;
   returned: boolean;
   __v: number;
+  car:CarItem;
 }
 
-interface CarProvider {
-  _id: string;
-  name: string;
-  address: string;
-  price: number;
-  telephone: string;
-  id: string;
-  src: string;
-}
+// interface CarProvider {
+//   _id: string;
+//   name: string;
+//   address: string;
+//   price: number;
+//   telephone: string;
+//   id: string;
+//   src: string;
+// }
 
 interface User {
   _id: string;
@@ -140,11 +141,12 @@ const page = () => {
           </div>
           {userReservationState.map((item) => (
             <ManageCard
-              src={item.carProvider.src}
+              src={item.car.src ?? "/img/place_holder.jpg"}
               id={item._id}
               name={item.carProvider.name}
               rentDate={new Date(item.rentDate)}
               returnDate={new Date(item.rentTo)}
+              carProviderId={item.carProvider._id}
               onRemove={(_id: any) => {
                 userReservationDispatch({
                   type: "REMOVE",
@@ -162,10 +164,20 @@ const page = () => {
                         _id: "",
                         name: "",
                         address: "",
-                        price: 0,
                         telephone: "",
-                        id: "",
+                      },
+                      car: {
                         src: "",
+                        _id: "",
+                        brand: "",
+                        model: "",
+                        price: 0,
+                        carProvider:{
+                            _id: "",
+                            name: "",
+                            address: "",
+                            telephone: "",
+                        }
                       },
                       createAt: "",
                       returned: false,
@@ -183,7 +195,7 @@ const page = () => {
                   })
                 )
               }
-              carId={item.carProvider._id}
+              carId={item.car._id}
               adminView={isAdmin}
               userName={item.user.name}
             />

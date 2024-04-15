@@ -28,12 +28,17 @@ import { Calendar } from "@/components/ui/calendar";
 import { useSession } from "next-auth/react";
 import getAllCarProviders from "@/libs/getAllCarProviders";
 import getSingleCarProvider from "@/libs/getSingleCarProvider";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import createReservation from "@/libs/createReservation";
 import { useToast } from "@/components/ui/use-toast";
 import getSingleCar from "@/libs/getSingleCar";
 
-const page = ({ params }: { params: { id: string } }) => {
+//const page = ({ params }: { params: { pid: string, cid:string } }) => {
+const page = () => {
+        
+    const urlParams = useSearchParams()
+    const cid = urlParams.get('cid')
+    const pid = urlParams.get('pid')
   const router = useRouter();
   const { data: session } = useSession();
   console.log(session);
@@ -54,8 +59,10 @@ const page = ({ params }: { params: { id: string } }) => {
     };
 
     const fetchData = async () => {
-      const carJson = await getSingleCar(params.id);
-      setCarData(carJson.data);
+        if(cid){
+        const carJson = await getSingleCar(cid);
+        setCarData(carJson.data);
+        }
     };
     fetchData();
     window.addEventListener("scroll", handleScroll);
@@ -86,12 +93,14 @@ const page = ({ params }: { params: { id: string } }) => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
+    if(pid){
     createReservation(
-      params.id,
       values.returnDate,
       values.rentDate,
       session?.user?._id ?? "",
-      session?.user?.token ?? ""
+      session?.user?.token ?? "",
+      pid,
+      carData?.model,
     )
       .then(() => {
         toast({
@@ -108,6 +117,7 @@ const page = ({ params }: { params: { id: string } }) => {
           duration: 3000,
         });
       });
+    }
   }
 
   return (

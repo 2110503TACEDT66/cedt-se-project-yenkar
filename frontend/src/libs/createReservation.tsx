@@ -1,12 +1,13 @@
 export default async function createReservation(
-  id: string,
   rentTo: Date,
   rentDate: Date,
   user: string,
-  token: string
+  token: string,
+  pid: string,
+  carModel?:string,
 ) {
   const response = await fetch(
-    `${process.env.BACKEND_URL}/api/v1/carproviders/${id}/rentings/`,
+    `${process.env.BACKEND_URL}/api/v1/carproviders/${pid}/rentings/`,
     {
       method: "POST",
       headers: {
@@ -17,6 +18,7 @@ export default async function createReservation(
         token: token,
         rentTo: rentTo,
         rentDate: rentDate,
+        carModel:carModel,
         user: user,
         returned: false,
       }),
