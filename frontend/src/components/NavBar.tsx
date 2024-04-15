@@ -110,6 +110,14 @@ const NavBar = ({
                 <button
                   className="p-2 hover:bg-slate-300 rounded-md"
                   onClick={() => {
+                    router.push("/balance");
+                  }}
+                >
+                  Balance
+                </button>
+                <button
+                  className="p-2 hover:bg-slate-300 rounded-md"
+                  onClick={() => {
                     signOut();
                   }}
                 >
