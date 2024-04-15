@@ -35,6 +35,34 @@ exports.addCar = async (req, res, next) => {
     }
   };
 
+  exports.updateCar=async(req,res,next) => {
+
+    try{
+        const car = await Car.findById(req.params.id);
+        if(!car){
+            res.status(400).json({success:false});
+        }
+        else if (req.user.id != car.carProvider.toString() && req.user.role != 'admin') {
+          return res.status(400).json({success: false, message: `Not authorized to update the car with id ${req.params.id}!`});
+        }
+
+        await Car.updateOne({ _id: req.params.id }, req.body, {
+            new: true,
+            runValidators: true
+        });
+
+        res.status(200).json({
+            success:true,
+            data:car
+        });
+        
+    } catch(err){
+        res.status(400).json({success:false});
+    }
+};
+
+
+
 //@desc     Delete a Car
 //@route    DELETE /api/v1/cars/:id
 //@access   Private

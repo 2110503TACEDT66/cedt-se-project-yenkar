@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { deleteCar, getCars ,getSingleCar} = require("../controllers/cars");
+const { deleteCar, getCars ,getSingleCar , updateCar} = require("../controllers/cars");
 // const carsRouter = require("./cars");
 
 const router = express.Router({mergeParams: true});
@@ -15,6 +15,7 @@ router
 router
   .route("/:id")
   .get(getSingleCar)
-  .delete(protect, deleteCar);
+  .delete(protect, deleteCar)
+  .put(protect,updateCar);
 
 module.exports = router;
