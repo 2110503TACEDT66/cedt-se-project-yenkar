@@ -10,7 +10,7 @@ exports.getRentings = async (req, res, next) => {
   let query;
   if (req.user.role == "admin") {
     if (req.params.carProviderId) {
-      query = Renting.find({ user: req.user.carProviderId }).populate([
+      query = Renting.find({ user: req.user.carProviderId }).populate(["car",
         {
           path: "carProvider",
           select: "name address telephone price src", //  Added price field to populate
@@ -19,9 +19,13 @@ exports.getRentings = async (req, res, next) => {
           path: "user",
           select: "name email", //  Added user field to populate
         },
+        // {
+        //   path:"car",
+        //   select: "brand model price"
+        // }
       ]);
     } else {
-      query = Renting.find().populate([
+      query = Renting.find().populate(["car",
         {
           path: "carProvider",
           select: "name address telephone price src", //  Added price field to populate
@@ -30,10 +34,14 @@ exports.getRentings = async (req, res, next) => {
           path: "user",
           select: "name email", //  Added user field to populate
         },
+        // {
+        //   path:"car",
+        //   select: "brand model price"
+        // }
       ]);
     }
   } else {
-    query = Renting.find({ user: req.user.id }).populate([
+    query = Renting.find({ user: req.user.id }).populate(["car",
       {
         path: "carProvider",
         select: "name address telephone price src", //  Added price field to populate
@@ -42,6 +50,10 @@ exports.getRentings = async (req, res, next) => {
         path: "user",
         select: "name email", //  Added user field to populate
       },
+      // {
+      //   path:"car",
+      //   select: "brand model price"
+      // }
     ]);
   }
 
@@ -63,10 +75,11 @@ exports.getRentings = async (req, res, next) => {
 //@access   Public
 exports.getRenting = async (req, res, next) => {
   try {
-    const renting = await Renting.findById(req.params.id).populate({
+    const renting = await Renting.findById(req.params.id).populate([{
       path: "carProvider",
       select: "name address telephone price", //  Added price field to populate
-    });
+      }
+    ]);
 
     if (!renting)
       return res.status(400).json({
@@ -203,11 +216,11 @@ exports.addRenting = async (req, res, next) => {
 
     const renting = await Renting.create({
       //rentDate, rentTo, user, carProvider, returned createAt, carModel
-      rentDate ,
-      rentTo ,
+      rentDate :rentDate ,
+      rentTo :rentTo,
       user: req.body.user,
       carProvider: req.body.carProvider,
-      returned ,
+      returned :returned,
       car : car[0]
     });
 
@@ -239,6 +252,7 @@ exports.updateRenting = async (req, res, next) => {
         message: `user ${req.user.id} is not authorized to change this renting`,
       });
     }
+
 
     renting = await Renting.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -308,9 +322,12 @@ exports.deleteRenting = async (req, res, next) => {
 
     const user = await User.findById(renting.user);
     const carProvider = await Provider.findById(renting.carProvider);
-
-    await user.updateOne({ $inc: { balance: carProvider.price } });
-
+    const car = await Car.findById(renting.car)
+    console.log("gtttttttttttttt")
+    console.log(car)
+    if(car){
+      await user.updateOne({ $inc: { balance: car.price } });
+    }
     await renting.deleteOne();
 
     res.status(200).json({ success: true, data: {} });
