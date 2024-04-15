@@ -35,6 +35,9 @@ exports.addCar = async (req, res, next) => {
     }
   };
 
+  //@desc     Update a Car
+  //@route    PUT /api/v1/cars/:id
+  //@access   Private
   exports.updateCar=async(req,res,next) => {
 
     try{
