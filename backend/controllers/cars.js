@@ -66,7 +66,7 @@ exports.deleteCar = async (req, res, next) => {
 exports.getCars = async (req, res, next) => {
     let query;
     
-      query = Car.find();
+      query = Car.find().populate("carProvider");
     
   
     try {
@@ -88,10 +88,12 @@ exports.getCars = async (req, res, next) => {
 exports.getSingleCar = async (req, res, next) => {
     let query;
     
-      query = Car.findById(req.params.id).populate({
+      query = Car.findById(req.params.id).populate(["carProvider",
+      {
         path: "renting",
         select: "rentDate rentTo",
-      });
+      }
+      ]);
 
       if (!query)
       return res.status(400).json({
