@@ -1,16 +1,16 @@
-interface CarProvider{
-  _id:string,
+interface CarProvider {
+  _id: string;
   //email:string,
-  name:string,
-  address:string,
-  telephone:string,
+  name: string;
+  address: string;
+  telephone: string;
 }
 
 interface CarItem {
   _id: string;
   model: string;
   brand: string;
-  carProvider: CarProvider
+  carProvider: CarProvider;
   price: number;
   src?: string;
 }
@@ -36,14 +36,13 @@ interface CarProps {
   _id: string;
   model: string;
   brand: string;
-  carProvider: CarProvider
+  carProvider: CarProvider;
   price: number;
   src?: string;
 }
 
 interface CheckoutTransactionParams {
   plan: string;
-  credits: number;
   amount: number;
   buyerId: string;
 }
@@ -51,7 +50,6 @@ interface CheckoutTransactionParams {
 interface CreateTransactionProps {
   stripeId: string;
   amount: number;
-  credits: number;
   plan: string;
   buyerId: string;
   createdAt: Date;
