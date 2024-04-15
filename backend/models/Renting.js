@@ -37,6 +37,17 @@ const RentingSchema = new mongoose.Schema({
         default: false
     }
 
+},
+{
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
 });
+
+RentingSchema.virtual("cars", {
+    ref: "Car",
+    localField: "_id",
+    foreignField: "car",
+    justOne: false,
+  });
 
 module.exports = mongoose.model('Renting', RentingSchema);
