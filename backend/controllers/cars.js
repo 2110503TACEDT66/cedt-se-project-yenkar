@@ -42,11 +42,11 @@ exports.deleteCar = async (req, res, next) => {
     try {
         console.log(`req.user = ${req.user}`)
 
-        const car = await Car.findById(req.params.id);
+        const car = await Car.findById(req.params.id).populate('renting');
         if (!car) { // Check if Car doesn't exists or **carProvider is not own that car**
             return res.status(400).json({success: false, message: `No car with id ${req.params.id} found!`});
         }
-        else if (req.user.id != car.carProvider.toString()) {
+        else if (req.user.id != car.carProvider.toString() && req.user.role != 'admin') {
             return res.status(400).json({success: false, message: `Not authorized to delete car with id ${req.params.id}!`});
         }
 
