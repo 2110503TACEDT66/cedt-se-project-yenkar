@@ -1,6 +1,7 @@
 const Renting = require("../models/Renting");
 const Provider = require("../models/CarProvider");
 const User = require("../models/User");
+const Car = require("../models/Car");
 
 //@desc     Get all renting
 //@route    GET /api/v1/rentings
@@ -145,9 +146,9 @@ exports.addRenting = async (req, res, next) => {
     // console.log(req);
 
     // req.body.user = req.user.id;
-    const { rentDate, rentTo, returned } = req.body;
+    const { rentDate, rentTo, returned , carModel} = req.body;
     console.log(req.body);
-    console.log(rentDate, rentTo, returned);
+    console.log(rentDate, rentTo, returned , carModel);
 
     const existedRenting = await Renting.find({ user: req.user.id });
     console.log(existedRenting);
@@ -156,7 +157,17 @@ exports.addRenting = async (req, res, next) => {
     /**************************** Deducted user's balance ************************** */
     const user = await User.findById(req.user.id);
     console.log(user);
-    const isBalanceEnough = await user.checkBalance(carProvider.price);
+
+    const car = await Car.find({carProvider : req.params.carProviderId, model:carModel });
+    console.log(car)
+    if(car.length==0){
+      return res
+        .status(400)
+        .json({success:false,message:"The provider doesn't have this car"})
+    }
+
+    const isBalanceEnough = await user.checkBalance(car[0].price);
+    console.log(car[0].price)
     console.log(isBalanceEnough);
 
     if (req.body.user != req.user.id && req.user.role !== "admin") {
@@ -176,9 +187,10 @@ exports.addRenting = async (req, res, next) => {
 
     // const newBalance = user.setBalance(user.balance - carProvider.price);
     if (req.user.role != "admin") {
-      await user.updateOne({ $inc: { balance: -carProvider.price } });
+      await user.updateOne({ $inc: { balance: -(car[0].price) } });
     }
-
+   
+    
     /***************************************************************** */
 
     //renting limit
@@ -190,12 +202,13 @@ exports.addRenting = async (req, res, next) => {
     }
 
     const renting = await Renting.create({
-      //rentDate, rentTo, user, carProvider, returned createAt
-      rentDate,
-      rentTo,
+      //rentDate, rentTo, user, carProvider, returned createAt, carModel
+      rentDate ,
+      rentTo ,
       user: req.body.user,
       carProvider: req.body.carProvider,
-      returned,
+      returned ,
+      car : car[0]
     });
 
     res.status(200).json({ success: true, data: renting });
