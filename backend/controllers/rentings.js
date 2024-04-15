@@ -325,9 +325,9 @@ exports.deleteRenting = async (req, res, next) => {
     const car = await Car.findById(renting.car)
     console.log("gtttttttttttttt")
     console.log(car)
-
-    await user.updateOne({ $inc: { balance: car.price } });
-
+    if(car){
+      await user.updateOne({ $inc: { balance: car.price } });
+    }
     await renting.deleteOne();
 
     res.status(200).json({ success: true, data: {} });
