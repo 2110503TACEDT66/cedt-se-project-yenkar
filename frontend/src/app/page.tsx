@@ -163,7 +163,6 @@ export default function Home() {
                 stripeId: "stripeId",
                 amount: 1000,
                 plan: "plan",
-                credits: 0,
                 buyerId: session?.user._id!,
                 createdAt: new Date(),
               }).then((res) => {
@@ -187,7 +186,6 @@ export default function Home() {
               await checkoutCredits(
                 {
                   plan: "plan",
-                  credits: 0,
                   amount: 1000,
                   buyerId: session?.user._id!,
                 },
