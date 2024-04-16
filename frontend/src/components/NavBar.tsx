@@ -92,7 +92,7 @@ const NavBar = ({
               <PopoverTrigger>
                 <Image
                   alt="profile"
-                  src="/img/profile.png"
+                  src={`${isSticky ? "/img/profileblack.png" : "/img/profile.png"}`}
                   width={30}
                   height={30}
                   className="z-50 hover:scale-110 transition duration-300 ease-in-out"

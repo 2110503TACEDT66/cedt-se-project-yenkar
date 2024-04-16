@@ -97,7 +97,7 @@ const page = () => {
               <h1 className="font-kiona text-white text-4xl">
                 Current Balance
               </h1>
-              <h1 className="text-6xl z-40 text-white font-poppins text-wrap">
+              <h1 className="text-5xl z-40 text-white font-poppins text-wrap">
                 {/* {userProfile.data.balance} $ */}
                 {isLoading ? "Loading..." : userProfile.data.balance + " $"}
               </h1>
@@ -116,10 +116,11 @@ const page = () => {
               className="object-cover "
             />
           </div>
-          <div className=" w-[45%] h-[100%] flex flex-col relative justify-center ">
-            <h1 className="font-poppins text-white absolute top-12 left-16 text-4xl">
+          <div className=" w-[45%] h-[100%] flex flex-col relative justify-center">
+            <div className="font-poppins text-white absolute top-12 left-16 text-4xl flex flex-row">
               Add to Balance
-            </h1>
+              <Image alt="carticon" src="/img/addbalancecarticon.png" width={40} height={40} className="ml-3"/>
+            </div>
             <div className=" w-fit h-fit absolute left-16  flex flex-col space-y-8 ">
               <div>
                 <Form {...form}>
