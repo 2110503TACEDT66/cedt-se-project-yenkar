@@ -100,7 +100,7 @@ const NavBar = ({
               <PopoverTrigger>
                 <Image
                   alt="profile"
-                  src="/img/profile.png"
+                  src={`${isSticky ? "/img/profileblack.png" : "/img/profile.png"}`}
                   width={30}
                   height={30}
                   className="z-50 hover:scale-110 transition duration-300 ease-in-out"
@@ -114,6 +114,14 @@ const NavBar = ({
                   }}
                 >
                   Profile
+                </button>
+                <button
+                  className="p-2 hover:bg-slate-300 rounded-md"
+                  onClick={() => {
+                    router.push("/balance");
+                  }}
+                >
+                  Balance
                 </button>
                 <button
                   className="p-2 hover:bg-slate-300 rounded-md"

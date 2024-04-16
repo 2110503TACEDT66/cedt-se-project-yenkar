@@ -35,6 +35,36 @@ exports.addCar = async (req, res, next) => {
     }
   };
 
+  //@desc     Update a Car
+  //@route    PUT /api/v1/cars/:id
+  //@access   Private
+  exports.updateCar=async(req,res,next) => {
+
+    try{
+        const car = await Car.findById(req.params.id);
+        if(!car){
+            res.status(400).json({success:false});
+        }
+        else if (req.user.id != car.carProvider.toString() && req.user.role != 'admin') {
+          return res.status(400).json({success: false, message: `Not authorized to update the car with id ${req.params.id}!`});
+        }
+        const carUpdate = await Car.findByIdAndUpdate(req.params.id, req.body, {
+          new: true,
+          runValidators: true
+      });
+
+        res.status(200).json({
+            success:true,
+            data:carUpdate
+        });
+        
+    } catch(err){
+        res.status(400).json({success:false});
+    }
+};
+
+
+
 //@desc     Delete a Car
 //@route    DELETE /api/v1/cars/:id
 //@access   Private
@@ -66,7 +96,7 @@ exports.deleteCar = async (req, res, next) => {
 exports.getCars = async (req, res, next) => {
     let query;
     
-      query = Car.find();
+      query = Car.find().populate("carProvider");
     
   
     try {
@@ -88,10 +118,12 @@ exports.getCars = async (req, res, next) => {
 exports.getSingleCar = async (req, res, next) => {
     let query;
     
-      query = Car.findById(req.params.id).populate({
+      query = Car.findById(req.params.id).populate(["carProvider",
+      {
         path: "renting",
         select: "rentDate rentTo",
-      });
+      }
+      ]);
 
       if (!query)
       return res.status(400).json({

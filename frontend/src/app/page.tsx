@@ -1,6 +1,7 @@
 "use client";
 import HomeCard from "@/components/HomeCard";
 import NavBar from "@/components/NavBar";
+import { checkoutCredits, createTransaction } from "@/libs/transaction.actions";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -162,7 +163,6 @@ export default function Home() {
                 stripeId: "stripeId",
                 amount: 1000,
                 plan: "plan",
-                credits: 0,
                 buyerId: session?.user._id!,
                 createdAt: new Date(),
               }).then((res) => {
@@ -186,7 +186,6 @@ export default function Home() {
               await checkoutCredits(
                 {
                   plan: "plan",
-                  credits: 0,
                   amount: 1000,
                   buyerId: session?.user._id!,
                 },

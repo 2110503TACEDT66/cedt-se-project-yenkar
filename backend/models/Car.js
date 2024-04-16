@@ -21,10 +21,10 @@ const carSchema = new mongoose.Schema({
         required: [true, "Please provide car's rental price"],
         min: [0, "Price can't below than 0"],
     },
-    // image: { ?????????????????????
-    //     type: String,
-        
-    // }   
+    src: { 
+        type: String,
+        default: "https://drive.google.com/uc?id=1BkIbk6GkfuKuTxcyC2H0fSLIkG9Ui50u"
+    }   
 },
 {
   toJSON: { virtuals: true },

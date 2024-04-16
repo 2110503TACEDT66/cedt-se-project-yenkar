@@ -28,11 +28,17 @@ import { Calendar } from "@/components/ui/calendar";
 import { useSession } from "next-auth/react";
 import getAllCarProviders from "@/libs/getAllCarProviders";
 import getSingleCarProvider from "@/libs/getSingleCarProvider";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import createReservation from "@/libs/createReservation";
 import { useToast } from "@/components/ui/use-toast";
+import getSingleCar from "@/libs/getSingleCar";
 
-const page = ({ params }: { params: { id: string } }) => {
+//const page = ({ params }: { params: { pid: string, cid:string } }) => {
+const page = () => {
+        
+    const urlParams = useSearchParams()
+    const cid = urlParams.get('cid')
+    const pid = urlParams.get('pid')
   const router = useRouter();
   const { data: session } = useSession();
   console.log(session);
@@ -53,8 +59,10 @@ const page = ({ params }: { params: { id: string } }) => {
     };
 
     const fetchData = async () => {
-      const carJson = await getSingleCarProvider(params.id);
-      setCarData(carJson.data);
+        if(cid){
+        const carJson = await getSingleCar(cid);
+        setCarData(carJson.data);
+        }
     };
     fetchData();
     window.addEventListener("scroll", handleScroll);
@@ -85,12 +93,14 @@ const page = ({ params }: { params: { id: string } }) => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
+    if(pid){
     createReservation(
-      params.id,
       values.returnDate,
       values.rentDate,
       session?.user?._id ?? "",
-      session?.user?.token ?? ""
+      session?.user?.token ?? "",
+      pid,
+      carData?.model,
     )
       .then(() => {
         toast({
@@ -107,6 +117,7 @@ const page = ({ params }: { params: { id: string } }) => {
           duration: 3000,
         });
       });
+    }
   }
 
   return (
@@ -124,9 +135,9 @@ const page = ({ params }: { params: { id: string } }) => {
               <ExploreCard
                 src={carData?.src ?? ""}
                 _id={carData?._id ?? ""}
-                address={carData?.address ?? ""}
-                name={carData?.name ?? ""}
-                telephone={carData?.telephone ?? ""}
+                model={carData?.model ?? ""}
+                brand={carData?.brand ?? ""}
+                carProvider={carData?.carProvider}
                 price={carData?.price ?? 0}
               />
             </div>
@@ -134,22 +145,22 @@ const page = ({ params }: { params: { id: string } }) => {
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
           <div className=" w-[65%] h-[100%] flex flex-col relative ">
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">Name</h1>
+            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6 mb-5">
+              <h1 className="text-2xl font-kiona text-white">model</h1>
               <h1 className="text-5xl font-poppins text-white">
-                {carData?.name ?? ""}
+                {carData?.model ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">Location</h1>
               <h1 className="text-4xl font-poppins text-white">
-                {carData?.address ?? ""}
+                {carData?.carProvider.address ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">Phone</h1>
               <h1 className="text-4xl font-poppins text-white">
-                {carData?.telephone ?? ""}
+                {carData?.carProvider.telephone ?? ""}
               </h1>
             </div>
 
