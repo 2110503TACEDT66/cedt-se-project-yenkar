@@ -212,7 +212,7 @@ exports.getCarsForCarProvider = async (req, res, next) => {
   try {
     const carProvider = await CarProvider.findById(req.params.id).populate({
       path: "cars",
-      select: "brand model price", //  Added price field to populate
+      select: "brand model price src", //  Added price field to populate
     });
 
     if (!carProvider)
