@@ -67,6 +67,14 @@ const NavBar = ({
             >
               Reservation
             </button>
+            <button
+              onClick={() => router.push("/mystore")}
+              className={`font-normal text-xl hover:font-bold hover:scale-105 transition duration-300 ease-in-out active:font-normal ${
+                isSticky ? "text-black  " : "text-white"
+              }`}
+            >
+              My store
+            </button>
           </div>
         </div>
 

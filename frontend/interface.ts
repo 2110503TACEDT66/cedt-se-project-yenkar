@@ -48,3 +48,13 @@ interface CreateTransactionProps {
   buyerId: string;
   createdAt: Date;
 }
+
+interface CarProvider {
+  _id: string;
+  email: string;
+  password: string;
+  name: string;
+  address: string;
+  telephone: string;
+  createdAt: Date;
+}
