@@ -11,13 +11,14 @@ const ExploreCard = ({
   price,
   carProvider
 }: CarProps) => {
+  
   return (
     <div className="w-full h-full">
       <div className="w-full h-[75%] relative">
         <Image
           alt="image"
           fill={true}
-          src={src ?? "/img/place_holder.jpg"}
+          src={src?src: '/img/place_holder.jpg'}
           className="object-cover rounded-lg"
         />
       </div>

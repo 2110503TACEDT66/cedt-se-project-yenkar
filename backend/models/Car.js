@@ -23,7 +23,7 @@ const carSchema = new mongoose.Schema({
     },
     src: { 
         type: String,
-        default: "https://drive.google.com/file/d/1BkIbk6GkfuKuTxcyC2H0fSLIkG9Ui50u/view?usp=sharing"
+        default: "https://drive.google.com/uc?id=1BkIbk6GkfuKuTxcyC2H0fSLIkG9Ui50u"
     }   
 },
 {

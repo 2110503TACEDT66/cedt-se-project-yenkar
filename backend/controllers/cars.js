@@ -48,15 +48,14 @@ exports.addCar = async (req, res, next) => {
         else if (req.user.id != car.carProvider.toString() && req.user.role != 'admin') {
           return res.status(400).json({success: false, message: `Not authorized to update the car with id ${req.params.id}!`});
         }
-
-        await Car.updateOne({ _id: req.params.id }, req.body, {
-            new: true,
-            runValidators: true
-        });
+        const carUpdate = await Car.findByIdAndUpdate(req.params.id, req.body, {
+          new: true,
+          runValidators: true
+      });
 
         res.status(200).json({
             success:true,
-            data:car
+            data:carUpdate
         });
         
     } catch(err){

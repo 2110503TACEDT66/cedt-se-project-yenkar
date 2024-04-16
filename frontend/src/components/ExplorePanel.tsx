@@ -4,7 +4,7 @@ import ExploreCard from "./ExploreCard";
 
 const ExplorePanel = async ({ carJson }: { carJson: Promise<CarJson> }) => {
   const carJsonReady = await carJson;
-  console.log(carJsonReady);
+  //console.log(carJsonReady);
   return (
     <div className="w-[93%] h-2 flex flex-row flex-wrap">
       {carJsonReady.data.map((carItem: CarItem) => (
