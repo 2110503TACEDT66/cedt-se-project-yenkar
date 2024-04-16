@@ -8,12 +8,16 @@ import getSingleCarProvider from "@/libs/getSingleCarProvider";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import CarProviderCard from "@/components/CarProviderCard";
+import getCarForOneProvider from "@/libs/getCarForOneProvider";
+import AvaliableCarCard from "@/components/AvaliableCarCard";
+import Image from "next/image";
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const { data: session } = useSession();
   const [isSticky, setIsSticky] = useState(false);
   const [providerData, setproviderData] = useState<CarProvider>();
   const [userProfile, setUserProfile] = useState();
+  const [carArray, setCarArray] = useState([]);
   const { toast } = useToast();
   useEffect(() => {
     const handleScroll = () => {
@@ -26,10 +30,15 @@ const page = ({ params }: { params: { id: string } }) => {
     };
 
     const fetchData = async () => {
-      const providerJson = await getSingleCarProvider(params.id);
+      const providerJson = await getSingleCarProvider('661ab63321e76c1e4ac6848a');
       setproviderData(providerJson.data)
     };
+    const fetchCarForProvider = async ()=>{
+        const cars = await getCarForOneProvider('661ab63321e76c1e4ac6848a');
+        setCarArray(cars.data);
+    }
     fetchData();
+    fetchCarForProvider();
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -40,6 +49,7 @@ const page = ({ params }: { params: { id: string } }) => {
     router.push("/sign-in");
     return null;
   }
+   console.log(carArray)
   return (
     <main>
       <NavBar
@@ -60,7 +70,7 @@ const page = ({ params }: { params: { id: string } }) => {
           </div>
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
-          <div className=" w-[65%] h-[100%] flex flex-col relative ">
+          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">Provider Name</h1>
               <h1 className="text-5xl font-poppins text-white">
@@ -90,8 +100,16 @@ const page = ({ params }: { params: { id: string } }) => {
                 </h1>
               </div>
 
-              <div className="flex flex-row pt-5">
-                
+              <div className="grid grid-cols-2 pt-5 w-full h-full">
+                {carArray? carArray.map((carItem:CarItem)=>
+                //  <AvaliableCarCard _id={carItem._id} src={carItem.src} model={carItem.model} brand={carItem.brand} price={carItem.price} carProvider={carItem.carProvider}/>
+                    <div className="w-[25vw] h-[30vh] bg-white  rounded-2xl mr-10 mb-10 mt-10">
+                        <Image src={carItem.src} alt="carpic" width={300} height={100} className="w-full h-52 rounded-t-2xl"/>
+                        <div>{carItem.model}</div>
+                        <div>{carItem.brand}</div>
+                        <div>{carItem.price}</div>
+                    </div>
+                ):""}
               </div>
             </div>
           </div>
