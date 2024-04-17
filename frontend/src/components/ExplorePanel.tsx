@@ -1,13 +1,25 @@
+"use client"
+
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ExploreCard from "./ExploreCard";
 
-const ExplorePanel = async ({ carJson }: { carJson: Promise<CarJson> }) => {
-  const carJsonReady = await carJson;
+const ExplorePanel = ({ carJson }: { carJson: Promise<CarJson> }) => {
+  const [carData ,  setCardData] = useState<CarJson>()
+  const resolve = ()=>
+    {
+      const carJsonReady = carJson.then((res) => {
+        setCardData(res)
+      })
+    }
+
+    useEffect(()=>{
+      resolve();
+    },[])
   //console.log(carJsonReady);
   return (
     <div className="w-[93%] h-2 flex flex-row flex-wrap">
-      {carJsonReady.data.map((carItem: CarItem) => (
+      {carData?.data.map((carItem: CarItem) => (
         <div className="w-[24%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100">
           <Link href={`/reserve?pid=${carItem.carProvider._id}&cid=${carItem._id}`}>
             <ExploreCard
