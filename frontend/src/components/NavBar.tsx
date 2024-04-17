@@ -108,7 +108,7 @@ const NavBar = ({
               </PopoverTrigger>
               <PopoverContent className="bg-white w-36 p-3 mr-3 mt-3 flex flex-col space-y-4">
                 <button
-                  className="p-2 hover:bg-slate-300 rounded-md"
+                  className="p-2 hover:bg-slate-300 rounded-md text-black"
                   onClick={() => {
                     router.push("/profile");
                   }}
@@ -116,7 +116,7 @@ const NavBar = ({
                   Profile
                 </button>
                 <button
-                  className="p-2 hover:bg-slate-300 rounded-md"
+                  className="p-2 hover:bg-slate-300 rounded-md text-black"
                   onClick={() => {
                     router.push("/balance");
                   }}
@@ -124,7 +124,7 @@ const NavBar = ({
                   Balance
                 </button>
                 <button
-                  className="p-2 hover:bg-slate-300 rounded-md"
+                  className="p-2 hover:bg-slate-300 rounded-md text-black"
                   onClick={() => {
                     signOut();
                   }}

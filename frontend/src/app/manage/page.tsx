@@ -49,15 +49,7 @@ interface ReservationItem {
   car:CarItem;
 }
 
-// interface CarProvider {
-//   _id: string;
-//   name: string;
-//   address: string;
-//   price: number;
-//   telephone: string;
-//   id: string;
-//   src: string;
-// }
+
 
 interface User {
   _id: string;
