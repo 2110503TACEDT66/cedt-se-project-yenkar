@@ -1,15 +1,13 @@
 "use client";
-import ExploreCard from "@/components/ExploreCard";
 import NavBar from "@/components/NavBar";
 import React, { useEffect, useState } from "react";
-
+import Link from "next/link";
 import { useSession } from "next-auth/react";
 import getSingleCarProvider from "@/libs/getSingleCarProvider";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import CarProviderCard from "@/components/CarProviderCard";
 import getCarForOneProvider from "@/libs/getCarForOneProvider";
-import AvaliableCarCard from "@/components/AvaliableCarCard";
 import Image from "next/image";
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -100,16 +98,23 @@ const page = ({ params }: { params: { id: string } }) => {
                 </h1>
               </div>
 
-              <div className="grid grid-cols-2 pt-5 w-full h-full">
+              <div className="grid grid-cols-2 pt-5 w-full h-full gap-10 mt-10">
                 {carArray? carArray.map((carItem:CarItem)=>
                 //  <AvaliableCarCard _id={carItem._id} src={carItem.src} model={carItem.model} brand={carItem.brand} price={carItem.price} carProvider={carItem.carProvider}/>
-                    <div className="w-[25vw] h-[30vh] bg-white  rounded-2xl mr-10 mb-10 mt-10">
-                        <Image src={carItem.src} alt="carpic" width={300} height={100} className="w-full h-52 rounded-t-2xl"/>
-                        <div>{carItem.model}</div>
-                        <div>{carItem.brand}</div>
-                        <div>{carItem.price}</div>
-                    </div>
+                    <Link href='/[cid]'>
+                      <div className="w-[25vw] h-[40vh] bg-white  rounded-2xl ">
+                          <Image src={carItem.src} alt="carpic" width={300} height={100} className="w-full h-52 rounded-t-2xl"/>
+                          <div>{carItem.model}</div>
+                          <div>{carItem.brand}</div>
+                          <div>{carItem.price}</div>
+                      </div>
+                    </Link>
                 ):""}
+                <div className="w-[25vw] h-[40vh] rounded-2xl border-white border">
+                  <Link href='/add'>
+                    <div className="flex justify-center mt-[40%]"><Image src="/img/plus_sign.svg" alt="plus" width={50} height={50} /></div>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
