@@ -43,7 +43,7 @@ const page =  () => {
             className="w-1/4 h-12 rounded-2xl bg-[#1E1E1E] text-white hidden"
           />
         </div>
-        {showCar?  <ProviderPanel providerJson={providerJson}/>:<ExplorePanel carJson={carJson} />}
+        {showCar?  <ProviderPanel providerJson={providerJson}/>:<ExplorePanel carJson={carJson}  />}
         
       </div>
     </main>
