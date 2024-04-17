@@ -1,5 +1,5 @@
 import Image from "next/image"
-export default function CarProviderCard({name,address, telephone }:CarProvider) {
+export default function CarProviderCard({name,address, telephone }:{name:string, address:string, telephone:string}) {
     return(
         <div className="w-full h-full">
       <div className="w-full h-[75%] relative">
