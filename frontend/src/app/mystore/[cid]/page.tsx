@@ -28,53 +28,54 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { set } from "date-fns";
+import editCar from "@/libs/editCar";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
   const router = useRouter();
+  const [isEditing, setIsEditing] = useState(false);
   const { data: session } = useSession();
   const [isSticky, setIsSticky] = useState(false);
   const [carItem, setCarItem] = useState<CarItem | null>(null);
   const [userProfile, setUserProfile] = useState();
   const [carArray, setCarArray] = useState([]);
   const { toast } = useToast();
+  const fetchData = () => {
+    const carJson = getSingleCar(params.cid).then((res) => {
+      setCarItem(res.data);
+    });
+  };
   useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 100) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
+    // setCarItem(carJson.data);
 
-    const fetchData = async () => {
-      const carJson = await getSingleCar(params.cid);
-      setCarItem(carJson.data);
-    };
-    const fetchCarForProvider = async () => {
-      const cars = await getCarForOneProvider(params.cid);
-      setCarArray(cars.data);
-    };
+    // const fetchCarForProvider = () => {
+    //   const cars = getCarForOneProvider(params.cid).then((res) => {
+    //     setCarArray(res.data);
+    //   });
+    //   // setCarArray(cars);
+    // };
     fetchData();
-    fetchCarForProvider();
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [carItem]);
+    // fetchCarForProvider();
+  }, []);
 
   if (!session || !session.user.token) {
     router.push("/sign-in");
     return null;
   }
-  console.log(carArray);
+  // console.log(carArray);
 
   // form ////
 
   const formSchema = z.object({
-    username: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+    model: z.string().min(2, {
+      message: "Your model must be at least 2 characters long",
+    }),
+    brand: z.string().min(2, {
+      message: "Your brand must be at least 2 characters long",
+    }),
+    price: z.string().min(2, {
+      message: "Your price must be at least 2 characters long",
     }),
   });
 
@@ -82,15 +83,32 @@ const page = ({ params }: { params: { cid: string } }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      model: carItem?.model,
+      brand: carItem?.brand,
+      price: carItem?.price?.toString(), // Convert the price value to a string
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  function onSubmit(values: z.infer<typeof formSchema>): void {
+    try {
+      editCar(
+        session?.user?.token!,
+        params.cid,
+        values.brand,
+        values.model,
+        parseInt(values.price)
+      ).then((res) => {
+        toast({
+          title: "Success",
+          description: "Car updated successfully",
+        });
+        fetchData();
+      });
+      setIsEditing(false);
+    } catch (error) {
+      console.error(error);
+    }
   }
   ///////////
 
@@ -113,15 +131,17 @@ const page = ({ params }: { params: { cid: string } }) => {
                 height={100}
                 className="w-full h-52 rounded-t-2xl"
               />
-              <div>{carItem?.model!}</div>
-              <div>{carItem?.brand!}</div>
-              <div>{carItem?.price!}</div>
+              <div className="flex flex-col gap-3 p-4 font-poppins">
+                <div className="text-xl">{carItem?.model!}</div>
+                <div>{carItem?.brand!}</div>
+                <div>{`${carItem?.price!} $`}</div>
+              </div>
             </div>
           </div>
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
           <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
+            {/* <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">model</h1>
               <h1 className="text-5xl font-poppins text-white">
                 {carItem?.model ?? ""}
@@ -138,7 +158,104 @@ const page = ({ params }: { params: { cid: string } }) => {
               <h1 className="text-4xl font-poppins text-white">
                 {carItem?.price ?? ""}
               </h1>
-            </div>
+            </div> */}
+
+            {!isEditing ? (
+              <div>
+                <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
+                  <h1 className="text-2xl font-kiona text-white">model</h1>
+                  <h1 className="text-5xl font-poppins text-white">
+                    {carItem?.model ?? ""}
+                  </h1>
+                </div>
+                <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
+                  <h1 className="text-2xl font-kiona text-white">brand</h1>
+                  <h1 className="text-4xl font-poppins text-white">
+                    {carItem?.brand ?? ""}
+                  </h1>
+                </div>
+                <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
+                  <h1 className="text-2xl font-kiona text-white">price</h1>
+                  <h1 className="text-4xl font-poppins text-white">
+                    {carItem?.price ?? ""}
+                  </h1>
+                </div>
+              </div>
+            ) : (
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-8 pt-[10%] text-white pl-3"
+                >
+                  <FormField
+                    control={form.control}
+                    name="model"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-kiona text-xl">
+                          Model
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Enter new car model"
+                            className="w-[50%] text-black"
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="brand"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-kiona text-xl">
+                          Brand
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Enter new car brand"
+                            className="w-[50%] text-black"
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="price"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-kiona text-xl">
+                          Price
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Enter new rental price"
+                            className="w-[50%] text-black"
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    type="submit"
+                    className="py-1 px-5 bg-gradient-to-r from-[#F05B80] to-[#4158F0] text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                  >
+                    Submit
+                  </Button>
+                </form>
+              </Form>
+            )}
 
             <div className="w-full h-[1px] flex flex-col items-center mt-10">
               <div className="bg-white w-[95%] h-full"></div>
@@ -151,20 +268,20 @@ const page = ({ params }: { params: { cid: string } }) => {
               </div>
               <div className="flex flex-row gap-4 justify-end pt-5">
                 <button
-                            onClick={(e) => {
-                e.stopPropagation();
-                            }}
-                            className="py-1 px-5 bg-gradient-to-r from-[#F05B80] to-[#4158F0] text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
-                          >
-                            Edit
-                          </button>
-                          <button
-                            onClick={(e) => {
-                }}
-                            className="py-1 px-5 bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
-                          >
-                            Delete
-                          </button>
+                  onClick={(e) => {
+                    setIsEditing(!isEditing);
+                    e.stopPropagation();
+                  }}
+                  className="py-1 px-5 bg-gradient-to-r from-[#F05B80] to-[#4158F0] text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                >
+                  {isEditing ? "Cancel" : "Edit"}
+                </button>
+                <button
+                  onClick={(e) => {}}
+                  className="py-1 px-5 bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>
