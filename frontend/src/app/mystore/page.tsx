@@ -101,14 +101,14 @@ const page = ({ params }: { params: { id: string } }) => {
               <div className="grid grid-cols-2 pt-5 w-full h-full gap-10 mt-10">
                 {carArray? carArray.map((carItem:CarItem)=>
                 //  <AvaliableCarCard _id={carItem._id} src={carItem.src} model={carItem.model} brand={carItem.brand} price={carItem.price} carProvider={carItem.carProvider}/>
-                    // <Link href='/[cid]'>
+                    <Link href='/[cid]'>
                       <div className="w-[25vw] h-[40vh] bg-white  rounded-2xl ">
                           <Image src={carItem?.src!} alt="carpic" width={300} height={100} className="w-full h-52 rounded-t-2xl"/>
                           <div>{carItem.model}</div>
                           <div>{carItem.brand}</div>
                           <div>{carItem.price}</div>
                       </div>
-                    // </Link>
+                    </Link>
                 ):""}
                 <div className="w-[25vw] h-[40vh] rounded-2xl border-white border">
                   <Link href='/add'>
