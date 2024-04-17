@@ -119,7 +119,7 @@ const page = () => {
           <div className=" w-[45%] h-[100%] flex flex-col relative justify-center">
             <div className="font-poppins text-white absolute top-12 left-16 text-4xl flex flex-row">
               Add to Balance
-              <Image alt="carticon" src="/img/addbalancecarticon.png" width={40} height={40} className="ml-3"/>
+              <Image alt="carticon" src="/img/addbalancecarticon.png" width={40} height={40} className="ml-3 object-cover"/>
             </div>
             <div className=" w-fit h-fit absolute left-16  flex flex-col space-y-8 ">
               <div>
