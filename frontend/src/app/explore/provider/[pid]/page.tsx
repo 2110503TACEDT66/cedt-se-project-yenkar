@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import CarProviderCard from "@/components/CarProviderCard";
 import getCarForOneProvider from "@/libs/getCarForOneProvider";
 import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 const page = ({ params }: { params: { pid: string } }) => {
   const router = useRouter();
   const { data: session } = useSession();
@@ -85,16 +86,25 @@ const page = ({ params }: { params: { pid: string } }) => {
                   ? carArray.map((carItem: CarItem) => (
                       //  <AvaliableCarCard _id={carItem._id} src={carItem.src} model={carItem.model} brand={carItem.brand} price={carItem.price} carProvider={carItem.carProvider}/>
                       <Link
-                        href={`/reserve?pid=${carItem.carProvider._id}&cid=${carItem._id}`}
+                        href={`/reserve?pid=${providerData?._id}&cid=${carItem._id}`}
                       >
                         <div className="w-[22vw] h-[50vh] bg-white rounded-2xl mb-14">
-                          <Image
+                          {/* <Image
                             src={carItem?.src!}
                             alt="carpic"
                             width={300}
                             height={100}
                             className="w-full h-[70%] rounded-t-2xl"
-                          />
+                          /> */}
+
+                          <div className="w-full h-[70%] relative">
+                            <CldImage
+                              alt="image"
+                              src={carItem?.src!}
+                              fill={true}
+                              className="w-full h-[70%] rounded-t-2xl object-cover"
+                            />
+                          </div>
                           <div className="mt-5 ml-5 text-xl font-bold">
                             {carItem.model}
                           </div>
