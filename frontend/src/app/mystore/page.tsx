@@ -317,19 +317,30 @@ const page = ({ params }: { params: { id: string } }) => {
             )}
 
             <div className="flex flex-col w-full h-fit p-6 justify-center">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsEditing(!isEditing);
-                }}
-                className={
-                  isEditing
-                    ? "self-end w-fit mr-5 py-2 px-5 bg-gradient-to-r from-[#F05B80] to-red-700 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
-                    : "self-end w-fit mr-5 py-2 px-5 bg-gradient-to-r from-[#F05B80] to-[#4158F0] text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
-                }
-              >
-                {isEditing ? "Cancel" : "Edit Profile"}
-              </button>
+              <div className="flex flex-row self-end">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsEditing(!isEditing);
+                  }}
+                  className={
+                    isEditing
+                      ? "self-end w-fit mr-5 py-2 px-5 bg-gradient-to-r from-[#F05B80] to-red-700 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                      : "self-end w-fit mr-5 py-2 px-5 bg-gradient-to-r from-[#F05B80] to-[#4158F0] text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                  }
+                >
+                  {isEditing ? "Cancel" : "Edit Profile"}
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push("/add");
+                  }}
+                  className=" self-end w-fit mr-5 py-2 px-5 bg-white text-black rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                >
+                  Add Car
+                </button>
+              </div>
               <div className="w-full h-[1px] flex flex-col items-center my-5">
                 <div className="bg-white w-[95%] h-full"></div>
               </div>
