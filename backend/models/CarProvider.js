@@ -46,7 +46,7 @@ const CarProviderSchema = new mongoose.Schema(
     },
     src: {
       type: String,
-      required: [true, 'Please provide carProvider image']
+      default: "YenKar/ivrxoeccbri8gxjb4pnx",
     },
     createdAt: {
       type: Date,

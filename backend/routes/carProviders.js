@@ -6,11 +6,11 @@ const {
   updateCarProvider,
   deleteCarProvider,
   getNearByCarProviders,
-  getCarsForCarProvider
+  getCarsForCarProvider,
 } = require("../controllers/carProviders");
 const { addCar } = require("../controllers/cars");
 const rentingsRouter = require("./rentings");
-const carsRouter = require("./cars")
+const carsRouter = require("./cars");
 
 const router = express.Router();
 const { protect, authorize } = require("../middleware/auth");
@@ -21,17 +21,14 @@ router
   .post(protect, authorize("admin"), createCarProvider);
 
 router.use("/:carProviderId/rentings", rentingsRouter);
-router
-  .route("/:id/cars")
-  .get(getCarsForCarProvider)
-  .post(protect, addCar);
+router.route("/:id/cars").get(getCarsForCarProvider).post(protect, addCar);
 
 router.route("/nearby").get(protect, getNearByCarProviders);
 
 router
   .route("/:id")
   .get(getCarProvider)
-  .put(protect, authorize("admin"), updateCarProvider)
+  .put(protect, updateCarProvider)
   .delete(protect, authorize("admin"), deleteCarProvider);
 
 module.exports = router;
