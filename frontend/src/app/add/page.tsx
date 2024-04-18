@@ -98,6 +98,7 @@ const page = ({ params }: { params: { cid: string } }) => {
           title: "Success",
           description: "Car added successfully",
         });
+        router.back();
         // fetchData();
       });
       setIsAdding(false);
