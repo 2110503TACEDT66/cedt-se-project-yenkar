@@ -40,6 +40,10 @@ const CarProviderSchema = new mongoose.Schema(
       min: [0, "Balance can't below than 0"],
       default: 0
     },
+    role: {
+      type: String,
+      default: "provider",
+    },
     createdAt: {
       type: Date,
       default: Date.now

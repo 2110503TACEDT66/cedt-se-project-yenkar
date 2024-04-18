@@ -111,6 +111,7 @@ const sendTokenResponse = (user, accountType ,statusCode, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      role: "carProvider",
       token,
     });
 
