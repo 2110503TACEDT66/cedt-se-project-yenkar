@@ -106,7 +106,7 @@ const page = ({ params }: { params: { id: string } }) => {
                         <Link href={`/mystore/${carItem._id}`}>
                           <div className="w-[22vw] h-[50vh] bg-white rounded-2xl mb-14">
                             <Image
-                              src={carItem?.src!}
+                              src={carItem.src? carItem.src: '/img/place_holder.jpg'}
                               alt="carpic"
                               width={300}
                               height={100}

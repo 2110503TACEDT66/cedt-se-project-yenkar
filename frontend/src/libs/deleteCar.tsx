@@ -1,4 +1,4 @@
-export default async function deleteCar(id: string, token?: string) {
+export default async function deleteCar(id: string, token: string) {
     const response = await fetch(
       `${process.env.BACKEND_URL}/api/v1/cars/${id}`,
       {

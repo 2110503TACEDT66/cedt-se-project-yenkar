@@ -338,7 +338,8 @@ const page = ({ params }: { params: { cid: string } }) => {
                           variant="secondary"
                           className="bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
                           onClick={() => {
-                            deleteCar(params.cid);
+                            deleteCar(params.cid,session.user.token);
+                            router.push("/mystore");
                           }}
                         >
                           Delete
