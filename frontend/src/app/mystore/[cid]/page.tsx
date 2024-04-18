@@ -2,6 +2,8 @@
 import ExploreCard from "@/components/ExploreCard";
 import NavBar from "@/components/NavBar";
 import React, { useEffect, useState } from "react";
+import Popup from 'reactjs-popup'
+import 'reactjs-popup/dist/index.css';
 
 import { useSession } from "next-auth/react";
 import getSingleCarProvider from "@/libs/getSingleCarProvider";
@@ -30,7 +32,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { set } from "date-fns";
 import editCar from "@/libs/editCar";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger, DialogFooter, DialogHeader } from "@/components/ui/dialog";
+import { Label } from "@radix-ui/react-label";
+import { Copy } from "lucide-react";
+import deleteCar from "@/libs/deleteCar";
 ///////
+
 
 const page = ({ params }: { params: { cid: string } }) => {
   const router = useRouter();
@@ -41,6 +48,7 @@ const page = ({ params }: { params: { cid: string } }) => {
   const [userProfile, setUserProfile] = useState();
   const [carArray, setCarArray] = useState([]);
   const { toast } = useToast();
+  const [isDeleting, setIsDeleting] = useState(false);
   const fetchData = () => {
     const carJson = getSingleCar(params.cid).then((res) => {
       setCarItem(res.data);
@@ -65,6 +73,20 @@ const page = ({ params }: { params: { cid: string } }) => {
   }
   // console.log(carArray);
 
+
+  const modal = ()=>{
+    return (
+
+      <div>
+
+        <div >
+          <span>&times;</span>
+          <p>Some text in the Modal..</p>
+        </div>
+
+    </div>
+    );
+  }
   // form ////
 
   const formSchema = z.object({
@@ -276,12 +298,43 @@ const page = ({ params }: { params: { cid: string } }) => {
                 >
                   {isEditing ? "Cancel" : "Edit"}
                 </button>
-                <button
-                  onClick={(e) => {}}
+                {/* <button
+                  onClick={(e) => {
+                    setIsDeleting(true);
+                    e.stopPropagation();
+                  }}
                   className="py-1 px-5 bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
                 >
                   Delete
-                </button>
+                </button> */}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <div className="py-1 px-1 bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100">
+                    <Button>Delete</Button>
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md bg-[#222529] py-5 px-10 ">
+                    <DialogHeader className="text-white font-kiona mb-5">
+                      <DialogTitle className="mt-2 mb-5 text-2xl">ARE YOU ABSOLUTELY SURE?</DialogTitle>
+                      <DialogDescription>
+                        This action cannot be undone. This will permanently delete your car form our servers.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter className="justify-end">
+                      <DialogClose asChild>
+                        <Button type="button" variant="secondary" className="bg-[#222529] border border-white text-white hover:scale-105 transition duration-300 ease-in-out active:scale-100">
+                          Cancel
+                        </Button>
+                      </DialogClose>
+                      <DialogClose asChild>
+                        <Button type="button" variant="secondary" className="bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                        onClick={()=>{deleteCar(params.cid)}}>
+                          Delete
+                        </Button>
+                      </DialogClose>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </div>

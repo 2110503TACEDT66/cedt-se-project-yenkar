@@ -135,7 +135,7 @@ const page = () => {
             <ManageCard
               src={item.car.src ?? "/img/place_holder.jpg"}
               id={item._id}
-              name={item.carProvider.name}
+              name={item.car.model}
               rentDate={new Date(item.rentDate)}
               returnDate={new Date(item.rentTo)}
               carProviderId={item.carProvider._id}
