@@ -28,9 +28,7 @@ const page = ({ params }: { params: { pid: string } }) => {
     };
 
     const fetchData = async () => {
-      const providerJson = await getSingleCarProvider(
-        params.pid
-      );
+      const providerJson = await getSingleCarProvider(params.pid);
       setproviderData(providerJson.data);
     };
     const fetchCarForProvider = async () => {
@@ -61,6 +59,7 @@ const page = ({ params }: { params: { pid: string } }) => {
                 name={providerData?.name!}
                 address={providerData?.address!}
                 telephone={providerData?.telephone!}
+                src={providerData?.src!}
               />
             </div>
           </div>

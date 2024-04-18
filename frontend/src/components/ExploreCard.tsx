@@ -1,7 +1,7 @@
 "ues client";
+import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import React from "react";
-
 
 const ExploreCard = ({
   _id,
@@ -9,17 +9,16 @@ const ExploreCard = ({
   model,
   brand,
   price,
-  carProvider
+  carProvider,
 }: CarProps) => {
-  
   return (
     <div className="w-full h-full">
       <div className="w-full h-[75%] relative">
-        <Image
+        <CldImage
           alt="image"
+          src={src!}
           fill={true}
-          src={src?src: '/img/place_holder.jpg'}
-          className="object-cover rounded-lg"
+          className="w-full h-full rounded-xl object-cover"
         />
       </div>
       <div className="bg-white rounded-b-lg w-full h-[30%] absolute bottom-0 flew flex-col">

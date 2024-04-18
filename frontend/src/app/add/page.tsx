@@ -30,6 +30,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { set } from "date-fns";
 import addCar from "@/libs/addCar";
+import {
+  CldImage,
+  CldUploadWidget,
+  CloudinaryUploadWidgetInfo,
+} from "next-cloudinary";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -41,18 +46,20 @@ const page = ({ params }: { params: { cid: string } }) => {
   const [userProfile, setUserProfile] = useState();
   const [carArray, setCarArray] = useState([]);
   const { toast } = useToast();
-//   const fetchData = () => {
-//     const carJson = getSingleCar(params.cid).then((res) => {
-//       setCarItem(res.data);
-//     });
-//   };
+  const [editingImageData, setEditingImageData] = useState<string | undefined>(
+    undefined
+  );
+  //   const fetchData = () => {
+  //     const carJson = getSingleCar(params.cid).then((res) => {
+  //       setCarItem(res.data);
+  //     });
+  //   };
 
+  //   useEffect(() => {
 
-//   useEffect(() => {
-   
-//     fetchData();
- 
-//   }, []);
+  //     fetchData();
+
+  //   }, []);
 
   if (!session || !session.user.token) {
     router.push("/sign-in");
@@ -89,10 +96,11 @@ const page = ({ params }: { params: { cid: string } }) => {
     try {
       addCar(
         session?.user?.token!,
-        params.cid,
+        session?.user?._id!,
         values.brand,
         values.model,
-        parseInt(values.price)
+        parseInt(values.price),
+        editingImageData
       ).then((res) => {
         toast({
           title: "Success",
@@ -110,23 +118,59 @@ const page = ({ params }: { params: { cid: string } }) => {
 
   return (
     <main>
-      <NavBar
-        stickyState={false}
-        session={session}
-      />
-      ;
+      <NavBar stickyState={false} session={session} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
           <div className=" w-[25%] h-[100%] flex flex-col relative justify-center items-center">
-            {/* <div className="w-[25vw] h-[40vh] bg-white  rounded-2xl "> */}
-              <Image
-                src= "/img/place_holder.jpg"
-                alt=""
-                width={300}
-                height={100}
-                className="w-full h-52 rounded-t-2xl object-cover"
-              />
-              {/* <div className="flex flex-col gap-3 p-4 font-poppins">
+            <div className=" w-full h-[80%]  flex flex-col relative">
+              <div className="w-full h-full">
+                <CldUploadWidget
+                  uploadPreset="YenKar"
+                  onSuccess={(results) => {
+                    setEditingImageData(
+                      (results?.info as CloudinaryUploadWidgetInfo)?.public_id
+                    );
+                    toast({
+                      title: "Upload Success",
+                      description: "Image has been uploaded waiting for submit",
+                    });
+                  }}
+                >
+                  {({ open }) => {
+                    return (
+                      <div
+                        className=" w-full h-full  border-white border-2 rounded-xl flex flex-col justify-center items-center gap-4"
+                        onClick={() => {
+                          open();
+                        }}
+                      >
+                        {editingImageData ? (
+                          <CldImage
+                            alt="image"
+                            src={editingImageData}
+                            fill={true}
+                            className="w-full h-full rounded-xl object-cover"
+                          />
+                        ) : (
+                          <Image
+                            src="/img/plus_sign.svg"
+                            alt="image"
+                            width={50}
+                            height={50}
+                            className="hover:scale-105 transition duration-300 ease-in-out"
+                          />
+                        )}
+
+                        <div className="text-white font-kiona">
+                          Upload Image
+                        </div>
+                      </div>
+                    );
+                  }}
+                </CldUploadWidget>
+              </div>
+            </div>
+            {/* <div className="flex flex-col gap-3 p-4 font-poppins">
                 <div className="text-xl">{carItem?.model!}</div>
                 <div>{carItem?.brand!}</div>
                 <div>{`${carItem?.price!} $`}</div>
@@ -176,7 +220,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                   </h1>
                 </div>
               </div> */}
-             {
+            {
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
