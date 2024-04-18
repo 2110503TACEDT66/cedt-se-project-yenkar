@@ -1,12 +1,12 @@
 import Image from "next/image"
-export default function CarProviderCard({name,address, telephone }:{name:string, address:string, telephone:string}) {
+export default function CarProviderCard({name,address, telephone }:CarProvider) {
     return(
         <div className="w-full h-full">
       <div className="w-full h-[75%] relative">
         <Image
           alt="image"
           fill={true}
-          src={"/img/car_placeholder.png"}
+          src={"/img/default_carProvider2.jpg"}
           className="object-cover rounded-lg"
         />
       </div>
