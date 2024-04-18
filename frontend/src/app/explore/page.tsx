@@ -16,7 +16,7 @@ const page =  () => {
   const carJson = getAllCars();
   const providerJson = getAllCarProviders();
   const {data : session} = useSession();
-  const [showCar, setShowCar] = useState(true);
+  const [showCar, setShowCar] = useState(false);
   return (
     <main>
       <NavBar
