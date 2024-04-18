@@ -66,7 +66,7 @@ const NavBar = ({
             >
               Reservation
             </button>
-            {session?.user.role! === "carProvider" ? (
+            {session?.user.role === "carProvider" ? (
               <button
                 onClick={() => router.push("/mystore")}
                 className={`font-normal text-xl hover:font-bold hover:scale-105 transition duration-300 ease-in-out active:font-normal ${

@@ -111,17 +111,10 @@ const page = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
   const isAdmin = session?.user.role === "admin";
-  console.log(isAdmin);
-  console.log(userReservationState);
   return (
     <main>
-      <NavBar
-        stickyState={isSticky}
-        showSignIn={false}
-        session={session ? true : false}
-      />
+      <NavBar stickyState={isSticky} session={session} />
       <div className="flex flex-col items-center ">
         <div className=" rounded-xl w-[90vw] h-[80vh] flex flex-col justify-start space-y-4 items-center">
           <div className="w-full flex flex-row justify-end py-1 text-black text-2xl font-kiona relative">

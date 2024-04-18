@@ -12,6 +12,7 @@ import Image from "next/image";
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const { data: session } = useSession();
+  console.log(session);
   const [isSticky, setIsSticky] = useState(false);
   const [providerData, setproviderData] = useState<CarProvider>();
   const [userProfile, setUserProfile] = useState();
@@ -29,13 +30,11 @@ const page = ({ params }: { params: { id: string } }) => {
     };
 
     const fetchData = async () => {
-      const providerJson = await getSingleCarProvider(
-        "661ab63321e76c1e4ac6848a"
-      );
+      const providerJson = await getSingleCarProvider(session?.user?._id!);
       setproviderData(providerJson.data);
     };
     const fetchCarForProvider = async () => {
-      const cars = await getCarForOneProvider("661ab63321e76c1e4ac6848a");
+      const cars = await getCarForOneProvider(session?.user?._id!);
       setCarArray(cars.data);
       setisLoading(false);
     };
