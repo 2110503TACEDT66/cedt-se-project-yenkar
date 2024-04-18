@@ -101,7 +101,7 @@ exports.createCarProvider = async (req, res, next) => {
       name,
       address,
       telephone,
-      price,
+      src
     });
 
     res.status(201).json({

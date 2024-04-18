@@ -44,8 +44,9 @@ const CarProviderSchema = new mongoose.Schema(
       type: String,
       default: "carProvider",
     },
-    src: { 
+    src: {
       type: String,
+      required: [true, 'Please provide carProvider image']
     },
     createdAt: {
       type: Date,
