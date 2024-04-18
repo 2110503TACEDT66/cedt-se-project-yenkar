@@ -17,9 +17,6 @@ const page =  () => {
   const providerJson = getAllCarProviders();
   const {data : session} = useSession();
   const [showCar, setShowCar] = useState(true);
-
-
-
   return (
     <main>
       <NavBar
