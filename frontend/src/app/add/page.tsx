@@ -111,8 +111,7 @@ const page = ({ params }: { params: { cid: string } }) => {
     <main>
       <NavBar
         stickyState={false}
-        showSignIn={false}
-        session={session ? true : false}
+        session={session}
       />
       ;
       <div className="flex flex-col items-center">
