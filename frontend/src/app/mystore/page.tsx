@@ -163,7 +163,10 @@ const page = ({ params }: { params: { id: string } }) => {
                           {editingImageData ? (
                             <CldImage
                               alt="image"
-                              src={editingImageData}
+                              src={
+                                editingImageData ??
+                                "YenKar/ivrxoeccbri8gxjb4pnx"
+                              }
                               fill={true}
                               className="w-full h-full rounded-xl object-cover"
                             />
@@ -361,7 +364,9 @@ const page = ({ params }: { params: { id: string } }) => {
                             <div className="w-full h-[75%] relative">
                               <CldImage
                                 alt="image"
-                                src={carItem.src!}
+                                src={
+                                  carItem.src ?? "YenKar/ivrxoeccbri8gxjb4pnx"
+                                }
                                 fill={true}
                                 className="w-full h-full rounded-t-xl object-cover"
                               />

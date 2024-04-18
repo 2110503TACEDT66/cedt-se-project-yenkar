@@ -22,7 +22,7 @@ export default function CarProviderCard({
         /> */}
         <CldImage
           alt="image"
-          src={src}
+          src={src ?? "YenKar/ivrxoeccbri8gxjb4pnx"}
           fill={true}
           className="w-full h-full rounded-xl object-cover"
         />

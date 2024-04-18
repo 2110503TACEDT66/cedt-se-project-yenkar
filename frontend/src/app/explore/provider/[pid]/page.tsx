@@ -100,7 +100,9 @@ const page = ({ params }: { params: { pid: string } }) => {
                           <div className="w-full h-[70%] relative">
                             <CldImage
                               alt="image"
-                              src={carItem?.src!}
+                              src={
+                                carItem?.src ?? "YenKar/ivrxoeccbri8gxjb4pnx"
+                              }
                               fill={true}
                               className="w-full h-[70%] rounded-t-2xl object-cover"
                             />

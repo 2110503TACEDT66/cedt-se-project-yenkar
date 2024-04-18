@@ -126,7 +126,7 @@ const ManageCard = ({
 
           <CldImage
             alt="image"
-            src={src!}
+            src={src ?? "YenKar/ivrxoeccbri8gxjb4pnx"}
             fill={true}
             className="object-cover rounded-l-lg shadow-xl hover:contrast-150  transition duration-300 ease-in-out "
             onClick={() =>

@@ -162,7 +162,10 @@ const page = ({ params }: { params: { cid: string } }) => {
                           {editingImageData ? (
                             <CldImage
                               alt="image"
-                              src={editingImageData}
+                              src={
+                                editingImageData ??
+                                "YenKar/ivrxoeccbri8gxjb4pnx"
+                              }
                               fill={true}
                               className="w-full h-full rounded-xl object-cover"
                             />

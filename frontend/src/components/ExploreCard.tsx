@@ -16,7 +16,7 @@ const ExploreCard = ({
       <div className="w-full h-[75%] relative">
         <CldImage
           alt="image"
-          src={src!}
+          src={src ?? "YenKar/ivrxoeccbri8gxjb4pnx"}
           fill={true}
           className="w-full h-full rounded-xl object-cover"
         />
