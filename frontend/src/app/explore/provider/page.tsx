@@ -16,7 +16,6 @@ const page = ({ params }: { params: { id: string } }) => {
   const [providerData, setproviderData] = useState<CarProvider>();
   const [userProfile, setUserProfile] = useState();
   const [carArray, setCarArray] = useState([]);
-  const [isLoading, setisLoading] = useState(true)
   const { toast } = useToast();
   useEffect(() => {
     const handleScroll = () => {
@@ -28,14 +27,13 @@ const page = ({ params }: { params: { id: string } }) => {
       }
     };
 
-    const fetchData = async () =>{
-        const providerJson = await getSingleCarProvider('661ab63321e76c1e4ac6848a');
-        setproviderData(providerJson.data)
+    const fetchData = async () => {
+      const providerJson = await getSingleCarProvider('661ab63321e76c1e4ac6848a');
+      setproviderData(providerJson.data)
     };
     const fetchCarForProvider = async ()=>{
         const cars = await getCarForOneProvider('661ab63321e76c1e4ac6848a');
         setCarArray(cars.data);
-        setisLoading(false)
     }
     fetchData();
     fetchCarForProvider();
@@ -99,50 +97,24 @@ const page = ({ params }: { params: { id: string } }) => {
                   Available Car
                 </h1>
               </div>
-<<<<<<< HEAD
 
-              <div className="grid grid-cols-2 pt-5 w-full h-full gap-10 mt-10">
+              <div className="grid grid-cols-2 w-full h-full mt-10 ml-5">
                 {carArray? carArray.map((carItem:CarItem)=>
                 //  <AvaliableCarCard _id={carItem._id} src={carItem.src} model={carItem.model} brand={carItem.brand} price={carItem.price} carProvider={carItem.carProvider}/>
-                <Link href={`/mystore/${carItem._id}`}>
-                      <div className="w-[25vw] h-[40vh] bg-white  rounded-2xl ">
-                          <Image src={carItem?.src!} alt="carpic" width={300} height={100} className="w-full h-52 rounded-t-2xl"/>
-                          <div>{carItem.model}</div>
-                          <div>{carItem.brand}</div>
-                          <div>{carItem.price}</div>
-                      </div>
-                    </Link>
-                ):""}
-                <div className="w-[25vw] h-[40vh] rounded-2xl border-white border">
-                  <Link href='/add'>
-                    <div className="flex justify-center mt-[40%]"><Image src="/img/plus_sign.svg" alt="plus" width={50} height={50} /></div>
-                  </Link>
-=======
-                {isLoading? <div>kloading</div> :
-                  <div className="grid grid-cols-2 w-full h-full mt-10 ml-5">
-                    {carArray? carArray.map((carItem:CarItem)=>
-                    //  <AvaliableCarCard _id={carItem._id} src={carItem.src} model={carItem.model} brand={carItem.brand} price={carItem.price} carProvider={carItem.carProvider}/>
-                        <Link href={`/mystore/${carItem._id}`}>
-                          <div className="w-[22vw] h-[50vh] bg-white rounded-2xl mb-14">
-                              <Image src={carItem?.src!} alt="carpic" width={300} height={100} className="w-full h-[70%] rounded-t-2xl object-cover"/>
-                              <div className="mt-5 ml-5 text-xl font-bold">{carItem.model}</div>
-                              <div className="mt-2 ml-5 text-m">{carItem.brand}</div>
-                              <div className="mt-2 ml-5">{`฿ ${carItem.price}`}</div>
-                          </div>
+                        <Link href={`/reserve?pid=${carItem.carProvider._id}&cid=${carItem._id}`}>
+                        <div className="w-[22vw] h-[50vh] bg-white rounded-2xl mb-14">
+                            <Image src={carItem?.src!} alt="carpic" width={300} height={100} className="w-full h-[70%] rounded-t-2xl"/>
+                            <div className="mt-5 ml-5 text-xl font-bold">{carItem.model}</div>
+                            <div className="mt-2 ml-5 text-m">{carItem.brand}</div>
+                            <div className="mt-2 ml-5">{`฿${carItem.price}`}</div>
+                        </div>
                         </Link>
-                    ):""}
-                    <div className="w-[22vw] h-[50vh] rounded-2xl border-white border">
-                      <Link href='/add'>
-                        <div className="flex justify-center mt-[56%]"><Image src="/img/plus_sign.svg" alt="plus" width={50} height={50} /></div>
-                      </Link>
-                    </div>
-                  </div>
-                }               
->>>>>>> d63d02d9a6ae6a01d54a753103b25962798fa344
-                </div>
+                ):""}
+              </div>
             </div>
           </div>
         </div>
+      </div>
     </main>
   );
 };

@@ -35,10 +35,9 @@ import getSingleCar from "@/libs/getSingleCar";
 
 //const page = ({ params }: { params: { pid: string, cid:string } }) => {
 const page = () => {
-        
-    const urlParams = useSearchParams()
-    const cid = urlParams.get('cid')
-    const pid = urlParams.get('pid')
+  const urlParams = useSearchParams();
+  const cid = urlParams.get("cid");
+  const pid = urlParams.get("pid");
   const router = useRouter();
   const { data: session } = useSession();
   console.log(session);
@@ -59,10 +58,10 @@ const page = () => {
     };
 
     const fetchData = async () => {
-        if(cid){
+      if (cid) {
         const carJson = await getSingleCar(cid);
         setCarData(carJson.data);
-        }
+      }
     };
     fetchData();
     window.addEventListener("scroll", handleScroll);
@@ -93,30 +92,30 @@ const page = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if(pid){
-    createReservation(
-      values.returnDate,
-      values.rentDate,
-      session?.user?._id ?? "",
-      session?.user?.token ?? "",
-      pid,
-      carData?.model,
-    )
-      .then(() => {
-        toast({
-          title: "Reservation created",
-          description: "Your reservation has been created",
-          duration: 3000,
+    if (pid) {
+      createReservation(
+        values.returnDate,
+        values.rentDate,
+        session?.user?._id ?? "",
+        session?.user?.token ?? "",
+        pid,
+        carData?.model
+      )
+        .then(() => {
+          toast({
+            title: "Reservation created",
+            description: "Your reservation has been created",
+            duration: 3000,
+          });
+          router.push("/manage");
+        })
+        .catch(() => {
+          toast({
+            title: "Failed to create reservation",
+            description: "Failed to create reservation",
+            duration: 3000,
+          });
         });
-        router.push("/manage");
-      })
-      .catch(() => {
-        toast({
-          title: "Failed to create reservation",
-          description: "Failed to create reservation",
-          duration: 3000,
-        });
-      });
     }
   }
 
@@ -127,17 +126,17 @@ const page = () => {
         showSignIn={false}
         session={session ? true : false}
       />
-      ;
+
       <div className="flex flex-col items-center">
-        <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
+        <div className="bg-[#17191C] rounded-xl w-[90vw] h-fit flex flex-row justify-evenly items-center">
           <div className=" w-[25%] h-[100%] flex flex-col relative justify-center items-center">
-            <div className=" w-full h-[80%]  flex flex-col relative">
+            <div className=" w-full h-[35rem]  flex flex-col relative">
               <ExploreCard
                 src={carData?.src ?? ""}
                 _id={carData?._id ?? ""}
                 model={carData?.model ?? ""}
                 brand={carData?.brand ?? ""}
-                carProvider={carData?.carProvider}
+                carProvider={carData?.carProvider!}
                 price={carData?.price ?? 0}
               />
             </div>
@@ -152,6 +151,12 @@ const page = () => {
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
+              <h1 className="text-2xl font-kiona text-white">Brand</h1>
+              <h1 className="text-4xl font-poppins text-white">
+                {carData?.brand ?? ""}
+              </h1>
+            </div>
+            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">Location</h1>
               <h1 className="text-4xl font-poppins text-white">
                 {carData?.carProvider.address ?? ""}
@@ -161,6 +166,12 @@ const page = () => {
               <h1 className="text-2xl font-kiona text-white">Phone</h1>
               <h1 className="text-4xl font-poppins text-white">
                 {carData?.carProvider.telephone ?? ""}
+              </h1>
+            </div>
+            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
+              <h1 className="text-2xl font-kiona text-white">Price</h1>
+              <h1 className="text-4xl font-poppins text-white">
+                {carData?.price ?? ""}
               </h1>
             </div>
 

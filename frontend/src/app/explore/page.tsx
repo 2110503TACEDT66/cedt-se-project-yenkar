@@ -16,10 +16,7 @@ const page =  () => {
   const carJson = getAllCars();
   const providerJson = getAllCarProviders();
   const {data : session} = useSession();
-  const [showCar, setShowCar] = useState(true);
-
-
-
+  const [showCar, setShowCar] = useState(false);
   return (
     <main>
       <NavBar
@@ -30,7 +27,7 @@ const page =  () => {
       <div className="flex flex-col items-center">
         <div className="flex flex-row w-[93%] p-6  items-center justify-between">
           <h1 className="text-3xl font-poppins text-white">
-            Explore the Available Cars
+             {!showCar? <div>Explore the Available Cars</div>:<div>Explore the Car Providers</div>}
           </h1>
           <div className="flex flex-row items-center">
           <div className="text-white text-xl mr-5">Car</div>
