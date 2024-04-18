@@ -6,15 +6,14 @@ import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { Session } from "next-auth";
 
 const NavBar = ({
   stickyState,
-  showSignIn,
   session,
 }: {
   stickyState: boolean;
-  showSignIn: boolean;
-  session: boolean;
+  session?: Session | null;
 }) => {
   const router = useRouter();
   const isSticky = stickyState;
@@ -67,19 +66,23 @@ const NavBar = ({
             >
               Reservation
             </button>
-            <button
-              onClick={() => router.push("/mystore")}
-              className={`font-normal text-xl hover:font-bold hover:scale-105 transition duration-300 ease-in-out active:font-normal ${
-                isSticky ? "text-black  " : "text-white"
-              }`}
-            >
-              My store
-            </button>
+            {session?.user.role! === "carProvider" ? (
+              <button
+                onClick={() => router.push("/mystore")}
+                className={`font-normal text-xl hover:font-bold hover:scale-105 transition duration-300 ease-in-out active:font-normal ${
+                  isSticky ? "text-black  " : "text-white"
+                }`}
+              >
+                My store
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
 
         <div className="flex flex-row space-x-4">
-          {showSignIn ? (
+          {!session ? (
             <button
               onClick={() => router.push("/sign-in")}
               className={`px-6 py-2 rounded-md font-bold shadow-lg
@@ -100,7 +103,9 @@ const NavBar = ({
               <PopoverTrigger>
                 <Image
                   alt="profile"
-                  src={`${isSticky ? "/img/profileblack.png" : "/img/profile.png"}`}
+                  src={`${
+                    isSticky ? "/img/profileblack.png" : "/img/profile.png"
+                  }`}
                   width={30}
                   height={30}
                   className="z-50 hover:scale-110 transition duration-300 ease-in-out"

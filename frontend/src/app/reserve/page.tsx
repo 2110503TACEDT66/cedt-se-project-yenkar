@@ -121,11 +121,7 @@ const page = () => {
 
   return (
     <main>
-      <NavBar
-        stickyState={false}
-        showSignIn={false}
-        session={session ? true : false}
-      />
+      <NavBar stickyState={false} session={session} />
 
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-fit flex flex-row justify-evenly items-center">

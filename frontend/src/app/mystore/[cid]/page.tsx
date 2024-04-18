@@ -2,14 +2,14 @@
 import ExploreCard from "@/components/ExploreCard";
 import NavBar from "@/components/NavBar";
 import React, { useEffect, useState } from "react";
-import Popup from 'reactjs-popup'
-import 'reactjs-popup/dist/index.css';
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 import { useSession } from "next-auth/react";
 import getSingleCarProvider from "@/libs/getSingleCarProvider";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import CarProviderCard from "@/components/CarProviderCard"; 
+import CarProviderCard from "@/components/CarProviderCard";
 import getCarForOneProvider from "@/libs/getCarForOneProvider";
 // import AvaliableCarCard from "@/components/AvaliableCarCard";
 import Image from "next/image";
@@ -32,12 +32,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { set } from "date-fns";
 import editCar from "@/libs/editCar";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger, DialogFooter, DialogHeader } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 import { Label } from "@radix-ui/react-label";
 import { Copy } from "lucide-react";
 import deleteCar from "@/libs/deleteCar";
 ///////
-
 
 const page = ({ params }: { params: { cid: string } }) => {
   const router = useRouter();
@@ -73,20 +81,16 @@ const page = ({ params }: { params: { cid: string } }) => {
   }
   // console.log(carArray);
 
-
-  const modal = ()=>{
+  const modal = () => {
     return (
-
       <div>
-
-        <div >
+        <div>
           <span>&times;</span>
           <p>Some text in the Modal..</p>
         </div>
-
-    </div>
+      </div>
     );
-  }
+  };
   // form ////
 
   const formSchema = z.object({
@@ -136,12 +140,7 @@ const page = ({ params }: { params: { cid: string } }) => {
 
   return (
     <main>
-      <NavBar
-        stickyState={false}
-        showSignIn={false}
-        session={session ? true : false}
-      />
-      ;
+      <NavBar stickyState={false} session={session} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
           <div className=" w-[25%] h-[100%] flex flex-col relative justify-center items-center">
@@ -310,25 +309,38 @@ const page = ({ params }: { params: { cid: string } }) => {
                 <Dialog>
                   <DialogTrigger asChild>
                     <div className="py-1 px-1 bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100">
-                    <Button>Delete</Button>
+                      <Button>Delete</Button>
                     </div>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-md bg-[#222529] py-5 px-10 ">
                     <DialogHeader className="text-white font-kiona mb-5">
-                      <DialogTitle className="mt-2 mb-5 text-2xl">ARE YOU ABSOLUTELY SURE?</DialogTitle>
+                      <DialogTitle className="mt-2 mb-5 text-2xl">
+                        ARE YOU ABSOLUTELY SURE?
+                      </DialogTitle>
                       <DialogDescription>
-                        This action cannot be undone. This will permanently delete your car form our servers.
+                        This action cannot be undone. This will permanently
+                        delete your car form our servers.
                       </DialogDescription>
                     </DialogHeader>
                     <DialogFooter className="justify-end">
                       <DialogClose asChild>
-                        <Button type="button" variant="secondary" className="bg-[#222529] border border-white text-white hover:scale-105 transition duration-300 ease-in-out active:scale-100">
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          className="bg-[#222529] border border-white text-white hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                        >
                           Cancel
                         </Button>
                       </DialogClose>
                       <DialogClose asChild>
-                        <Button type="button" variant="secondary" className="bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
-                        onClick={()=>{deleteCar(params.cid)}}>
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          className="bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                          onClick={() => {
+                            deleteCar(params.cid);
+                          }}
+                        >
                           Delete
                         </Button>
                       </DialogClose>

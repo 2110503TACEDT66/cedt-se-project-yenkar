@@ -24,7 +24,7 @@ import providerRegister from "@/libs/providerRegister";
 const page = () => {
   const [isSticky, setIsSticky] = useState(false);
   const router = useRouter();
-  const [roles, setRoles] = useState(true)
+  const [roles, setRoles] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,7 +80,7 @@ const page = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if(roles === false) {
+    if (roles === false) {
       createUser({
         userName: values.name,
         userEmail: values.email,
@@ -88,37 +88,42 @@ const page = () => {
         userPhone: values.phone,
         userLocation: values.location,
       })
-      .then((data) => {
-        console.log(data);
-        signIn("credentials", {
-          email: values.email,
-          password: values.password,
-          callbackUrl: "/",
+        .then((data) => {
+          console.log(data);
+          signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            callbackUrl: "/",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }
-    else {
-      providerRegister(values.name, values.phone, values.location, values.email, values.password)
-      .then((data) => {
-        console.log(data);
-        signIn("credentials", {
-          email: values.email,
-          password: values.password,
-          callbackUrl: "/",
+    } else {
+      providerRegister(
+        values.name,
+        values.phone,
+        values.location,
+        values.email,
+        values.password
+      )
+        .then((data) => {
+          console.log(data);
+          signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            callbackUrl: "/",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
     }
   }
 
   return (
     <main>
-      <NavBar stickyState={isSticky} showSignIn={false} session={false} />;
+      <NavBar stickyState={isSticky} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-around items-center">
           <div className=" w-[45%] h-[100%] flex flex-col relative justify-center">
@@ -150,19 +155,43 @@ const page = () => {
                 >
                   <div className="text-white font-kiona text-lg">I am a...</div>
                   <div className="w-[150%]">
-                    <button onClick={() => setRoles(false)} type="button"
-                      className={roles? "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#222529]" : "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"}>
-                        <div className={roles? 
-                          "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text" : "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"}>
-                          User
-                        </div>
+                    <button
+                      onClick={() => setRoles(false)}
+                      type="button"
+                      className={
+                        roles
+                          ? "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#222529]"
+                          : "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"
+                      }
+                    >
+                      <div
+                        className={
+                          roles
+                            ? "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"
+                            : "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"
+                        }
+                      >
+                        User
+                      </div>
                     </button>
-                    <button onClick={() => setRoles(true)} type="button"
-                      className={roles? "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2" : "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#222529]"}>
-                        <div className={roles? 
-                          "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text" : "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"}>
-                          Provider
-                        </div>
+                    <button
+                      onClick={() => setRoles(true)}
+                      type="button"
+                      className={
+                        roles
+                          ? "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"
+                          : "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#222529]"
+                      }
+                    >
+                      <div
+                        className={
+                          roles
+                            ? "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"
+                            : "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"
+                        }
+                      >
+                        Provider
+                      </div>
                     </button>
                   </div>
                   <FormField
