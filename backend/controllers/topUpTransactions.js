@@ -9,14 +9,14 @@ exports.getTopUpTransactions = async (req, res, next) => {
 
   if (req.user.role === "admin") {
     query = TopUpTransaction.find().populate({
-      path: "buyer",
+      path: "buyerId",
       select: "name email",
     });
   } else {
     query = TopUpTransaction.find({
-      buyer: req.user.id,
+      buyerId: req.user.id,
     }).populate({
-      path: "buyer",
+      path: "buyerId",
       select: "name email",
     });
   }
@@ -44,7 +44,7 @@ exports.getSingleTopUpTransaction = async (req, res, next) => {
   let query;
 
   query = TopUpTransaction.findById(req.params.id).populate({
-    path: "buyer",
+    path: "buyerId",
     select: "name email",
   });
 

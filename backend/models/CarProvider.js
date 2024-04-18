@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 
 const CarProviderSchema = new mongoose.Schema(
-  { // CarProvider สมัครบัญชีโดย (สร้าง portal แยก?) (login/register user หน้านึง login/register carProvider หน้านึง)
+  { 
     email: {
       type: String,
       required: [true,'Please specify your email'],
@@ -19,28 +19,27 @@ const CarProviderSchema = new mongoose.Schema(
       minlength: [8,'Password length must be at least 8 characters'],
       select: false
     },//////////////////////////////////////////////////////
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
     name: { 
       type: String,
       required: [true, "Please add a name"],
       unique: true,
-      trim: true,
     },
-
     address: {
       type: String,
       required: [true, "Please add an address"],
     },
-
     telephone: {
       type: String,
       required: [true, "Please add a telephone"],
       maxlength: [10, "Phone number can not be longer than 10 characters"],
     },
-    // price: {
-    //   type: Number,
-    //   required: [true, "Please add a price"],
-    //   min: [0, "Price cannot below than 0"]
-    // },
+    balance: {
+      type: Number,
+      min: [0, "Balance can't below than 0"],
+      default: 0
+    },
     createdAt: {
       type: Date,
       default: Date.now

@@ -1,3 +1,4 @@
+const CarProvider = require("../../models/CarProvider");
 const User = require("../../models/User");
 
 //@desc    Register a user
@@ -39,21 +40,37 @@ exports.login = async (req, res, next) => {
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-      return res
-        .status(400)
-        .json({ success: false, msg: "Invalid Credential" });
+      const carProvider = await CarProvider.findOne({ email }).select("+password");
+        if (!carProvider) { // If user's email not found find it in carProvider
+          return res
+            .status(400)
+            .json({ success: false, msg: "Invalid Credential" });
+        }
+        else {
+          var carProviderMatch = await carProvider.isPasswordMatch(password);
+
+          if (carProviderMatch) sendTokenResponse(carProvider, 'carProvider', 200, res);
+        }
     }
     //Check if password matches
-    const match = await user.isPasswordMatch(password);
+    else { //If user's email found
+      var userMatch = await user.isPasswordMatch(password);
 
-    if (!match) {
+      if (userMatch) {
+        sendTokenResponse(user, 'user' ,200, res);
+      }
+    }
+
+
+    if (!userMatch && !carProviderMatch) {
       return res
         .status(401)
         .json({ success: false, msg: "Invalid Credential" });
     }
-
-    sendTokenResponse(user, 200, res);
+    
+    
   } catch (error) {
+    console.log(error)
     return res.status(401).json({
       success: false,
       msg: "Cannot convert email or password to string",
@@ -61,7 +78,7 @@ exports.login = async (req, res, next) => {
   }
 };
 
-const sendTokenResponse = (user, statusCode, res) => {
+const sendTokenResponse = (user, accountType ,statusCode, res) => {
   //Create a token
   const token = user.getSignedJwtToken();
 
@@ -76,17 +93,33 @@ const sendTokenResponse = (user, statusCode, res) => {
     options.secure = true;
   }
 
-  res.status(statusCode).cookie("token", token, options).json({
-    success: true,
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    role: user.role,
-    token,
-  });
+  if (accountType === 'user') {
+    res.status(statusCode).cookie("token", token, options).json({
+      success: true,
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token,
+    });
 
-  console.log(token);
-};
+    console.log(token);
+  }
+  else {
+    res.status(statusCode).cookie("token", token, options).json({
+      success: true,
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token,
+    });
+
+    console.log(token);
+  }
+
+  
+}
+  
 
 //@desc     Get current Logged in user
 //@route    POST /api/v1/auth/me
