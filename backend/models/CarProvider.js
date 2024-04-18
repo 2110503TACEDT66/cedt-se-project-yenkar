@@ -44,6 +44,9 @@ const CarProviderSchema = new mongoose.Schema(
       type: String,
       default: "carProvider",
     },
+    src: { 
+      type: String,
+    },
     createdAt: {
       type: Date,
       default: Date.now,
