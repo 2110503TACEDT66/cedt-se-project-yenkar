@@ -4,6 +4,7 @@ interface CarProvider {
   name: string;
   address: string;
   telephone: string;
+  src: string;
 }
 
 interface CarItem {

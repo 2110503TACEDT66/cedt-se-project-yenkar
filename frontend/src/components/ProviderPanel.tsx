@@ -30,6 +30,7 @@ const ProviderPanel = ({
               name={providerItem.name}
               address={providerItem.address}
               telephone={providerItem.telephone}
+              src={providerItem.src}
             />
           </Link>
         </div>

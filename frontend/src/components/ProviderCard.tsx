@@ -7,7 +7,8 @@ const ProviderCard = ({
   _id,
   name,
   address,
-  telephone
+  telephone,
+  src
 }: CarProvider) => {
   
   return (
@@ -16,7 +17,7 @@ const ProviderCard = ({
         <Image
           alt="image"
           fill={true}
-          src={'/img/place_holder.jpg'}
+          src={src}
           className="object-cover rounded-lg"
         />
       </div>
