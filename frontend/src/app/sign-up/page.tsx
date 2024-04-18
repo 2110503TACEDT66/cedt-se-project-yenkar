@@ -19,10 +19,12 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import createUser from "@/libs/createUser";
 import { signIn } from "next-auth/react";
+import providerRegister from "@/libs/providerRegister";
 
 const page = () => {
   const [isSticky, setIsSticky] = useState(false);
   const router = useRouter();
+  const [roles, setRoles] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,13 +80,14 @@ const page = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    createUser({
-      userName: values.name,
-      userEmail: values.email,
-      userPassword: values.password,
-      userPhone: values.phone,
-      userLocation: values.location,
-    })
+    if(roles === false) {
+      createUser({
+        userName: values.name,
+        userEmail: values.email,
+        userPassword: values.password,
+        userPhone: values.phone,
+        userLocation: values.location,
+      })
       .then((data) => {
         console.log(data);
         signIn("credentials", {
@@ -96,6 +99,21 @@ const page = () => {
       .catch((error) => {
         console.log(error);
       });
+    }
+    else {
+      providerRegister(values.name, values.phone, values.location, values.email, values.password)
+      .then((data) => {
+        console.log(data);
+        signIn("credentials", {
+          email: values.email,
+          password: values.password,
+          callbackUrl: "/",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
   }
 
   return (
@@ -130,6 +148,23 @@ const page = () => {
                   onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-4"
                 >
+                  <div className="text-white font-kiona text-lg">I am a...</div>
+                  <div className="w-[150%]">
+                    <button onClick={() => setRoles(false)} type="button"
+                      className={roles? "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#222529]" : "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"}>
+                        <div className={roles? 
+                          "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text" : "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"}>
+                          User
+                        </div>
+                    </button>
+                    <button onClick={() => setRoles(true)} type="button"
+                      className={roles? "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2" : "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#222529]"}>
+                        <div className={roles? 
+                          "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text" : "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"}>
+                          Provider
+                        </div>
+                    </button>
+                  </div>
                   <FormField
                     control={form.control}
                     name="name"
