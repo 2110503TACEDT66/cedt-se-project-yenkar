@@ -108,7 +108,7 @@ const page = ({ params }: { params: { id: string } }) => {
                               <Image src={carItem?.src!} alt="carpic" width={300} height={100} className="w-full h-[70%] rounded-t-2xl"/>
                               <div className="mt-5 ml-5 text-xl font-bold">{carItem.model}</div>
                               <div className="mt-2 ml-5 text-m">{carItem.brand}</div>
-                              <div className="mt-2 ml-5">{`฿${carItem.price}`}</div>
+                              <div className="mt-2 ml-5">{`฿ ${carItem.price}`}</div>
                           </div>
                         </Link>
                     ):""}
