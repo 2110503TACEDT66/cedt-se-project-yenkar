@@ -8,6 +8,7 @@ exports.addCar = async (req, res, next) => {
     try {
         //ถือว่า user = carProvider
         req.body.carProvider = req.user.id;
+        // req.body.carProvider = "661ab63321e76c1e4ac6848a"
         //console.log(req.user);
     
         const carProvider = await Provider.findById(req.body.carProvider);
@@ -25,6 +26,7 @@ exports.addCar = async (req, res, next) => {
             success:true,
             data:car
         });
+        console.log("added car")
 
     
     } catch (err) {
