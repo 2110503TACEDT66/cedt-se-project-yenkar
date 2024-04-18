@@ -32,12 +32,14 @@ const page = () => {
           <div className="flex flex-row items-center">
             <div className="text-white text-xl mr-5">Car</div>
             <div onClick={() => setShowCar(!showCar)}>
-              <Image
-                src={showCar ? "/img/toggleright.svg" : "/img/toggleleft.svg"}
-                alt="togglepic"
-                width={100}
-                height={100}
-              />
+              <div className="relative w-10 h-10">
+                <Image
+                  className="invert"
+                  src={showCar ? "/img/toggleright.svg" : "/img/toggleleft.svg"}
+                  alt="togglepic"
+                  fill={true}
+                />
+              </div>
             </div>
             <div className="text-white text-xl ml-5">Car Provider</div>
           </div>

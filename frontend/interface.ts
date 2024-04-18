@@ -21,6 +21,12 @@ interface CarJson {
   data: CarItem[];
 }
 
+interface CarProviderJson {
+  success: boolean;
+  count: number;
+  data: CarProvider[];
+}
+
 type CarJsonPromise = Promise<CarJson>;
 
 interface CreateUserProps {
@@ -54,4 +60,3 @@ interface CreateTransactionProps {
   buyerId: string;
   createdAt: Date;
 }
-

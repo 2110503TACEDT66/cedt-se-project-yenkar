@@ -63,23 +63,13 @@ const page = ({ params }: { params: { cid: string } }) => {
     });
   };
   useEffect(() => {
-    // setCarItem(carJson.data);
-
-    // const fetchCarForProvider = () => {
-    //   const cars = getCarForOneProvider(params.cid).then((res) => {
-    //     setCarArray(res.data);
-    //   });
-    //   // setCarArray(cars);
-    // };
     fetchData();
-    // fetchCarForProvider();
   }, []);
 
   if (!session || !session.user.token) {
     router.push("/sign-in");
     return null;
   }
-  // console.log(carArray);
 
   const modal = () => {
     return (
@@ -162,25 +152,6 @@ const page = ({ params }: { params: { cid: string } }) => {
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
           <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
-            {/* <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">model</h1>
-              <h1 className="text-5xl font-poppins text-white">
-                {carItem?.model ?? ""}
-              </h1>
-            </div>
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">brand</h1>
-              <h1 className="text-4xl font-poppins text-white">
-                {carItem?.brand ?? ""}
-              </h1>
-            </div>
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">price</h1>
-              <h1 className="text-4xl font-poppins text-white">
-                {carItem?.price ?? ""}
-              </h1>
-            </div> */}
-
             {!isEditing ? (
               <div>
                 <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
@@ -338,7 +309,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                           variant="secondary"
                           className="bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
                           onClick={() => {
-                            deleteCar(params.cid,session.user.token);
+                            deleteCar(params.cid, session.user.token);
                             router.push("/mystore");
                           }}
                         >

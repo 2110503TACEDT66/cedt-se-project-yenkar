@@ -1,30 +1,31 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ExploreCard from "./ExploreCard";
 
 const ExplorePanel = ({ carJson }: { carJson: Promise<CarJson> }) => {
-  const [carData ,  setCardData] = useState<CarJson>()
-  const resolve = ()=>
-    {
-      const carJsonReady = carJson.then((res) => {
-        setCardData(res)
-      })
-    }
+  const [carData, setCardData] = useState<CarJson>();
+  const resolve = () => {
+    const carJsonReady = carJson.then((res) => {
+      setCardData(res);
+    });
+  };
 
-    useEffect(()=>{
-      resolve();
-    },[])
+  useEffect(() => {
+    resolve();
+  }, []);
   //console.log(carJsonReady);
   return (
     <div className="w-[93%] h-2 flex flex-row flex-wrap">
       {carData?.data.map((carItem: CarItem) => (
-        <div className="w-[24%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100">
-          <Link href={`/reserve?pid=${carItem.carProvider._id}&cid=${carItem._id}`}>
+        <div className="w-[24%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow ">
+          <Link
+            href={`/reserve?pid=${carItem.carProvider._id}&cid=${carItem._id}`}
+          >
             <ExploreCard
               key={carItem._id}
-              _id= {carItem._id}
+              _id={carItem._id}
               model={carItem.model}
               brand={carItem.brand}
               carProvider={carItem.carProvider}
@@ -34,6 +35,17 @@ const ExplorePanel = ({ carJson }: { carJson: Promise<CarJson> }) => {
           </Link>
         </div>
       ))}
+
+      {carData?.data?.length! % 4 === 0
+        ? null
+        : Array.from({ length: 4 - (carData?.data?.length! % 4) }).map(
+            (_, i) => (
+              <div
+                key={i}
+                className="w-[24%] h-[35rem] m-2 rounded-lg relative flex-grow"
+              ></div>
+            )
+          )}
     </div>
   );
 };
