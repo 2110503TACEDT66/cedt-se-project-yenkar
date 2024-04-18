@@ -24,7 +24,7 @@ const ProviderPanel = ({
     <div className="w-[93%] h-2 flex flex-row flex-wrap">
       {providerData?.data.map((providerItem: CarProvider) => (
         <div className="w-[24%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow">
-          <Link href={`/explore/provider`}>
+          <Link href={`/explore/provider/${providerItem._id}`}>
             <ProviderCard
               _id={providerItem._id}
               name={providerItem.name}
