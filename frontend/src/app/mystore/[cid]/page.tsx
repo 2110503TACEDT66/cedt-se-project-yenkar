@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 import getSingleCarProvider from "@/libs/getSingleCarProvider";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import CarProviderCard from "@/components/CarProviderCard";
+import CarProviderCard from "@/components/CarProviderCard"; 
 import getCarForOneProvider from "@/libs/getCarForOneProvider";
 // import AvaliableCarCard from "@/components/AvaliableCarCard";
 import Image from "next/image";
