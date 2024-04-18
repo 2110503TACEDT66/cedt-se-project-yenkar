@@ -7,7 +7,7 @@ const { logout } = require("./user");
 exports.carProviderRegister = async (req, res, next) => {
   try {
     // Destructuring an req (object) -> var
-    const { email, password, name, address, telephone, role, createdAt} = req.body;
+    const { email, password, name, address, telephone, createdAt} = req.body;
 
     //Creating a CarProvider
     const newCarProvider = await CarProvider.create({
@@ -16,7 +16,6 @@ exports.carProviderRegister = async (req, res, next) => {
         name, 
         address, 
         telephone,
-        role,
         createdAt
     });
 
@@ -27,6 +26,7 @@ exports.carProviderRegister = async (req, res, next) => {
   }
 };
 
+// ไม่ใช้แล้ววววววว เปลี่ยนไปใช้ login function เดียวกับ User
 //@desc    Login as carProvider
 //@route   POST POST /api/v1/auth/login/carProvider
 //@access  Public
