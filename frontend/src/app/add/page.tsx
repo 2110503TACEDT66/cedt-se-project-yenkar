@@ -117,20 +117,20 @@ const page = ({ params }: { params: { cid: string } }) => {
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
           <div className=" w-[25%] h-[100%] flex flex-col relative justify-center items-center">
-            <div className="w-[25vw] h-[40vh] bg-white  rounded-2xl ">
+            {/* <div className="w-[25vw] h-[40vh] bg-white  rounded-2xl "> */}
               <Image
-                src= ""
+                src= "/img/place_holder.jpg"
                 alt=""
                 width={300}
                 height={100}
-                className="w-full h-52 rounded-t-2xl"
+                className="w-full h-52 rounded-t-2xl object-cover"
               />
-              <div className="flex flex-col gap-3 p-4 font-poppins">
+              {/* <div className="flex flex-col gap-3 p-4 font-poppins">
                 <div className="text-xl">{carItem?.model!}</div>
                 <div>{carItem?.brand!}</div>
                 <div>{`${carItem?.price!} $`}</div>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
           </div>
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 

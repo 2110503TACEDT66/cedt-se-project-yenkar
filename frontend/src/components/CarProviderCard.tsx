@@ -6,7 +6,7 @@ export default function CarProviderCard({name,address, telephone }:CarProvider) 
         <Image
           alt="image"
           fill={true}
-          src={"/img/default_carProvider2.jpg"}
+          src={"/img/place_holder.jpg"}
           className="object-cover rounded-lg"
         />
       </div>

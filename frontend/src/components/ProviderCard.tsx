@@ -16,7 +16,7 @@ const ProviderCard = ({
         <Image
           alt="image"
           fill={true}
-          src={'/img/default_carprovider2.jpg'}
+          src={'/img/place_holder.jpg'}
           className="object-cover rounded-lg"
         />
       </div>
