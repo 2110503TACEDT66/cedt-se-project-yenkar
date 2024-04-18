@@ -1,17 +1,11 @@
 "use client";
-import ExploreCard from "@/components/ExploreCard";
 import NavBar from "@/components/NavBar";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { useSession } from "next-auth/react";
-import getSingleCarProvider from "@/libs/getSingleCarProvider";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import CarProviderCard from "@/components/CarProviderCard";
-import getCarForOneProvider from "@/libs/getCarForOneProvider";
-// import AvaliableCarCard from "@/components/AvaliableCarCard";
 import Image from "next/image";
-import getSingleCar from "@/libs/getSingleCar";
 
 // form////
 import { z } from "zod";
@@ -28,7 +22,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { set } from "date-fns";
 import addCar from "@/libs/addCar";
 import {
   CldImage,
@@ -41,10 +34,6 @@ const page = ({ params }: { params: { cid: string } }) => {
   const router = useRouter();
   const [isAdding, setIsAdding] = useState(false);
   const { data: session } = useSession();
-  const [isSticky, setIsSticky] = useState(false);
-  const [carItem, setCarItem] = useState<CarItem | null>(null);
-  const [userProfile, setUserProfile] = useState();
-  const [carArray, setCarArray] = useState([]);
   const { toast } = useToast();
   const [editingImageData, setEditingImageData] = useState<string | undefined>(
     undefined
@@ -85,9 +74,9 @@ const page = ({ params }: { params: { cid: string } }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      model: carItem?.model,
-      brand: carItem?.brand,
-      price: carItem?.price?.toString(), // Convert the price value to a string
+      model: "",
+      brand: "",
+      price: "",
     },
   });
 

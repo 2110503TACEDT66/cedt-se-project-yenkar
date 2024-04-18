@@ -1,47 +1,32 @@
 "use client";
 import NavBar from "@/components/NavBar";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import getSingleCarProvider from "@/libs/getSingleCarProvider";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
 import CarProviderCard from "@/components/CarProviderCard";
 import getCarForOneProvider from "@/libs/getCarForOneProvider";
 import Image from "next/image";
 const page = ({ params }: { params: { pid: string } }) => {
   const router = useRouter();
   const { data: session } = useSession();
-  const [isSticky, setIsSticky] = useState(false);
   const [providerData, setproviderData] = useState<CarProvider>();
-  const [userProfile, setUserProfile] = useState();
   const [carArray, setCarArray] = useState([]);
-  const { toast } = useToast();
   useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 100) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
+    const fetchData = () => {
+      const providerJson = getSingleCarProvider(params.pid).then((res) => {
+        setproviderData(res.data);
+      });
     };
-
-    const fetchData = async () => {
-      const providerJson = await getSingleCarProvider(params.pid);
-      setproviderData(providerJson.data);
-    };
-    const fetchCarForProvider = async () => {
-      const cars = await getCarForOneProvider(params.pid);
-      setCarArray(cars.data);
+    const fetchCarForProvider = () => {
+      const cars = getCarForOneProvider(params.pid).then((res) => {
+        setCarArray(res.data);
+      });
     };
     fetchData();
     fetchCarForProvider();
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [providerData]);
+  }, []);
 
   if (!session || !session.user.token) {
     router.push("/sign-in");

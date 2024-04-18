@@ -1,6 +1,6 @@
 "use client";
 import NavBar from "@/components/NavBar";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import getSingleCarProvider from "@/libs/getSingleCarProvider";
@@ -22,7 +22,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -53,28 +52,16 @@ const page = ({ params }: { params: { id: string } }) => {
       }
     );
   };
+  const fetchCarForProvider = () => {
+    const cars = getCarForOneProvider(session?.user?._id!).then((res) => {
+      setCarArray(res.data);
+      setisLoading(false);
+    });
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 100) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
-
-    const fetchCarForProvider = async () => {
-      const cars = await getCarForOneProvider(session?.user?._id!);
-      setCarArray(cars.data);
-      setisLoading(false);
-    };
     fetchData();
     fetchCarForProvider();
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
   }, []);
 
   if (!session || !session.user.token) {

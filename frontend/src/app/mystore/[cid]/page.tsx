@@ -2,16 +2,10 @@
 import ExploreCard from "@/components/ExploreCard";
 import NavBar from "@/components/NavBar";
 import React, { useEffect, useState } from "react";
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
 
 import { useSession } from "next-auth/react";
-import getSingleCarProvider from "@/libs/getSingleCarProvider";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import CarProviderCard from "@/components/CarProviderCard";
-import getCarForOneProvider from "@/libs/getCarForOneProvider";
-// import AvaliableCarCard from "@/components/AvaliableCarCard";
 import Image from "next/image";
 import getSingleCar from "@/libs/getSingleCar";
 
@@ -23,14 +17,12 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { set } from "date-fns";
 import editCar from "@/libs/editCar";
 import {
   Dialog,
@@ -42,27 +34,20 @@ import {
   DialogFooter,
   DialogHeader,
 } from "@/components/ui/dialog";
-import { Label } from "@radix-ui/react-label";
-import { Copy } from "lucide-react";
 import deleteCar from "@/libs/deleteCar";
 import {
   CldImage,
   CldUploadWidget,
   CloudinaryUploadWidgetInfo,
 } from "next-cloudinary";
-import { ca, sr } from "date-fns/locale";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const { data: session } = useSession();
-  const [isSticky, setIsSticky] = useState(false);
   const [carItem, setCarItem] = useState<CarItem | null>(null);
-  const [userProfile, setUserProfile] = useState();
-  const [carArray, setCarArray] = useState([]);
   const { toast } = useToast();
-  const [isDeleting, setIsDeleting] = useState(false);
   const [editingImageData, setEditingImageData] = useState<string | undefined>(
     undefined
   );

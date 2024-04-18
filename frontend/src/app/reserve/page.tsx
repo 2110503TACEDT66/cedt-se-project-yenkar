@@ -1,7 +1,6 @@
 "use client";
 import ExploreCard from "@/components/ExploreCard";
 import NavBar from "@/components/NavBar";
-import { Input } from "@/components/ui/input";
 import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -10,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,8 +24,6 @@ import { cn } from "@/libs/utils";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { useSession } from "next-auth/react";
-import getAllCarProviders from "@/libs/getAllCarProviders";
-import getSingleCarProvider from "@/libs/getSingleCarProvider";
 import { useRouter, useSearchParams } from "next/navigation";
 import createReservation from "@/libs/createReservation";
 import { useToast } from "@/components/ui/use-toast";
@@ -48,27 +44,15 @@ const page = () => {
   const [userProfile, setUserProfile] = useState();
   const { toast } = useToast();
   useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 100) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
-
-    const fetchData = async () => {
+    const fetchData = () => {
       if (cid) {
-        const carJson = await getSingleCar(cid);
-        setCarData(carJson.data);
+        const carJson = getSingleCar(cid).then((res) => {
+          setCarData(res.data);
+        });
       }
     };
     fetchData();
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [carData]);
+  }, []);
 
   if (!session || !session.user.token) {
     router.push("/sign-in");

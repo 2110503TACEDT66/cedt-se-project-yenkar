@@ -2,13 +2,10 @@
 import ExplorePanel from "@/components/ExplorePanel";
 import NavBar from "@/components/NavBar";
 import { Input } from "@/components/ui/input";
-import { authOptions } from "@/libs/auth";
 import getAllCarProviders from "@/libs/getAllCarProviders";
 import getAllCars from "@/libs/getAllCars";
-import { getServerSession } from "next-auth";
 import React, { useState } from "react";
 import Image from "next/image";
-import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import ProviderPanel from "@/components/ProviderPanel";
 const page = () => {

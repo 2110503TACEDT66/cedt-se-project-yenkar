@@ -1,40 +1,13 @@
 "use client";
 
-import ExploreCard from "@/components/ExploreCard";
 import NavBar from "@/components/NavBar";
-import { Input } from "@/components/ui/input";
 import React, { useEffect, useReducer, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { any, z } from "zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { format } from "date-fns";
-import { cn } from "@/libs/utils";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
 import Image from "next/image";
 import ManageCard from "@/components/ManageCard";
 import { useSession } from "next-auth/react";
 import getUserReservation from "@/libs/getUserReservation";
-import getSingleCarProvider from "@/libs/getSingleCarProvider";
-import getAllCarProviders from "@/libs/getAllCarProviders";
 import deleteReservation from "@/libs/deleteReservation";
 import { useRouter } from "next/navigation";
-import { ro } from "date-fns/locale";
 import { useToast } from "@/components/ui/use-toast";
 
 interface ReservationItem {
