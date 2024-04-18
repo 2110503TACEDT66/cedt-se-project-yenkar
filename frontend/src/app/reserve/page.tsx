@@ -39,9 +39,9 @@ const page = () => {
   console.log(session);
   console.log(session?.user.token);
   console.log(session?.user._id);
-  const [isSticky, setIsSticky] = useState(false);
   const [carData, setCarData] = useState<CarItem>();
-  const [userProfile, setUserProfile] = useState();
+  const [isSticky, setIsSticky] = useState(false);
+
   const { toast } = useToast();
   useEffect(() => {
     const fetchData = () => {
@@ -52,6 +52,20 @@ const page = () => {
       }
     };
     fetchData();
+
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      if (offset > 100) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   if (!session || !session.user.token) {
@@ -134,6 +148,12 @@ const page = () => {
               <h1 className="text-2xl font-kiona text-white">Brand</h1>
               <h1 className="text-4xl font-poppins text-white">
                 {carData?.brand ?? ""}
+              </h1>
+            </div>
+            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
+              <h1 className="text-2xl font-kiona text-white">Provider</h1>
+              <h1 className="text-4xl font-poppins text-white">
+                {carData?.carProvider.name ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
