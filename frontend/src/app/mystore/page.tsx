@@ -112,13 +112,13 @@ const page = ({ params }: { params: { id: string } }) => {
                               height={100}
                               className="w-full h-[70%] rounded-t-2xl object-cover"
                             />
-                            <div className="mt-5 ml-5 text-xl font-bold">
+                            <div className="mt-5 ml-5 text-xl font-bold text-black">
                               {carItem.model}
                             </div>
-                            <div className="mt-2 ml-5 text-m">
+                            <div className="mt-2 ml-5 text-m text-black">
                               {carItem.brand}
                             </div>
-                            <div className="mt-2 ml-5">{`฿ ${carItem.price}`}</div>
+                            <div className="mt-2 ml-5 text-black">{`฿ ${carItem.price}`}</div>
                           </div>
                         </Link>
                       ))
