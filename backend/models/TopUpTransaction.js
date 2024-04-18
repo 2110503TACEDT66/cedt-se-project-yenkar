@@ -20,7 +20,7 @@ const TopUpTransactionSchema = new mongoose.Schema({
   credits: {
     type: Number,
   },
-  buyer: {
+  buyerId: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
   },

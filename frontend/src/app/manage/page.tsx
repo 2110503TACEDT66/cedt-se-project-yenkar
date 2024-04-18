@@ -46,10 +46,8 @@ interface ReservationItem {
   createAt: string;
   returned: boolean;
   __v: number;
-  car:CarItem;
+  car: CarItem;
 }
-
-
 
 interface User {
   _id: string;
@@ -131,7 +129,7 @@ const page = () => {
               {`${userReservationState.length}/3`}
             </h1>
           </div>
-          {userReservationState.map((item) => (
+          {userReservationState?.map((item) => (
             <ManageCard
               src={item.car.src ?? "/img/place_holder.jpg"}
               id={item._id}
@@ -164,12 +162,12 @@ const page = () => {
                         brand: "",
                         model: "",
                         price: 0,
-                        carProvider:{
-                            _id: "",
-                            name: "",
-                            address: "",
-                            telephone: "",
-                        }
+                        carProvider: {
+                          _id: "",
+                          name: "",
+                          address: "",
+                          telephone: "",
+                        },
                       },
                       createAt: "",
                       returned: false,
