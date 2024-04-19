@@ -8,10 +8,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import ProviderPanel from "@/components/ProviderPanel";
+import getAvailableCars from "@/libs/getAvailableCars";
 const page = () => {
   //const carProviders = getAllCarProviders();
   const carJson = getAllCars();
-  const providerJson = getAllCarProviders();
+  const providerJson = getAvailableCars();
   const { data: session } = useSession();
   const [showCar, setShowCar] = useState(false);
   return (
