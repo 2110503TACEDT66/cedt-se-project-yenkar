@@ -1,6 +1,6 @@
 const getDistanceMatrix = require("../api/DistanceMatrixAPI");
 const CarProvider = require("../models/CarProvider");
-const Car = require('../models/Car');
+const Car = require("../models/Car");
 
 // @desc    Get all car providers
 // @route   GET /api/v1/carproviders
@@ -20,7 +20,7 @@ exports.getCarProviders = async (req, res, next) => {
     (match) => `$${match}`
   );
 
-  query = CarProvider.find(JSON.parse(queryStr)).populate(["renting","cars"]);
+  query = CarProvider.find(JSON.parse(queryStr)).populate(["renting", "cars"]);
 
   if (req.query.select) {
     const fields = req.query.select.split(",").join(" ");
@@ -92,16 +92,18 @@ exports.getCarProvider = async (req, res, next) => {
 // @route   POST /api/v1/carproviders
 // @access  Private
 exports.createCarProvider = async (req, res, next) => {
-  try {               // Added email password to create car Provider //
+  try {
+    // Added email password to create car Provider //
     const { email, password, name, address, telephone, price } = req.body;
 
-    const carProvider = await CarProvider.create({ // Added email password to create car Provider
+    const carProvider = await CarProvider.create({
+      // Added email password to create car Provider
       email,
       password,
       name,
       address,
       telephone,
-      src
+      src,
     });
 
     res.status(201).json({
@@ -208,7 +210,7 @@ exports.getNearByCarProviders = async (req, res, next) => {
 //@route    GET /api/v1/carproviders/:id/cars
 //@access   Public
 exports.getCarsForCarProvider = async (req, res, next) => {
-  let query
+  let query;
   try {
     const carProvider = await CarProvider.findById(req.params.id).populate({
       path: "cars",
@@ -224,8 +226,31 @@ exports.getCarsForCarProvider = async (req, res, next) => {
     res.status(200).json({ success: true, data: carProvider.cars });
   } catch (err) {
     console.log(err);
-    return res
-      .status(500)
-      .json({ success: false, message: "Cannot find car" });
+    return res.status(500).json({ success: false, message: "Cannot find car" });
+  }
+};
+
+//@desc     get all CarpProviders that have at least one car available
+//@route    GET /api/v1/carproviders/available
+//@access   Public
+exports.getCarProvidersWithAvailableCars = async (req, res, next) => {
+  try {
+    console.log("From : getCarProvidersWithAvailableCars");
+    console.log("Status : trying to get car providers with available cars");
+    const carProviders = await CarProvider.find().populate({
+      path: "cars",
+      select: "brand model price src", //  Added price field to populate
+    });
+
+    const carProvidersWithAvailableCars = carProviders.filter(
+      (carProvider) => carProvider.cars.length > 0
+    );
+
+    res
+      .status(200)
+      .json({ success: true, data: carProvidersWithAvailableCars });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ success: false, message: "Cannot find car" });
   }
 };
