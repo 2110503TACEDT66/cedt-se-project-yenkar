@@ -40,6 +40,7 @@ import {
   CldUploadWidget,
   CloudinaryUploadWidgetInfo,
 } from "next-cloudinary";
+import getCarForOneProvider from "@/libs/getCarForOneProvider";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -56,9 +57,27 @@ const page = ({ params }: { params: { cid: string } }) => {
       setCarItem(res.data);
     });
   };
+
+  const getNumberOfCars = (): number => {
+    const numberOfCars = getCarForOneProvider(session?.user?._id!).then(
+      (res) => {
+        return res.data.length;
+      }
+    );
+    return 0;
+  };
   useEffect(() => {
     fetchData();
+    getNumberOfCars();
   }, []);
+
+  const isTheLastCar = () => {
+    if (getNumberOfCars() === 1) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   if (!session || !session.user.token) {
     router.push("/sign-in");
@@ -340,8 +359,12 @@ const page = ({ params }: { params: { cid: string } }) => {
                         ARE YOU ABSOLUTELY SURE?
                       </DialogTitle>
                       <DialogDescription>
-                        This action cannot be undone. This will permanently
-                        delete your car form our servers.
+                        {/* This action cannot be undone. This will permanently
+                        delete your car form our servers. */}
+
+                        {isTheLastCar()
+                          ? "This is your last car,If you proceed your profile will not show in the store"
+                          : "This action cannot be undone. This will permanently delete your car form our servers. "}
                       </DialogDescription>
                     </DialogHeader>
                     <DialogFooter className="justify-end">
