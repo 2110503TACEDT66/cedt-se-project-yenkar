@@ -77,6 +77,7 @@ const auth = require("./routes/auth");
 const topUp = require("./routes/topUp");
 const cars = require("./routes/cars");
 const topUpTransactions = require("./routes/topUpTransactions");
+const paymentTransactions = require("./routes/paymentTransactions");
 ///////////////////////////////////////////////////////////////
 // Use routes
 ///////////////////////////////////////////////////////////////
@@ -87,6 +88,7 @@ app.use("/api/v1/auth", auth);
 app.use("/api/v1/topUp", topUp);
 app.use("/api/v1/cars", cars);
 app.use("/api/v1/topuptransactions", topUpTransactions);
+app.use("/api/v1/paymenttransactions",paymentTransactions);
 ///////////////////////////////////////////////////////////////
 // Set up server
 ///////////////////////////////////////////////////////////////
