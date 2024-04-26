@@ -19,6 +19,14 @@ import { useRouter } from "next/navigation";
 import createUser from "@/libs/createUser";
 import { signIn } from "next-auth/react";
 import providerRegister from "@/libs/providerRegister";
+import { Textarea } from "@/components/ui/textarea";
+
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 
 const page = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -143,7 +151,6 @@ const page = () => {
               </h1>
             </div>
           </div>
-          <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
           <div className=" w-[45%] h-[100%] flex flex-col relative justify-center">
             <div className=" w-fit h-fit absolute left-16 flex flex-col space-y-3">
@@ -152,7 +159,7 @@ const page = () => {
                   onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-4 grid grid-cols-2 gap-4 items-center"
                 >
-                  <div className="col-span-2">
+                  <div className="col-span-1">
                     <div className="text-white font-kiona text-lg">
                       I am a...
                     </div>
@@ -245,11 +252,30 @@ const page = () => {
                           Phone
                         </FormLabel>
                         <FormControl>
-                          <Input
-                            className="bg-[#222529] text-white"
-                            placeholder="Phone Number"
+                          <InputOTP
+                            maxLength={10}
+                            className="text-white"
                             {...field}
-                          />
+                          >
+                            <InputOTPGroup className="text-white">
+                              <InputOTPSlot index={0} />
+                              <InputOTPSlot index={1} />
+                              <InputOTPSlot index={2} />
+                            </InputOTPGroup>
+                            <InputOTPSeparator className=" text-white" />
+                            <InputOTPGroup className="text-white">
+                              <InputOTPSlot index={3} />
+                              <InputOTPSlot index={4} />
+                              <InputOTPSlot index={5} />
+                            </InputOTPGroup>
+                            <InputOTPSeparator className="text-white" />
+                            <InputOTPGroup className="text-white">
+                              <InputOTPSlot index={6} />
+                              <InputOTPSlot index={7} />
+                              <InputOTPSlot index={8} />
+                              <InputOTPSlot index={9} />
+                            </InputOTPGroup>
+                          </InputOTP>
                         </FormControl>
                         <FormMessage className="text-rose-600" />
                       </FormItem>
@@ -262,12 +288,12 @@ const page = () => {
                     render={({ field }) => (
                       <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
-                          location
+                          Address
                         </FormLabel>
                         <FormControl>
-                          <Input
-                            className="bg-[#222529] text-white"
-                            placeholder="Location"
+                          <Textarea
+                            className="bg-[#222529] text-white w-[220%] h-30 border-none"
+                            placeholder="Address"
                             {...field}
                           />
                         </FormControl>
