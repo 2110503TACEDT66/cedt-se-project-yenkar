@@ -183,6 +183,7 @@ exports.addRenting = async (req, res, next) => {
     console.log(car[0].price)
     console.log(isBalanceEnough);
 
+    //if user is adding renting to other user
     if (req.body.user != req.user.id && req.user.role !== "admin") {
       console.log(req.body.user);
       console.log(req.user.id);
@@ -201,8 +202,8 @@ exports.addRenting = async (req, res, next) => {
     // const newBalance = user.setBalance(user.balance - carProvider.price);
     if (req.user.role != "admin") {
       await user.updateOne({ $inc: { balance: -(car[0].price) } });
-    }
-   
+      await carProvider.updateOne({ $inc: { balance: (car[0].price) } });
+    }   
     
     /***************************************************************** */
 
