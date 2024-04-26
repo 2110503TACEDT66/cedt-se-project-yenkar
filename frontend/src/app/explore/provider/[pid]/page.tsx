@@ -55,8 +55,8 @@ const page = ({ params }: { params: { pid: string } }) => {
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
           <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
-            <div className="pt-5">
-              <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
+            <div className="pt-5 pl-5">
+              <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5 pb-10">
                 <h1 className="text-4xl font-kiona text-white">
                   Store Information
                 </h1>
@@ -93,7 +93,9 @@ const page = ({ params }: { params: { pid: string } }) => {
                   </div> */}
                 </div>
               </div>
-              <div className="w-[95%] h-[1px] flex flex-col  mt-10 bg-white"></div>
+              <div className="w-full h-[1px] flex flex-col items-center my-5">
+                <div className="bg-white w-[95%] h-full"></div>
+              </div>
             </div>
 
             <div className="flex flex-col w-full h-fit p-6 justify-center">

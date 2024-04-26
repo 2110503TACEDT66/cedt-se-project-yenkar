@@ -147,7 +147,7 @@ const page = ({ params }: { params: { cid: string } }) => {
       <NavBar stickyState={false} session={session} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
-          <div className=" w-[25%] h-[100%] flex flex-col relative justify-center items-center">
+          <div className=" w-[30%] h-[100%] flex flex-col relative justify-center items-center">
             <div className=" w-full h-[80%]  flex flex-col relative">
               {/* <CarProviderCard
                 name={providerData?.name!}
@@ -219,28 +219,40 @@ const page = ({ params }: { params: { cid: string } }) => {
               )}
             </div>
           </div>
-          <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
           <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
             {!isEditing ? (
-              <div>
-                <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-                  <h1 className="text-2xl font-kiona text-white">model</h1>
-                  <h1 className="text-5xl font-poppins text-white">
-                    {carItem?.model ?? ""}
+              <div className="pt-5 pl-5">
+                <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
+                  <h1 className="text-4xl font-kiona text-white">
+                    Car Information
                   </h1>
-                </div>
-                <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-                  <h1 className="text-2xl font-kiona text-white">brand</h1>
-                  <h1 className="text-4xl font-poppins text-white">
-                    {carItem?.brand ?? ""}
-                  </h1>
-                </div>
-                <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-                  <h1 className="text-2xl font-kiona text-white">price</h1>
-                  <h1 className="text-4xl font-poppins text-white">
-                    {carItem?.price ?? ""}
-                  </h1>
+                  <div className="flex flex-row gap-1 items-baseline pt-3">
+                    <h1 className="text-xl font-kiona text-white">model |</h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carItem?.model ?? ""}
+                    </h1>
+                  </div>
+                  <div className="pt-3 grid grid-cols-3 ">
+                    <div className="flex flex-row gap-1 items-baseline">
+                      <h1 className="text-xl font-kiona text-white">Brand |</h1>
+                      <h1 className="text-xl font-poppins  font-bold text-white">
+                        {carItem?.brand ?? ""}
+                      </h1>
+                    </div>{" "}
+                    <div className="flex flex-row gap-1 items-baseline">
+                      <h1 className="text-xl font-kiona text-white">price |</h1>
+                      <h1 className="text-xl font-poppins  font-bold text-white">
+                        {carItem?.price + " $" ?? ""}
+                      </h1>
+                    </div>{" "}
+                    {/* <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-poppins text-white">
+                      {carData?.price ?? ""}
+                    </h1>
+                  </div> */}
+                  </div>
                 </div>
               </div>
             ) : (

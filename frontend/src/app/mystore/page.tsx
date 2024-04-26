@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import updataCarProvider from "@/libs/updateCarProvider";
+import ProviderCard from "@/components/ProviderCard";
 
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -129,7 +130,7 @@ const page = ({ params }: { params: { id: string } }) => {
       <NavBar stickyState={false} session={session} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
-          <div className=" w-[25%] h-[100%] flex flex-col relative justify-center items-center">
+          <div className=" w-[30%] h-[100%] flex flex-col relative justify-center items-center">
             <div className=" w-full h-[80%]  flex flex-col relative">
               {/* <CarProviderCard
                 name={providerData?.name!}
@@ -189,11 +190,12 @@ const page = ({ params }: { params: { id: string } }) => {
                   </CldUploadWidget>
                 </div>
               ) : (
-                <CarProviderCard
+                <ProviderCard
+                  _id={providerData?._id!}
                   name={providerData?.name!}
                   address={providerData?.address!}
                   telephone={providerData?.telephone!}
-                  src={providerData?.src!}
+                  src={providerData?.src ?? "YenKar/ivrxoeccbri8gxjb4pnx"}
                 />
               )}
             </div>
@@ -295,26 +297,45 @@ const page = ({ params }: { params: { id: string } }) => {
                 </form>
               </Form>
             ) : (
-              <div>
-                <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-                  <h1 className="text-2xl font-kiona text-white">
-                    Provider Name
+              <div className="pt-5 pl-5">
+                <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
+                  <h1 className="text-4xl font-kiona text-white">
+                    Store Information
                   </h1>
-                  <h1 className="text-5xl font-poppins text-white">
-                    {providerData?.name ?? ""}
-                  </h1>
-                </div>
-                <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-                  <h1 className="text-2xl font-kiona text-white">Location</h1>
-                  <h1 className="text-4xl font-poppins text-white">
-                    {providerData?.address ?? ""}
-                  </h1>
-                </div>
-                <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-                  <h1 className="text-2xl font-kiona text-white">Phone</h1>
-                  <h1 className="text-4xl font-poppins text-white">
-                    {providerData?.telephone ?? ""}
-                  </h1>
+                  <div className="flex flex-row gap-1 items-baseline pt-3">
+                    <h1 className="text-xl font-kiona text-white">name |</h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {providerData?.name ?? ""}
+                    </h1>
+                  </div>
+                  <div className="pt-3 grid grid-cols-3 ">
+                    <div className="flex flex-row gap-1 items-baseline">
+                      <h1 className="text-xl font-kiona text-white">
+                        address |
+                      </h1>
+                      <h1 className="text-xl font-poppins  font-bold text-white">
+                        {providerData?.address ?? ""}
+                      </h1>
+                    </div>{" "}
+                    <div className="flex flex-row gap-1 items-baseline">
+                      <h1 className="text-xl font-kiona text-white">
+                        telephone |
+                      </h1>
+                      <h1 className="text-xl font-poppins  font-bold text-white">
+                        {providerData?.telephone.slice(0, 3) +
+                          "-" +
+                          providerData?.telephone.slice(3, 6) +
+                          "-" +
+                          providerData?.telephone.slice(6, 10) ?? ""}
+                      </h1>
+                    </div>{" "}
+                    {/* <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-poppins text-white">
+                      {carData?.price ?? ""}
+                    </h1>
+                  </div> */}
+                  </div>
                 </div>
               </div>
             )}
@@ -360,40 +381,32 @@ const page = ({ params }: { params: { id: string } }) => {
                     ? carArray.map((carItem: CarItem) => (
                         //  <AvaliableCarCard _id={carItem._id} src={carItem.src} model={carItem.model} brand={carItem.brand} price={carItem.price} carProvider={carItem.carProvider}/>
                         <Link href={`/mystore/${carItem._id}`}>
-                          <div className="w-[22vw] h-[50vh] bg-white rounded-2xl mb-14">
-                            <div className="w-full h-[75%] relative">
-                              <CldImage
-                                alt="image"
-                                src={
-                                  carItem.src ?? "YenKar/ivrxoeccbri8gxjb4pnx"
-                                }
-                                fill={true}
-                                className="w-full h-full rounded-t-xl object-cover"
-                              />
-                            </div>
-                            <div className="mt-5 ml-5 text-xl font-bold text-black">
-                              {carItem.model}
-                            </div>
-                            <div className="mt-2 ml-5 text-m text-black">
-                              {carItem.brand}
-                            </div>
-                            <div className="mt-2 ml-5 text-black">{`฿ ${carItem.price}`}</div>
+                          <div className="w-[90%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow ">
+                            <CarProviderCard
+                              _id={carItem._id}
+                              src={carItem.src}
+                              model={carItem.model}
+                              brand={carItem.brand}
+                              price={carItem.price}
+                              carProvider={carItem.carProvider}
+                            />
                           </div>
                         </Link>
                       ))
                     : ""}
-                  <div className="w-[22vw] h-[50vh] rounded-2xl border-white border">
-                    <Link href="/add">
-                      <div className="flex justify-center mt-[56%]">
-                        <Image
-                          src="/img/plus_sign.svg"
-                          alt="plus"
-                          width={50}
-                          height={50}
-                        />
-                      </div>
-                    </Link>
-                  </div>
+                  <Link href="/add">
+                    <div className="w-[90%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow rounded-2xl border-white border flex flex-col items-center justify-center">
+                      <Image
+                        src="/img/plus_sign.svg"
+                        alt="plus"
+                        width={50}
+                        height={50}
+                      />
+                      <h1 className="p-6 text-white font-kiona text-lg font-medium">
+                        Add more car
+                      </h1>
+                    </div>
+                  </Link>
                 </div>
               )}
             </div>
