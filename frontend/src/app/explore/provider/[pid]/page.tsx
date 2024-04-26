@@ -9,6 +9,8 @@ import CarProviderCard from "@/components/CarProviderCard";
 import getCarForOneProvider from "@/libs/getCarForOneProvider";
 import Image from "next/image";
 import { CldImage } from "next-cloudinary";
+import ProviderCard from "@/components/ProviderCard";
+import ExploreCard from "@/components/ExploreCard";
 const page = ({ params }: { params: { pid: string } }) => {
   const router = useRouter();
   const { data: session } = useSession();
@@ -41,7 +43,8 @@ const page = ({ params }: { params: { pid: string } }) => {
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
           <div className=" w-[30%] h-[100%] flex flex-col relative justify-center items-center">
             <div className=" w-full h-[80%]  flex flex-col relative">
-              <CarProviderCard
+              <ProviderCard
+                _id={providerData?._id!}
                 name={providerData?.name!}
                 address={providerData?.address!}
                 telephone={providerData?.telephone!}
@@ -52,28 +55,47 @@ const page = ({ params }: { params: { pid: string } }) => {
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
           <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">Provider Name</h1>
-              <h1 className="text-5xl font-poppins text-white">
-                {providerData?.name ?? ""}
-              </h1>
-            </div>
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">Location</h1>
-              <h1 className="text-4xl font-poppins text-white">
-                {providerData?.address ?? ""}
-              </h1>
-            </div>
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">Phone</h1>
-              <h1 className="text-4xl font-poppins text-white">
-                {providerData?.telephone ?? ""}
-              </h1>
+            <div className="pt-5">
+              <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
+                <h1 className="text-4xl font-kiona text-white">
+                  Store Information
+                </h1>
+                <div className="flex flex-row gap-1 items-baseline pt-3">
+                  <h1 className="text-xl font-kiona text-white">name |</h1>
+                  <h1 className="text-xl font-poppins  font-bold text-white">
+                    {providerData?.name ?? ""}
+                  </h1>
+                </div>
+                <div className="pt-3 grid grid-cols-3 ">
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">address |</h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {providerData?.address ?? ""}
+                    </h1>
+                  </div>{" "}
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">
+                      telephone |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {providerData?.telephone.slice(0, 3) +
+                        "-" +
+                        providerData?.telephone.slice(3, 6) +
+                        "-" +
+                        providerData?.telephone.slice(6, 10) ?? ""}
+                    </h1>
+                  </div>{" "}
+                  {/* <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-poppins text-white">
+                      {carData?.price ?? ""}
+                    </h1>
+                  </div> */}
+                </div>
+              </div>
+              <div className="w-[95%] h-[1px] flex flex-col  mt-10 bg-white"></div>
             </div>
 
-            <div className="w-full h-[1px] flex flex-col items-center mt-10">
-              <div className="bg-white w-[95%] h-full"></div>
-            </div>
             <div className="flex flex-col w-full h-fit p-6 justify-center">
               <div className="flex flex-row w-full h-fit justify-end">
                 <h1 className="text-4xl font-kiona text-white">
@@ -88,32 +110,15 @@ const page = ({ params }: { params: { pid: string } }) => {
                       <Link
                         href={`/reserve?pid=${providerData?._id}&cid=${carItem._id}`}
                       >
-                        <div className="w-[22vw] h-[50vh] bg-white rounded-2xl mb-14">
-                          {/* <Image
-                            src={carItem?.src!}
-                            alt="carpic"
-                            width={300}
-                            height={100}
-                            className="w-full h-[70%] rounded-t-2xl"
-                          /> */}
-
-                          <div className="w-full h-[70%] relative">
-                            <CldImage
-                              alt="image"
-                              src={
-                                carItem?.src ?? "YenKar/ivrxoeccbri8gxjb4pnx"
-                              }
-                              fill={true}
-                              className="w-full h-[70%] rounded-t-2xl object-cover"
-                            />
-                          </div>
-                          <div className="mt-5 ml-5 text-xl font-bold">
-                            {carItem.model}
-                          </div>
-                          <div className="mt-2 ml-5 text-m">
-                            {carItem.brand}
-                          </div>
-                          <div className="mt-2 ml-5">{`฿${carItem.price}`}</div>
+                        <div className="w-[90%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow ">
+                          <CarProviderCard
+                            _id={carItem._id}
+                            src={carItem.src}
+                            model={carItem.model}
+                            brand={carItem.brand}
+                            price={carItem.price}
+                            carProvider={carItem.carProvider}
+                          />
                         </div>
                       </Link>
                     ))
