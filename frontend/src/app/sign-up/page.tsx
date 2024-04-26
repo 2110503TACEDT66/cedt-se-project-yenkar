@@ -19,6 +19,14 @@ import { useRouter } from "next/navigation";
 import createUser from "@/libs/createUser";
 import { signIn } from "next-auth/react";
 import providerRegister from "@/libs/providerRegister";
+import { Textarea } from "@/components/ui/textarea";
+
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 
 const page = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -124,8 +132,8 @@ const page = () => {
     <main>
       <NavBar stickyState={isSticky} />;
       <div className="flex flex-col items-center">
-        <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-around items-center">
-          <div className=" w-[45%] h-[100%] flex flex-col relative justify-center">
+        <div className="bg-[#17191C] rounded-xl w-[90vw] h-fit flex flex-row justify-around items-center mb-10">
+          <div className=" w-[45vw] h-[90vh] flex flex-col relative justify-center">
             <div className=" w-fit h-fit absolute left-16 flex flex-col space-y-3">
               <h1 className="text-6xl z-40 text-white font-poppins ">
                 Sign-up
@@ -143,61 +151,64 @@ const page = () => {
               </h1>
             </div>
           </div>
-          <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
           <div className=" w-[45%] h-[100%] flex flex-col relative justify-center">
             <div className=" w-fit h-fit absolute left-16 flex flex-col space-y-3">
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-4"
+                  className="space-y-4 grid grid-cols-2 gap-4 items-center"
                 >
-                  <div className="text-white font-kiona text-lg">I am a...</div>
-                  <div className="w-[150%]">
-                    <button
-                      onClick={() => setRoles(false)}
-                      type="button"
-                      className={
-                        roles
-                          ? "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#222529]"
-                          : "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"
-                      }
-                    >
-                      <div
+                  <div className="col-span-1">
+                    <div className="text-white font-kiona text-lg">
+                      I am a...
+                    </div>
+                    <div className="w-[150%]">
+                      <button
+                        onClick={() => setRoles(false)}
+                        type="button"
                         className={
                           roles
-                            ? "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"
-                            : "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"
+                            ? "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#222529]"
+                            : "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"
                         }
                       >
-                        User
-                      </div>
-                    </button>
-                    <button
-                      onClick={() => setRoles(true)}
-                      type="button"
-                      className={
-                        roles
-                          ? "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"
-                          : "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#222529]"
-                      }
-                    >
-                      <div
+                        <div
+                          className={
+                            roles
+                              ? "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"
+                              : "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"
+                          }
+                        >
+                          User
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => setRoles(true)}
+                        type="button"
                         className={
                           roles
-                            ? "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"
-                            : "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"
+                            ? "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"
+                            : "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#222529]"
                         }
                       >
-                        Provider
-                      </div>
-                    </button>
+                        <div
+                          className={
+                            roles
+                              ? "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"
+                              : "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"
+                          }
+                        >
+                          Provider
+                        </div>
+                      </button>
+                    </div>
                   </div>
                   <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
                           Name
                         </FormLabel>
@@ -216,7 +227,7 @@ const page = () => {
                     control={form.control}
                     name="email"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
                           Email
                         </FormLabel>
@@ -236,16 +247,35 @@ const page = () => {
                     control={form.control}
                     name="phone"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
                           Phone
                         </FormLabel>
                         <FormControl>
-                          <Input
-                            className="bg-[#222529] text-white"
-                            placeholder="Phone Number"
+                          <InputOTP
+                            maxLength={10}
+                            className="text-white"
                             {...field}
-                          />
+                          >
+                            <InputOTPGroup className="text-white">
+                              <InputOTPSlot index={0} />
+                              <InputOTPSlot index={1} />
+                              <InputOTPSlot index={2} />
+                            </InputOTPGroup>
+                            <InputOTPSeparator className=" text-white" />
+                            <InputOTPGroup className="text-white">
+                              <InputOTPSlot index={3} />
+                              <InputOTPSlot index={4} />
+                              <InputOTPSlot index={5} />
+                            </InputOTPGroup>
+                            <InputOTPSeparator className="text-white" />
+                            <InputOTPGroup className="text-white">
+                              <InputOTPSlot index={6} />
+                              <InputOTPSlot index={7} />
+                              <InputOTPSlot index={8} />
+                              <InputOTPSlot index={9} />
+                            </InputOTPGroup>
+                          </InputOTP>
                         </FormControl>
                         <FormMessage className="text-rose-600" />
                       </FormItem>
@@ -256,14 +286,14 @@ const page = () => {
                     control={form.control}
                     name="location"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
-                          location
+                          Address
                         </FormLabel>
                         <FormControl>
-                          <Input
-                            className="bg-[#222529] text-white"
-                            placeholder="Location"
+                          <Textarea
+                            className="bg-[#222529] text-white w-[220%] h-30 border-none"
+                            placeholder="Address"
                             {...field}
                           />
                         </FormControl>
@@ -276,12 +306,13 @@ const page = () => {
                     control={form.control}
                     name="password"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
                           Password
                         </FormLabel>
                         <FormControl>
                           <Input
+                            type="password"
                             placeholder="Password"
                             className="bg-[#222529] text-white"
                             {...field}

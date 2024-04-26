@@ -28,18 +28,34 @@ const page = () => {
             )}
           </h1>
           <div className="flex flex-row items-center">
-            <div className="text-white text-xl mr-5">Car</div>
+            <div
+              className={
+                showCar
+                  ? "text-zinc-400 text-xl mr-5"
+                  : "text-white text-xl font-bold mr-5"
+              }
+            >
+              Car
+            </div>
             <div onClick={() => setShowCar(!showCar)}>
               <div className="relative w-10 h-10">
                 <Image
-                  className="invert"
+                  className="invert hover:scale-110 transition duration-100 ease-in-out cursor-pointer"
                   src={showCar ? "/img/toggleright.svg" : "/img/toggleleft.svg"}
                   alt="togglepic"
                   fill={true}
                 />
               </div>
             </div>
-            <div className="text-white text-xl ml-5">Car Provider</div>
+            <div
+              className={
+                showCar
+                  ? "text-white text-xl font-bold ml-5"
+                  : "text-zinc-400 text-xl ml-5"
+              }
+            >
+              Car Provider
+            </div>
           </div>
           <Input
             placeholder="Search"
