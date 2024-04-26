@@ -26,7 +26,7 @@ const PaymentTransactionSchema = new mongoose.Schema({
   },
   sellerId: {
     type: mongoose.Schema.ObjectId,
-    ref: "User",
+    ref: "CarProvider",
   },
 });
 

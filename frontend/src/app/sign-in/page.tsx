@@ -109,6 +109,7 @@ const page = () => {
                         </FormLabel>
                         <FormControl>
                           <Input
+                            type="password"
                             placeholder="Password"
                             className="bg-[#222529] text-white"
                             {...field}
