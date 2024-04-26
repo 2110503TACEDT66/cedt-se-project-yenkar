@@ -124,8 +124,8 @@ const page = () => {
     <main>
       <NavBar stickyState={isSticky} />;
       <div className="flex flex-col items-center">
-        <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-around items-center">
-          <div className=" w-[45%] h-[100%] flex flex-col relative justify-center">
+        <div className="bg-[#17191C] rounded-xl w-[90vw] h-fit flex flex-row justify-around items-center mb-10">
+          <div className=" w-[45vw] h-[90vh] flex flex-col relative justify-center">
             <div className=" w-fit h-fit absolute left-16 flex flex-col space-y-3">
               <h1 className="text-6xl z-40 text-white font-poppins ">
                 Sign-up
@@ -150,54 +150,58 @@ const page = () => {
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-4"
+                  className="space-y-4 grid grid-cols-2 gap-4 items-center"
                 >
-                  <div className="text-white font-kiona text-lg">I am a...</div>
-                  <div className="w-[150%]">
-                    <button
-                      onClick={() => setRoles(false)}
-                      type="button"
-                      className={
-                        roles
-                          ? "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#222529]"
-                          : "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"
-                      }
-                    >
-                      <div
+                  <div className="col-span-2">
+                    <div className="text-white font-kiona text-lg">
+                      I am a...
+                    </div>
+                    <div className="w-[150%]">
+                      <button
+                        onClick={() => setRoles(false)}
+                        type="button"
                         className={
                           roles
-                            ? "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"
-                            : "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"
+                            ? "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#222529]"
+                            : "rounded-tl-lg rounded-bl-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"
                         }
                       >
-                        User
-                      </div>
-                    </button>
-                    <button
-                      onClick={() => setRoles(true)}
-                      type="button"
-                      className={
-                        roles
-                          ? "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"
-                          : "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#222529]"
-                      }
-                    >
-                      <div
+                        <div
+                          className={
+                            roles
+                              ? "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"
+                              : "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"
+                          }
+                        >
+                          User
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => setRoles(true)}
+                        type="button"
                         className={
                           roles
-                            ? "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"
-                            : "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"
+                            ? "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#2d3034] border-gray-400 border-2"
+                            : "rounded-tr-lg rounded-br-lg w-[50%] h-12 bg-[#222529]"
                         }
                       >
-                        Provider
-                      </div>
-                    </button>
+                        <div
+                          className={
+                            roles
+                              ? "text-xl bg-gradient-to-r from-[#F05B80] to-[#4158F0] inline-block text-transparent bg-clip-text"
+                              : "text-xl bg-zinc-500 inline-block text-transparent bg-clip-text"
+                          }
+                        >
+                          Provider
+                        </div>
+                      </button>
+                    </div>
                   </div>
                   <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
                           Name
                         </FormLabel>
@@ -216,7 +220,7 @@ const page = () => {
                     control={form.control}
                     name="email"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
                           Email
                         </FormLabel>
@@ -236,7 +240,7 @@ const page = () => {
                     control={form.control}
                     name="phone"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
                           Phone
                         </FormLabel>
@@ -256,7 +260,7 @@ const page = () => {
                     control={form.control}
                     name="location"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
                           location
                         </FormLabel>
@@ -276,12 +280,13 @@ const page = () => {
                     control={form.control}
                     name="password"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="col-span-2 w-fit">
                         <FormLabel className="text-white font-kiona text-lg">
                           Password
                         </FormLabel>
                         <FormControl>
                           <Input
+                            type="password"
                             placeholder="Password"
                             className="bg-[#222529] text-white"
                             {...field}
