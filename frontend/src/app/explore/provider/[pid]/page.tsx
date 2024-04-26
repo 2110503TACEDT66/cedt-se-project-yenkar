@@ -39,7 +39,7 @@ const page = ({ params }: { params: { pid: string } }) => {
       <NavBar stickyState={false} session={session} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
-          <div className=" w-[25%] h-[100%] flex flex-col relative justify-center items-center">
+          <div className=" w-[30%] h-[100%] flex flex-col relative justify-center items-center">
             <div className=" w-full h-[80%]  flex flex-col relative">
               <CarProviderCard
                 name={providerData?.name!}
