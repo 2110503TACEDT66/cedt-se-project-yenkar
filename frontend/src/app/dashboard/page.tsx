@@ -94,11 +94,11 @@ const page = () => {
                       </h1>
                       <div className="grid grid-cols-3 justify-center items-start gap-y-2">
                         <h1 className="text-zinc-400 text-xl">Email </h1>
-                        <Skeleton className="text-white text-xl col-span-2 break-words bg-black w-30 h-8"></Skeleton>
+                        <Skeleton className="text-white text-xl col-span-2 break-words bg-zinc-700 w-30 h-8"></Skeleton>
                         <h1 className="text-zinc-400 text-xl">Address </h1>
-                        <Skeleton className="text-white text-xl col-span-2 break-words bg-black w-30 h-8"></Skeleton>
+                        <Skeleton className="text-white text-xl col-span-2 break-words bg-zinc-700 w-30 h-8"></Skeleton>
                         <h1 className="text-zinc-400 text-xl">Telephone </h1>
-                        <Skeleton className="text-white text-xl col-span-2 bg-black w-30 h-8"></Skeleton>
+                        <Skeleton className="text-white text-xl col-span-2 bg-zinc-700 w-30 h-8"></Skeleton>
                       </div>
                     </div>
                   </div>
@@ -153,9 +153,9 @@ const page = () => {
                   <div className="flex flex-col w-full h-full py-2  gap-3">
                     {isLoadingCar ? (
                       <>
-                        <Skeleton className="w-full h-[33%] rounded-2xl bg-black"></Skeleton>
-                        <Skeleton className="w-full h-[33%] rounded-2xl bg-black"></Skeleton>
-                        <Skeleton className="w-full h-[33%] rounded-2xl bg-black"></Skeleton>
+                        <Skeleton className="w-full h-[33%] rounded-2xl bg-zinc-700"></Skeleton>
+                        <Skeleton className="w-full h-[33%] rounded-2xl bg-zinc-700"></Skeleton>
+                        <Skeleton className="w-full h-[33%] rounded-2xl bg-zinc-700"></Skeleton>
                       </>
                     ) : (
                       reservation?.map((item) => (
@@ -239,7 +239,7 @@ const page = () => {
                   <div className="flex flex-col w-full h-full justify-center pb-8">
                     <div className="flex flex-row gap-3 w-full h-fit justify-start items-center">
                       {isLoadingProfile ? (
-                        <Skeleton className="text-xl text-white font-poppins bg-black w-20 h-10"></Skeleton>
+                        <Skeleton className="text-xl text-white font-poppins bg-zinc-700 w-20 h-10"></Skeleton>
                       ) : (
                         <h1 className="text-xl text-white font-poppins">
                           <span>$ </span> {profile?.data.balance}
@@ -248,7 +248,7 @@ const page = () => {
 
                       <button
                         onClick={() => router.push("/balance")}
-                        className="py-1  px-2 text-white bg-black rounded-lg border-[0.5px] border-white hover:invert hover:scale-[103%] transition-all duration-300 ease-in-out active:scale-100 active:duration-100 font-kiona"
+                        className="py-1  px-2 text-white bg-[#0b0c0c] rounded-lg border-[0.5px] border-white hover:invert hover:scale-[103%] transition-all duration-300 ease-in-out active:scale-100 active:duration-100 font-kiona"
                       >
                         Add more
                       </button>
