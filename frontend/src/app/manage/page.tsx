@@ -9,6 +9,7 @@ import getUserReservation from "@/libs/getUserReservation";
 import deleteReservation from "@/libs/deleteReservation";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ReservationItem {
   _id: string;
@@ -34,6 +35,7 @@ const page = () => {
   const router = useRouter();
   const [isSticky, setIsSticky] = useState(false);
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(true);
 
   if (!session) {
     router.push("/sign-in");
@@ -72,9 +74,11 @@ const page = () => {
         setIsSticky(false);
       }
     };
-    const fetchReservation = async () => {
-      const res = await getUserReservation(session?.user.token);
-      userReservationDispatch({ type: "ADD", payload: res.data });
+    const fetchReservation = () => {
+      const res = getUserReservation(session?.user.token).then((res) => {
+        userReservationDispatch({ type: "ADD", payload: res.data });
+        setIsLoading(false);
+      });
     };
 
     fetchReservation();
@@ -96,40 +100,34 @@ const page = () => {
               {`${userReservationState.length}/3`}
             </h1>
           </div>
-          {userReservationState?.map((item) => (
-            <ManageCard
-              src={item.car.src ?? "/img/place_holder.jpg"}
-              id={item._id}
-              name={item.car.model}
-              rentDate={new Date(item.rentDate)}
-              returnDate={new Date(item.rentTo)}
-              carProviderId={item.carProvider._id}
-              onRemove={(_id: any) => {
-                userReservationDispatch({
-                  type: "REMOVE",
-                  payload: [
-                    {
-                      _id,
-                      rentDate: "",
-                      rentTo: "",
-                      user: {
-                        _id: "",
-                        name: "",
-                        email: "",
-                      },
-                      carProvider: {
-                        _id: "",
-                        name: "",
-                        address: "",
-                        telephone: "",
-                        src: "",
-                      },
-                      car: {
-                        src: "",
-                        _id: "",
-                        brand: "",
-                        model: "",
-                        price: 0,
+          {isLoading ? (
+            <>
+              <Skeleton className="w-[100%] h-[31%] bg-zinc-700" />
+              <Skeleton className="w-[100%] h-[31%] bg-zinc-700" />
+              <Skeleton className="w-[100%] h-[31%] bg-zinc-700" />
+            </>
+          ) : (
+            userReservationState?.map((item) => (
+              <ManageCard
+                src={item.car.src ?? "/img/place_holder.jpg"}
+                id={item._id}
+                name={item.car.model}
+                rentDate={new Date(item.rentDate)}
+                returnDate={new Date(item.rentTo)}
+                carProviderId={item.carProvider._id}
+                onRemove={(_id: any) => {
+                  userReservationDispatch({
+                    type: "REMOVE",
+                    payload: [
+                      {
+                        _id,
+                        rentDate: "",
+                        rentTo: "",
+                        user: {
+                          _id: "",
+                          name: "",
+                          email: "",
+                        },
                         carProvider: {
                           _id: "",
                           name: "",
@@ -137,29 +135,46 @@ const page = () => {
                           telephone: "",
                           src: "",
                         },
+                        car: {
+                          src: "",
+                          _id: "",
+                          brand: "",
+                          model: "",
+                          price: 0,
+                          carProvider: {
+                            _id: "",
+                            name: "",
+                            address: "",
+                            telephone: "",
+                            src: "",
+                          },
+                        },
+                        createAt: "",
+                        returned: false,
+                        __v: 0,
                       },
-                      createAt: "",
-                      returned: false,
-                      __v: 0,
-                    },
-                  ],
-                });
-              }}
-              deleteReservation={(_id: any, token: string) =>
-                deleteReservation(_id, token).then(() =>
-                  toast({
-                    title: "Reservation Deleted",
-                    description: "Your reservation has been deleted",
-                    duration: 3000,
-                  })
-                )
-              }
-              carId={item.car._id}
-              adminView={isAdmin}
-              userName={item.user.name}
-            />
-          ))}
-          {userReservationState.length < 3 ? (
+                    ],
+                  });
+                }}
+                deleteReservation={(_id: any, token: string) =>
+                  deleteReservation(_id, token).then(() =>
+                    toast({
+                      title: "Reservation Deleted",
+                      description: "Your reservation has been deleted",
+                      duration: 3000,
+                    })
+                  )
+                }
+                carId={item.car._id}
+                adminView={isAdmin}
+                userName={item.user.name}
+              />
+            ))
+          )}
+
+          {isLoading ? (
+            ""
+          ) : userReservationState.length < 3 ? (
             <div className="w-full h-[31%] bg-[#3c4047] flex flex-col items-center justify-center">
               <div
                 className="w-fit h-fit flex flex-col items-center hover:scale-105 transition duration-150 ease-in-out active:scale-100 hover:font-bold"
