@@ -15,10 +15,19 @@ exports.getPaymentTransactions = async (req, res, next) => {
   } else {
     query = PaymentTransaction.find({
       buyerId: req.user.id,
-    }).populate({
-      path: "buyerId",
-      select: "name email",
-    });
+    }).populate([
+      {
+        path: "buyerId",
+        select: "name",
+      },
+      {
+        path: "sellerId",
+        select: "name",
+      },
+      {
+        path: "rentingId",
+      },
+    ]);
   }
 
   try {
