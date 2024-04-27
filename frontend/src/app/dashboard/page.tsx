@@ -94,7 +94,11 @@ const page = () => {
                     </h1>
                     <h1 className="text-zinc-400 text-xl">Telephone </h1>
                     <h1 className="text-white text-xl col-span-2 ">
-                      {profile?.data.telephone}
+                      {profile?.data.telephone.slice(0, 3) +
+                        "-" +
+                        profile?.data.telephone.slice(3, 6) +
+                        "-" +
+                        profile?.data.telephone.slice(6, 10)}
                     </h1>
                   </div>
                 </div>
@@ -193,7 +197,10 @@ const page = () => {
                       <h1 className="text-xl text-white font-poppins">
                         <span>$ </span> {profile?.data.balance}
                       </h1>
-                      <button className="py-1  px-2 text-white bg-black rounded-lg border-[0.5px] border-white hover:invert hover:scale-[103%] transition-all duration-300 ease-in-out active:scale-100 active:duration-100">
+                      <button
+                        onClick={() => router.push("/balance")}
+                        className="py-1  px-2 text-white bg-black rounded-lg border-[0.5px] border-white hover:invert hover:scale-[103%] transition-all duration-300 ease-in-out active:scale-100 active:duration-100"
+                      >
                         Add more
                       </button>
                     </div>
