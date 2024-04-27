@@ -13,7 +13,14 @@ const page = async () => {
     redirect("/sign-in");
   }
 
-  const profile = await getMe(session?.user.token);
+  const profile: {
+    data: {
+      email: string;
+      telephone: string;
+      address: string;
+      balance: number;
+    };
+  } = await getMe(session?.user.token);
   console.log(profile);
 
   return (
@@ -41,7 +48,11 @@ const page = async () => {
               <div>
                 <h1 className="font-kiona text-white text-xl py-3">Phone</h1>
                 <h1 className="text-5xl z-40 text-white font-poppins text-wrap ">
-                  {profile?.data.telephone}
+                  {profile?.data.telephone.slice(0, 3) +
+                    "-" +
+                    profile?.data.telephone.slice(3, 6) +
+                    "-" +
+                    profile?.data.telephone.slice(6, 10)}
                 </h1>
               </div>
               <div>
