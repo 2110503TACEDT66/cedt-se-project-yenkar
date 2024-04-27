@@ -57,6 +57,7 @@ const page = ({ params }: { params: { cid: string } }) => {
   const [editedCarName, setEditedCarName] = useState<string | undefined>("");
   const [editedCarBrand, setEditedCarBrand] = useState<string | undefined>("");
   const [editedCarPrice, setEditedCarPrice] = useState<number | undefined>(0);
+  const [numberOfCars, setNumberOfCars] = useState<number>(0);
   const fetchData = () => {
     const carJson = getSingleCar(params.cid).then((res) => {
       setCarItem(res.data);
@@ -68,7 +69,8 @@ const page = ({ params }: { params: { cid: string } }) => {
   const getNumberOfCars = (): number => {
     const numberOfCars = getCarForOneProvider(session?.user?._id!).then(
       (res) => {
-        return res.data.length;
+        console.log(res.data.length);
+        return setNumberOfCars(res.data.length);
       }
     );
     return 0;
@@ -79,11 +81,7 @@ const page = ({ params }: { params: { cid: string } }) => {
   }, []);
 
   const isTheLastCar = () => {
-    if (getNumberOfCars() === 1) {
-      return true;
-    } else {
-      return false;
-    }
+    return numberOfCars === 1;
   };
 
   if (!session || !session.user.token) {
