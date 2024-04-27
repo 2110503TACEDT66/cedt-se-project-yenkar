@@ -23,14 +23,14 @@ const ExplorePanel = ({ carJson }: { carJson: Promise<CarJson> }) => {
     <div className="w-[93%] h-2 flex flex-row flex-wrap drop-shadow-md">
       {isLoading ? (
         <>
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow" />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow" />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow" />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow" />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow" />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow" />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow" />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow" />
         </>
       ) : (
         carData?.data.map((carItem: CarItem) => (

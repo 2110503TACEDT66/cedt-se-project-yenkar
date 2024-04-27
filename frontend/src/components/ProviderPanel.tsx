@@ -27,14 +27,14 @@ const ProviderPanel = ({
     <div className="w-[93%] h-2 flex flex-row flex-wrap">
       {isLoading ? (
         <>
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
-          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-black" />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow " />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow " />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow " />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow " />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow " />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow " />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow " />
+          <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow " />
         </>
       ) : (
         providerData?.data.map((providerItem: CarProvider) => (
