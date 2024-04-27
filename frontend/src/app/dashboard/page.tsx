@@ -109,15 +109,21 @@ const page = () => {
                       {session.user.name}
                     </h1>
                     <div className="grid grid-cols-3 justify-center items-start gap-y-2">
-                      <h1 className="text-zinc-400 text-xl">Email </h1>
+                      <h1 className="text-zinc-400 text-xl font-kiona">
+                        Email{" "}
+                      </h1>
                       <h1 className="text-white text-xl col-span-2 break-words">
                         {profile?.data.email}
                       </h1>
-                      <h1 className="text-zinc-400 text-xl">Address </h1>
+                      <h1 className="text-zinc-400 text-xl font-kiona">
+                        Address{" "}
+                      </h1>
                       <h1 className="text-white text-xl col-span-2 break-words">
                         {profile?.data.address}
                       </h1>
-                      <h1 className="text-zinc-400 text-xl">Telephone </h1>
+                      <h1 className="text-zinc-400 text-xl font-kiona">
+                        Telephone{" "}
+                      </h1>
                       <h1 className="text-white text-xl col-span-2 ">
                         {profile?.data.telephone.slice(0, 3) +
                           "-" +
@@ -178,9 +184,9 @@ const page = () => {
                                 {item.carProvider.name}
                               </h1>
                               <div className="grid grid-cols-3 text-white justify-center absolute bottom-6">
-                                <h1>Pickup Date </h1>
+                                <h1 className="font-kiona">Pickup Date </h1>
                                 <h1 className="justify-self-center">{}</h1>
-                                <h1>Return Date </h1>
+                                <h1 className="font-kiona">Return Date </h1>
                                 <h1>
                                   {format(
                                     new Date(item.rentDate),
@@ -242,7 +248,7 @@ const page = () => {
 
                       <button
                         onClick={() => router.push("/balance")}
-                        className="py-1  px-2 text-white bg-black rounded-lg border-[0.5px] border-white hover:invert hover:scale-[103%] transition-all duration-300 ease-in-out active:scale-100 active:duration-100"
+                        className="py-1  px-2 text-white bg-black rounded-lg border-[0.5px] border-white hover:invert hover:scale-[103%] transition-all duration-300 ease-in-out active:scale-100 active:duration-100 font-kiona"
                       >
                         Add more
                       </button>
