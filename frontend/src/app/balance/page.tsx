@@ -97,7 +97,7 @@ const page = () => {
               <h1 className="font-kiona text-white text-4xl">
                 Current Balance
               </h1>
-              <h1 className="text-5xl z-40 text-white font-poppins text-wrap">
+              <h1 className="text-5xl z-40 text-white font-Poppins text-wrap font-light">
                 {/* {userProfile.data.balance} $ */}
                 {isLoading ? "Loading..." : userProfile.data.balance + " $"}
               </h1>
@@ -117,7 +117,7 @@ const page = () => {
             />
           </div>
           <div className=" w-[45%] h-[100%] flex flex-col relative justify-center">
-            <div className="font-poppins text-white absolute top-12 left-16 text-4xl flex flex-row">
+            <div className="font-Poppins font-light text-white absolute top-12 left-16 text-4xl flex flex-row">
               Add to Balance
               <Image
                 alt="carticon"
@@ -145,7 +145,7 @@ const page = () => {
                           <FormControl>
                             <Input
                               typeof="number"
-                              className="bg-[#222529] text-white"
+                              className="bg-[#222529] text-white font-Poppins font-light"
                               placeholder="Enter amount in $"
                               {...field}
                             />

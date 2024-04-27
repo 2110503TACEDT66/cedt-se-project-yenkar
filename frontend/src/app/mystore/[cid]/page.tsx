@@ -288,7 +288,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                 </Dialog>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <div className="py-1 px-1 bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100">
+                    <div className="px-1 py-[1px] bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100">
                       <Button>Delete</Button>
                     </div>
                   </DialogTrigger>
@@ -302,8 +302,8 @@ const page = ({ params }: { params: { cid: string } }) => {
                         delete your car form our servers. */}
 
                         {isTheLastCar()
-                          ? "This is your last car,If you proceed your profile will not show in the store"
-                          : "This action cannot be undone. This will permanently delete your car form our servers. "}
+                          ? "This is your last car, If you proceed your profile will not show in the store."
+                          : "This action cannot be undone. This will permanently delete your car from our servers."}
                       </DialogDescription>
                     </DialogHeader>
                     <DialogFooter className="justify-end">

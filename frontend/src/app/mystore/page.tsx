@@ -229,24 +229,23 @@ const page = ({ params }: { params: { id: string } }) => {
                 <h1 className="text-4xl font-kiona text-white">
                   Store Information
                 </h1>
-                <div className="flex flex-row gap-1 items-baseline pt-3">
-                  <h1 className="text-xl font-kiona text-white">name |</h1>
-                  <h1 className="text-xl font-poppins  font-bold text-white">
+                <div className="flex flex-row gap-1 items-baseline pt-5">
+                  <h1 className="text-xl font-kiona text-white">name | </h1>
+                  <h1 className="text-xl font-Poppins font-semibold text-white pl-2">
                     {providerData?.name ?? ""}
                   </h1>
                 </div>
-                <div className="pt-3 grid grid-cols-3 ">
-                  <div className="flex flex-row gap-1 items-baseline">
-                    <h1 className="text-xl font-kiona text-white">address |</h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                  <div className="flex flex-row gap-1 items-baseline pt-3">
+                    <h1 className="text-xl font-kiona text-white">address | </h1>
+                    <h1 className="text-xl font-Poppins font-semibold text-white pl-2">
                       {providerData?.address ?? ""}
                     </h1>
                   </div>{" "}
-                  <div className="flex flex-row gap-1 items-baseline">
+                  <div className="flex flex-row gap-1 items-baseline pt-3">
                     <h1 className="text-xl font-kiona text-white">
-                      telephone |
+                      telephone | 
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins font-semibold text-white pl-2">
                       {providerData?.telephone.slice(0, 3) +
                         "-" +
                         providerData?.telephone.slice(3, 6) +
@@ -260,7 +259,6 @@ const page = ({ params }: { params: { id: string } }) => {
                       {carData?.price ?? ""}
                     </h1>
                   </div> */}
-                </div>
               </div>
             </div>
 

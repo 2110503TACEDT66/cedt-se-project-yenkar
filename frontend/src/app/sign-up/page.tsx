@@ -133,7 +133,7 @@ const page = () => {
       <NavBar stickyState={isSticky} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-fit flex flex-row justify-around items-center mb-10">
-          <div className=" w-[45vw] h-[90vh] flex flex-col relative justify-center">
+          <div className=" w-[45vw] h-[120vh] flex flex-col relative justify-center">
             <div className=" w-fit h-fit absolute left-16 flex flex-col space-y-3">
               <h1 className="text-6xl z-40 text-white font-poppins ">
                 Sign-up
@@ -292,7 +292,7 @@ const page = () => {
                         </FormLabel>
                         <FormControl>
                           <Textarea
-                            className="bg-[#222529] text-white w-[220%] h-30 border-none"
+                            className="bg-[#222529] text-white w-[228%] h-30 border-none"
                             placeholder="Address"
                             {...field}
                           />

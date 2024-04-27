@@ -31,7 +31,7 @@ const page = async () => {
           <div className=" w-[45%] h-[100%] flex flex-col relative justify-center">
             <div className=" w-fit h-fit absolute left-16 flex flex-col space-y-3">
               <h1 className="font-kiona text-white text-xl">Name</h1>
-              <h1 className="text-6xl z-40 text-white font-poppins text-wrap ">
+              <h1 className="text-6xl z-40 text-white font-Poppins text-wrap font-light">
                 {session?.user.name}
               </h1>
             </div>
@@ -41,13 +41,13 @@ const page = async () => {
             <div className=" w-fit h-fit absolute left-16 flex flex-col space-y-8">
               <div>
                 <h1 className="font-kiona text-white text-xl py-3">Email</h1>
-                <h1 className="text-5xl z-40 text-white font-poppins text-wrap ">
+                <h1 className="text-5xl z-40 text-white font-Poppins text-wrap font-light">
                   {profile?.data.email}
                 </h1>
               </div>
               <div>
                 <h1 className="font-kiona text-white text-xl py-3">Phone</h1>
-                <h1 className="text-5xl z-40 text-white font-poppins text-wrap ">
+                <h1 className="text-5xl z-40 text-white font-Poppins text-wrap font-light">
                   {profile?.data.telephone.slice(0, 3) +
                     "-" +
                     profile?.data.telephone.slice(3, 6) +
@@ -57,13 +57,13 @@ const page = async () => {
               </div>
               <div>
                 <h1 className="font-kiona text-white text-xl py-3">Address</h1>
-                <h1 className="text-5xl z-40 text-white font-poppins text-wrap ">
+                <h1 className="text-5xl z-40 text-white font-Poppins text-wrap font-light">
                   {profile?.data.address}
                 </h1>
               </div>
               <div>
                 <h1 className="font-kiona text-white text-xl py-3">Balance</h1>
-                <h1 className="text-5xl z-40 text-white font-poppins text-wrap ">
+                <h1 className="text-5xl z-40 text-white font-Poppins text-wrap font-light">
                   {profile?.data.balance}
                 </h1>
               </div>

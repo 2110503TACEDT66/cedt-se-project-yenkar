@@ -73,7 +73,7 @@ const NavBar = ({
                   isSticky ? "text-black  " : "text-white"
                 }`}
               >
-                My store
+                My Store
               </button>
             ) : (
               <button

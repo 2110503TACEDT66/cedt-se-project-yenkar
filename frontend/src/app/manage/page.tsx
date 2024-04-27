@@ -162,7 +162,7 @@ const page = () => {
           {userReservationState.length < 3 ? (
             <div className="w-full h-[31%] bg-[#3c4047] flex flex-col items-center justify-center">
               <div
-                className="w-fit h-fit flex flex-col items-center hover:scale-105 transition duration-150 ease-in-out active:scale-100"
+                className="w-fit h-fit flex flex-col items-center hover:scale-105 transition duration-150 ease-in-out active:scale-100 hover:font-bold"
                 onClick={(e) => {
                   router.push("/explore");
                 }}
@@ -173,7 +173,7 @@ const page = () => {
                   width={50}
                   height={50}
                 />
-                <h1 className="text-white pt-6">Add More Reservation</h1>
+                <h1 className="text-white font-Poppins pt-6">Add More Reservation</h1>
               </div>
             </div>
           ) : (
