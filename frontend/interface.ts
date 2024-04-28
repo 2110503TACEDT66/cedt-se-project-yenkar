@@ -1,4 +1,4 @@
-interface CarProvider {
+export interface CarProvider {
   _id: string;
   //email:string,
   name: string;
@@ -7,30 +7,53 @@ interface CarProvider {
   src: string;
 }
 
-interface CarItem {
+export interface CarItem {
   _id: string;
-  model: string;
-  brand: string;
   carProvider: CarProvider;
+  brand: string;
+  model: string;
   price: number;
   src?: string;
+  air: boolean;
+  cargo: Cargo;
+  doors: number;
+  radio: boolean;
+  seats: number;
+  transmission: Transmission;
+  id: string;
+  vrm: string;
 }
 
-interface CarJson {
+export enum Transmission {
+  manual = "manual",
+  auto = "auto",
+  AWT = "AWT",
+  other = "other",
+}
+
+export enum Cargo {
+  none = "-",
+  small = "small",
+  medium = "medium",
+  large = "large",
+  superLarge = "super large",
+}
+
+export interface CarJson {
   success: boolean;
   count: number;
   data: CarItem[];
 }
 
-interface CarProviderJson {
+export interface CarProviderJson {
   success: boolean;
   count: number;
   data: CarProvider[];
 }
 
-type CarJsonPromise = Promise<CarJson>;
+export type CarJsonPromise = Promise<CarJson>;
 
-interface CreateUserProps {
+export interface CreateUserProps {
   userName: string;
   userEmail: string;
   userPassword: string;
@@ -39,7 +62,7 @@ interface CreateUserProps {
   balance?: number;
 }
 
-interface CarProps {
+export interface CarProps {
   _id: string;
   model: string;
   brand: string;
@@ -48,26 +71,26 @@ interface CarProps {
   src?: string;
 }
 
-interface CheckoutTransactionParams {
+export interface CheckoutTransactionParams {
   plan: string;
   amount: number;
   buyerId: string;
 }
 
-interface CreateTransactionProps {
+export interface CreateTransactionProps {
   stripeId: string;
   amount: number;
   plan: string;
   buyerId: string;
   createdAt: Date;
 }
-interface TransactionHisResponse {
+export interface TransactionHisResponse {
   success: boolean;
   count: number;
   data: TransactionHis[];
 }
 
-interface TransactionHis {
+export interface TransactionHis {
   _id: string;
   stripeId?: string;
   amount: number;
@@ -78,20 +101,20 @@ interface TransactionHis {
   createdAt: string;
 }
 
-interface UserId {
+export interface UserId {
   _id: string;
   name: string;
   email: string;
 }
 
-interface CarProviderId {
+export interface CarProviderId {
   _id: string;
   email: string;
   name: string;
   id: string;
 }
 
-enum Direction {
+export enum Direction {
   userToCarProvider = "userToCarProvider",
   carProviderToUser = "carProviderToUser",
   userTopUp = "userTopUp",

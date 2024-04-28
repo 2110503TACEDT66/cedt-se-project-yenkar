@@ -10,6 +10,7 @@ import deleteReservation from "@/libs/deleteReservation";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Cargo, CarItem, CarProvider, Transmission } from "../../../interface";
 
 interface ReservationItem {
   _id: string;
@@ -145,11 +146,19 @@ const page = () => {
                               src: "",
                             },
                             car: {
-                              src: "",
                               _id: "",
                               brand: "",
                               model: "",
                               price: 0,
+                              src: "",
+                              air: true,
+                              cargo: Cargo.large,
+                              doors: 0,
+                              radio: true,
+                              seats: 0,
+                              transmission: Transmission.auto,
+                              id: "",
+                              vrm: "",
                               carProvider: {
                                 _id: "",
                                 name: "",

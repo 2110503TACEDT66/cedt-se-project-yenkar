@@ -28,6 +28,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import createReservation from "@/libs/createReservation";
 import { useToast } from "@/components/ui/use-toast";
 import getSingleCar from "@/libs/getSingleCar";
+import { CarItem } from "../../../interface";
 
 //const page = ({ params }: { params: { pid: string, cid:string } }) => {
 const page = () => {
@@ -143,29 +144,93 @@ const page = () => {
             <div className="">
               <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
                 <h1 className="text-4xl font-kiona text-white">
-                  Car Information
+                  {carData?.model ?? "Loading..."}
                 </h1>
-                <div className="flex flex-row gap-1 items-baseline pt-3">
-                  <h1 className="text-xl font-kiona text-white">model |</h1>
+                {/* <div className="flex flex-row gap-1 items-baseline pt-3">
+                  <h1 className="text-xl font-kiona text-zinc-400">model |</h1>
                   <h1 className="text-xl font-poppins  font-bold text-white">
                     {carData?.model ?? ""}
                   </h1>
-                </div>
-                <div className="pt-3 grid grid-cols-3 ">
+                </div> */}
+                <div className="pt-3 grid grid-cols-3 gap-y-6">
+                  {/* <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">Model |</h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.model ?? ""}
+                    </h1>
+                  </div> */}
                   <div className="flex flex-row gap-1 items-baseline">
-                    <h1 className="text-xl font-kiona text-white">Brand |</h1>
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      Brand |
+                    </h1>
                     <h1 className="text-xl font-poppins  font-bold text-white">
                       {carData?.brand ?? ""}
                     </h1>
                   </div>{" "}
                   <div className="flex flex-row gap-1 items-baseline">
-                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      price |
+                    </h1>
                     <h1 className="text-xl font-poppins  font-bold text-white">
                       {carData?.price + " $" ?? ""}
                     </h1>
-                  </div>{" "}
+                  </div>
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      Plate number |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.vrm ?? ""}
+                    </h1>
+                  </div>
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      Doors |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.doors ?? ""}
+                    </h1>
+                  </div>
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      Seats |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.seats ?? ""}
+                    </h1>
+                  </div>
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      transmission |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.transmission ?? ""}
+                    </h1>
+                  </div>
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      cargo |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.cargo ?? ""}
+                    </h1>
+                  </div>
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      radio |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.radio ? "Yes" : "No" ?? ""}
+                    </h1>
+                  </div>
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">air |</h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.air ? "Yes" : "No" ?? ""}
+                    </h1>
+                  </div>
                   {/* <div className="flex flex-row gap-1 items-baseline">
-                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-kiona text-zinc-400">price |</h1>
                     <h1 className="text-xl font-poppins text-white">
                       {carData?.price ?? ""}
                     </h1>
@@ -181,20 +246,22 @@ const page = () => {
                   Provider Information
                 </h1>
                 <div className="flex flex-row gap-1 items-baseline pt-3">
-                  <h1 className="text-xl font-kiona text-white">Name |</h1>
+                  <h1 className="text-xl font-kiona text-zinc-400">Name |</h1>
                   <h1 className="text-xl font-poppins   font-bold text-white">
                     {carData?.carProvider.name ?? ""}
                   </h1>
                 </div>
                 <div className="pt-3 grid grid-cols-3 ">
                   <div className="flex flex-row gap-1 items-baseline">
-                    <h1 className="text-xl font-kiona text-white">Address |</h1>
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      Address |
+                    </h1>
                     <h1 className="text-xl font-poppins  font-bold text-white">
                       {carData?.carProvider.address ?? ""}
                     </h1>
                   </div>{" "}
                   <div className="flex flex-row gap-1 items-baseline">
-                    <h1 className="text-xl font-kiona text-white">
+                    <h1 className="text-xl font-kiona text-zinc-400">
                       Telephone |
                     </h1>
                     <h1 className="text-xl font-poppins font-bold text-white">
@@ -206,7 +273,7 @@ const page = () => {
                     </h1>
                   </div>{" "}
                   {/* <div className="flex flex-row gap-1 items-baseline">
-                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-kiona text-zinc-400">price |</h1>
                     <h1 className="text-xl font-poppins text-white">
                       {carData?.price ?? ""}
                     </h1>

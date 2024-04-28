@@ -6,6 +6,7 @@ import ExploreCard from "./ExploreCard";
 import { Skeleton } from "./ui/skeleton";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { CarItem, CarJson } from "../../interface";
 
 const ExplorePanel = ({ carJson }: { carJson: Promise<CarJson> }) => {
   const { data: session } = useSession();
@@ -16,6 +17,7 @@ const ExplorePanel = ({ carJson }: { carJson: Promise<CarJson> }) => {
 
   const resolve = () => {
     const carJsonReady = carJson.then((res) => {
+      console.log(res);
       setCardData(res);
       setIsLoading(false);
       if (session?.user.role === "carProvider") {

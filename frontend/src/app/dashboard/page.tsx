@@ -13,9 +13,9 @@ import { format, set } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
-import TransactionHis from "@/components/TransactionHisCard";
 import { getTransactions } from "@/libs/transaction.action";
 import TransactionHisCard from "@/components/TransactionHisCard";
+import { CarItem, CarProvider, TransactionHis } from "../../../interface";
 
 interface Profile {
   data: {
@@ -194,6 +194,12 @@ const page = () => {
                               <h1 className="text-white">
                                 <span className="font-kiona">Provider | </span>
                                 {item.carProvider.name}
+                              </h1>
+                              <h1 className="text-white">
+                                <span className="font-kiona">
+                                  Plate number |{" "}
+                                </span>
+                                {item.car.vrm}
                               </h1>
                               <div className="grid grid-cols-3 text-white justify-center absolute bottom-6">
                                 <h1 className="font-kiona">Pickup Date </h1>

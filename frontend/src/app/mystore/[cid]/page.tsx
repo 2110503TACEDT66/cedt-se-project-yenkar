@@ -1,12 +1,25 @@
 "use client";
-import ExploreCard from "@/components/ExploreCard";
 import NavBar from "@/components/NavBar";
+import { Check, ChevronsUpDown } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import Image from "next/image";
 import getSingleCar from "@/libs/getSingleCar";
 
 // form////
@@ -41,8 +54,10 @@ import {
   CloudinaryUploadWidgetInfo,
 } from "next-cloudinary";
 import getCarForOneProvider from "@/libs/getCarForOneProvider";
-import { Label } from "@radix-ui/react-label";
 import EditCarCard from "@/components/EditCarCard";
+import { Cargo, CarItem, Transmission } from "../../../../interface";
+import { cn } from "@/libs/utils";
+import { CommandList } from "cmdk";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -60,6 +75,20 @@ const page = ({ params }: { params: { cid: string } }) => {
   const [numberOfCars, setNumberOfCars] = useState<number>(0);
   const [open, setOpen] = useState(false);
 
+  const cargoOptions = [
+    { label: "-", value: Cargo.none },
+    { label: "small", value: Cargo.small },
+    { label: "medium", value: Cargo.medium },
+    { label: "large", value: Cargo.large },
+    { label: "super large", value: Cargo.superLarge },
+  ] as const;
+  const transmissionOptions = [
+    { label: "manual", value: Transmission.manual },
+    { label: "auto", value: Transmission.auto },
+    { label: "AWT", value: Transmission.AWT },
+    { label: "other", value: Transmission.other },
+  ] as const;
+
   const formSchema = z.object({
     model: z.string().min(2, {
       message: "Your model must be at least 2 characters long",
@@ -68,6 +97,12 @@ const page = ({ params }: { params: { cid: string } }) => {
       message: "Your brand must be at least 2 characters long",
     }),
     price: z.coerce.number().int().positive().gte(1),
+    doors: z.coerce.number().int().positive().gte(1),
+    seats: z.coerce.number().int().positive().gte(1),
+    transmission: z.enum(["manual", "auto", "AWT", "other"]),
+    cargo: z.enum(["-", "small", "medium", "large", "super large"]),
+    radio: z.boolean(),
+    air: z.boolean(),
   });
 
   // 1. Define your form.
@@ -77,6 +112,12 @@ const page = ({ params }: { params: { cid: string } }) => {
       model: carItem?.model!,
       brand: carItem?.brand!,
       price: carItem?.price!,
+      doors: carItem?.doors!,
+      seats: carItem?.seats!,
+      transmission: carItem?.transmission!,
+      cargo: carItem?.cargo!,
+      radio: carItem?.radio!,
+      air: carItem?.air!,
     },
   });
 
@@ -88,7 +129,13 @@ const page = ({ params }: { params: { cid: string } }) => {
         values.brand,
         values.model,
         values.price,
-        editingImageData
+        editingImageData,
+        values.doors,
+        values.seats,
+        values.transmission,
+        values.cargo,
+        values.radio,
+        values.air
       ).then((res) => {
         if (res) {
           toast({
@@ -123,6 +170,13 @@ const page = ({ params }: { params: { cid: string } }) => {
       form.setValue("model", res.data.model);
       form.setValue("brand", res.data.brand);
       form.setValue("price", res.data.price);
+      form.setValue("doors", res.data.doors);
+      form.setValue("seats", res.data.seats);
+      form.setValue("transmission", res.data.transmission);
+      form.setValue("cargo", res.data.cargo);
+      form.setValue("radio", res.data.radio);
+      form.setValue("air", res.data.air);
+
       console.log(res.data);
     });
   };
@@ -166,10 +220,16 @@ const page = ({ params }: { params: { cid: string } }) => {
                   editCar(
                     session?.user?.token!,
                     params.cid,
-                    carItem?.brand,
-                    carItem?.model,
-                    carItem?.price,
-                    (results?.info as CloudinaryUploadWidgetInfo)?.public_id
+                    carItem?.brand!,
+                    carItem?.model!,
+                    carItem?.price!,
+                    (results?.info as CloudinaryUploadWidgetInfo)?.public_id,
+                    carItem?.doors!,
+                    carItem?.seats!,
+                    carItem?.transmission!,
+                    carItem?.cargo!,
+                    carItem?.radio!,
+                    carItem?.air!
                   ).then((res) => {
                     if (res) {
                       toast({
@@ -222,29 +282,89 @@ const page = ({ params }: { params: { cid: string } }) => {
             <div className="pt-5 pl-5">
               <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
                 <h1 className="text-4xl font-kiona text-white">
-                  Car Information
+                  {carItem?.model ?? "Loading..."}
                 </h1>
-                <div className="flex flex-row gap-1 items-baseline pt-3">
-                  <h1 className="text-xl font-kiona text-white">model |</h1>
+                {/* <div className="flex flex-row gap-1 items-baseline pt-3">
+                  <h1 className="text-xl font-kiona text-zinc-400">model |</h1>
                   <h1 className="text-xl font-poppins  font-bold text-white">
                     {carItem?.model ?? ""}
                   </h1>
-                </div>
-                <div className="pt-3 grid grid-cols-3 ">
-                  <div className="flex flex-row gap-1 items-baseline">
-                    <h1 className="text-xl font-kiona text-white">Brand |</h1>
+                </div> */}
+                <div className="pt-3 grid grid-cols-3 gap-y-6">
+                  <div className="flex flex-row gap-1 items-baseline ">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      Brand |
+                    </h1>
                     <h1 className="text-xl font-poppins  font-bold text-white">
                       {carItem?.brand ?? ""}
                     </h1>
                   </div>{" "}
                   <div className="flex flex-row gap-1 items-baseline">
-                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      price |
+                    </h1>
                     <h1 className="text-xl font-poppins  font-bold text-white">
                       {carItem?.price + " $" ?? ""}
                     </h1>
                   </div>{" "}
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      Plate number |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carItem?.vrm ?? ""}
+                    </h1>
+                  </div>{" "}
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      Doors |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carItem?.doors ?? ""}
+                    </h1>
+                  </div>{" "}
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      seats |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carItem?.seats ?? ""}
+                    </h1>
+                  </div>{" "}
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      transmission |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carItem?.transmission ?? ""}
+                    </h1>
+                  </div>{" "}
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      cargo |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carItem?.cargo ?? ""}
+                    </h1>
+                  </div>{" "}
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      radio |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carItem?.radio ? "Yes" : "No" ?? ""}
+                    </h1>
+                  </div>{" "}
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-zinc-400">
+                      air conditioner |
+                    </h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carItem?.air ? "Yes" : "No" ?? ""}
+                    </h1>
+                  </div>{" "}
                   {/* <div className="flex flex-row gap-1 items-baseline">
-                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-kiona text-zinc-400">price |</h1>
                     <h1 className="text-xl font-poppins text-white">
                       {carData?.price ?? ""}
                     </h1>
@@ -335,7 +455,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <Form {...form}>
                       <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-8"
+                        className="space-y-8 overflow-y-scroll h-[50vh]"
                       >
                         <FormField
                           control={form.control}
@@ -394,6 +514,225 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 />
                               </FormControl>
                               <FormMessage className="text-rose-600" />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="doors"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="font-kiona">
+                                doors
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  defaultValue={carItem?.doors!}
+                                  className="w-[80%] bg-black border-white border-[1px] text-base "
+                                  placeholder="Enter your car doors"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage className="text-rose-600" />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="seats"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="font-kiona">
+                                seats
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  defaultValue={carItem?.seats!}
+                                  className="w-[80%] bg-black border-white border-[1px] text-base "
+                                  placeholder="Enter your car seats"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage className="text-rose-600" />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="transmission"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col">
+                              <FormLabel>transmission</FormLabel>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      className={cn(
+                                        "w-[200px] justify-between",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? transmissionOptions.find(
+                                            (transmission) =>
+                                              transmission.value === field.value
+                                          )?.label
+                                        : "Select transmission size"}
+                                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-[200px] p-0">
+                                  <Command className="bg-zinc-950">
+                                    <CommandInput
+                                      placeholder="Search transmission size"
+                                      className="text-white"
+                                    />
+                                    <CommandEmpty>
+                                      No transmission size found.
+                                    </CommandEmpty>
+                                    <CommandGroup className=" text-white">
+                                      <CommandList>
+                                        {transmissionOptions.map(
+                                          (transmission) => (
+                                            <CommandItem
+                                              className="hover:invert bg-zinc-950"
+                                              value={transmission.label}
+                                              key={transmission.value}
+                                              onSelect={() => {
+                                                form.setValue(
+                                                  "transmission",
+                                                  transmission.value
+                                                );
+                                              }}
+                                            >
+                                              <Check
+                                                className={cn(
+                                                  "mr-2 h-4 w-4",
+                                                  transmission.value ===
+                                                    field.value
+                                                    ? "opacity-100"
+                                                    : "opacity-0"
+                                                )}
+                                              />
+                                              {transmission.label}
+                                            </CommandItem>
+                                          )
+                                        )}
+                                      </CommandList>
+                                    </CommandGroup>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="cargo"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col">
+                              <FormLabel>cargo</FormLabel>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      className={cn(
+                                        "w-[200px] justify-between",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value
+                                        ? cargoOptions.find(
+                                            (cargo) =>
+                                              cargo.value === field.value
+                                          )?.label
+                                        : "Select cargo size"}
+                                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-[200px] p-0">
+                                  <Command className="bg-zinc-950">
+                                    <CommandInput
+                                      placeholder="Search cargo size"
+                                      className="text-white"
+                                    />
+                                    <CommandEmpty>
+                                      No cargo size found.
+                                    </CommandEmpty>
+                                    <CommandGroup className=" text-white">
+                                      <CommandList>
+                                        {cargoOptions.map((cargo) => (
+                                          <CommandItem
+                                            className="hover:invert bg-zinc-950"
+                                            value={cargo.label}
+                                            key={cargo.value}
+                                            onSelect={() => {
+                                              form.setValue(
+                                                "cargo",
+                                                cargo.value
+                                              );
+                                            }}
+                                          >
+                                            <Check
+                                              className={cn(
+                                                "mr-2 h-4 w-4",
+                                                cargo.value === field.value
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                            {cargo.label}
+                                          </CommandItem>
+                                        ))}
+                                      </CommandList>
+                                    </CommandGroup>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="air"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
+                              <FormControl>
+                                <Checkbox
+                                  defaultChecked={carItem?.air!}
+                                  checked={field.value}
+                                  onCheckedChange={field.onChange}
+                                />
+                              </FormControl>
+                              <div className="space-y-1 leading-none">
+                                <FormLabel>Air conditioner</FormLabel>
+                              </div>
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="radio"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
+                              <FormControl>
+                                <Checkbox
+                                  defaultChecked={carItem?.air!}
+                                  checked={field.value}
+                                  onCheckedChange={field.onChange}
+                                />
+                              </FormControl>
+                              <div className="space-y-1 leading-none">
+                                <FormLabel>Radio</FormLabel>
+                              </div>
                             </FormItem>
                           )}
                         />

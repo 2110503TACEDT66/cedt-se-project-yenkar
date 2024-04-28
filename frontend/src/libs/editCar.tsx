@@ -4,7 +4,14 @@ export default async function editCar(
   brand?: string,
   model?: string,
   price?: number,
-  src?: string
+  src?: string,
+  doors?: number,
+  seats?: number,
+  transmission?: string,
+  cargo?: string,
+  radio?: boolean,
+  air?: boolean,
+  vrm?: string
 ) {
   const response = await fetch(
     `${process.env.BACKEND_URL}/api/v1/cars/${cid}`,
@@ -19,6 +26,13 @@ export default async function editCar(
         model: model,
         price: price,
         src: src,
+        doors: doors,
+        seats: seats,
+        transmission: transmission,
+        cargo: cargo,
+        radio: radio,
+        air: air,
+        vrm: vrm,
       }),
     }
   );
