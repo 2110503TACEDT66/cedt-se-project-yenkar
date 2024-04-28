@@ -84,9 +84,9 @@ const TransactionHisCard = ({
       </div>
       <div className="w-[75%] h-full ">
         {
-          <div className="w-full h-full flex flex-col justify-evenly items-start">
-            <div className="w-full h-1/3 flex flex-row justify-between items-center">
-              <p className="text-[14px] font-bold text-white">
+          <div className="w-full h-full flex flex-col justify-evenly items-center gap-2">
+            <div className="w-full h-1/3 flex flex-row justify-between items-center gap-2 pt-2">
+              <p className="text-[14px] font-bold text-white ">
                 {transactionMessage}
               </p>
               <p
