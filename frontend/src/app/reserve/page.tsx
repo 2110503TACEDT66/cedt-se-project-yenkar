@@ -111,6 +111,7 @@ const page = () => {
           toast({
             title: "Failed to create reservation",
             description: "Failed to create reservation",
+            variant: "destructive",
             duration: 3000,
           });
         });

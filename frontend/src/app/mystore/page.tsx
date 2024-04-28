@@ -109,6 +109,7 @@ const page = ({ params }: { params: { id: string } }) => {
           toast({
             title: "Update Success",
             description: "Your provider has been updated",
+            duration: 3000,
           });
           setOpen(false);
           fetchData();
@@ -116,6 +117,8 @@ const page = ({ params }: { params: { id: string } }) => {
           toast({
             title: "Update Failed",
             description: "Your provider has not been updated",
+            variant: "destructive",
+            duration: 3000,
           });
         }
       });
@@ -123,6 +126,8 @@ const page = ({ params }: { params: { id: string } }) => {
       toast({
         title: "Update Failed",
         description: "Your provider has not been updated",
+        variant: "destructive",
+        duration: 3000,
       });
     }
   }
@@ -179,10 +184,17 @@ const page = ({ params }: { params: { id: string } }) => {
                     if (res) {
                       toast({
                         title: "Upload Success",
-                        description:
-                          "Image has been uploaded waiting for submit",
+                        description: "Image has been updated",
+                        duration: 3000,
                       });
                       fetchData();
+                    } else {
+                      toast({
+                        title: "Upload Failed",
+                        description: "Image has not been uploaded",
+                        variant: "destructive",
+                        duration: 3000,
+                      });
                     }
                   });
                 }}

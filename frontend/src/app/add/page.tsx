@@ -89,12 +89,21 @@ const page = ({ params }: { params: { cid: string } }) => {
         values.price,
         editingImageData
       ).then((res) => {
-        toast({
-          title: "Success",
-          description: "Car added successfully",
-        });
-        router.back();
-        // fetchData();
+        if (res) {
+          toast({
+            title: "Success",
+            description: "Car added successfully",
+            duration: 3000,
+          });
+          router.back();
+        } else {
+          toast({
+            title: "Error",
+            description: "Car not added",
+            variant: "destructive",
+            duration: 3000,
+          });
+        }
       });
       setIsAdding(false);
     } catch (error) {
@@ -119,7 +128,8 @@ const page = ({ params }: { params: { cid: string } }) => {
                     );
                     toast({
                       title: "Upload Success",
-                      description: "Image has been uploaded waiting for submit",
+                      description: "Image has been updated",
+                      duration: 3000,
                     });
                   }}
                 >

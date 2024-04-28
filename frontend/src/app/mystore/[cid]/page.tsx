@@ -94,6 +94,7 @@ const page = ({ params }: { params: { cid: string } }) => {
           toast({
             title: "Success",
             description: "Car updated successfully",
+            duration: 3000,
           });
           fetchData();
           setOpen(false);
@@ -101,6 +102,8 @@ const page = ({ params }: { params: { cid: string } }) => {
           toast({
             title: "Update Failed",
             description: "Your provider has not been updated",
+            variant: "destructive",
+            duration: 3000,
           });
         }
       });
@@ -108,6 +111,8 @@ const page = ({ params }: { params: { cid: string } }) => {
       toast({
         title: "Update Failed",
         description: "Your provider has not been updated",
+        variant: "destructive",
+        duration: 3000,
       });
     }
   }
@@ -170,9 +175,17 @@ const page = ({ params }: { params: { cid: string } }) => {
                       toast({
                         title: "Success",
                         description: "Car updated successfully",
+                        duration: 3000,
                       });
 
                       fetchData();
+                    } else {
+                      toast({
+                        title: "Update Failed",
+                        description: "Your provider has not been updated",
+                        variant: "destructive",
+                        duration: 3000,
+                      });
                     }
                   });
                 }}
