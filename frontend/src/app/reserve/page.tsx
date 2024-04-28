@@ -111,6 +111,7 @@ const page = () => {
           toast({
             title: "Failed to create reservation",
             description: "Failed to create reservation",
+            variant: "destructive",
             duration: 3000,
           });
         });
@@ -122,8 +123,8 @@ const page = () => {
       <NavBar stickyState={false} session={session} />
 
       <div className="flex flex-col items-center">
-        <div className="bg-[#17191C] rounded-xl w-[90vw] h-fit flex flex-row justify-evenly items-center">
-          <div className=" w-[25%] h-[100%] flex flex-col relative justify-center items-center">
+        <div className="bg-[#17191C] rounded-xl w-[90vw] h-fit flex flex-row justify-evenly items-center py-4">
+          <div className=" w-[30%] h-[100%] flex flex-col relative justify-center items-center">
             <div className=" w-full h-[35rem]  flex flex-col relative">
               <ExploreCard
                 src={carData?.src ?? ""}
@@ -138,42 +139,82 @@ const page = () => {
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
           <div className=" w-[65%] h-[100%] flex flex-col relative ">
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6 mb-5">
-              <h1 className="text-2xl font-kiona text-white">model</h1>
-              <h1 className="text-5xl font-poppins text-white">
-                {carData?.model ?? ""}
-              </h1>
+            {/* Car information section */}
+            <div className="">
+              <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
+                <h1 className="text-4xl font-kiona text-white">
+                  Car Information
+                </h1>
+                <div className="flex flex-row gap-1 items-baseline pt-3">
+                  <h1 className="text-xl font-kiona text-white">model |</h1>
+                  <h1 className="text-xl font-poppins  font-bold text-white">
+                    {carData?.model ?? ""}
+                  </h1>
+                </div>
+                <div className="pt-3 grid grid-cols-3 ">
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">Brand |</h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.brand ?? ""}
+                    </h1>
+                  </div>{" "}
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.price + " $" ?? ""}
+                    </h1>
+                  </div>{" "}
+                  {/* <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-poppins text-white">
+                      {carData?.price ?? ""}
+                    </h1>
+                  </div> */}
+                </div>
+              </div>
             </div>
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">Brand</h1>
-              <h1 className="text-4xl font-poppins text-white">
-                {carData?.brand ?? ""}
-              </h1>
+            {/*End of Car information section */}
+            {/* CarProvider information */}
+            <div className="">
+              <div className=" w-full h-fit flex flex-col space-y-3 pt-9 pl-6 mb-5">
+                <h1 className="text-4xl font-kiona   text-white">
+                  Provider Information
+                </h1>
+                <div className="flex flex-row gap-1 items-baseline pt-3">
+                  <h1 className="text-xl font-kiona text-white">Name |</h1>
+                  <h1 className="text-xl font-poppins   font-bold text-white">
+                    {carData?.carProvider.name ?? ""}
+                  </h1>
+                </div>
+                <div className="pt-3 grid grid-cols-3 ">
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">Address |</h1>
+                    <h1 className="text-xl font-poppins  font-bold text-white">
+                      {carData?.carProvider.address ?? ""}
+                    </h1>
+                  </div>{" "}
+                  <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">
+                      Telephone |
+                    </h1>
+                    <h1 className="text-xl font-poppins font-bold text-white">
+                      {carData?.carProvider.telephone.slice(0, 3) +
+                        "-" +
+                        carData?.carProvider.telephone.slice(3, 6) +
+                        "-" +
+                        carData?.carProvider.telephone.slice(6, 10) ?? ""}
+                    </h1>
+                  </div>{" "}
+                  {/* <div className="flex flex-row gap-1 items-baseline">
+                    <h1 className="text-xl font-kiona text-white">price |</h1>
+                    <h1 className="text-xl font-poppins text-white">
+                      {carData?.price ?? ""}
+                    </h1>
+                  </div> */}
+                </div>
+              </div>
             </div>
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">Provider</h1>
-              <h1 className="text-4xl font-poppins text-white">
-                {carData?.carProvider.name ?? ""}
-              </h1>
-            </div>
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">Location</h1>
-              <h1 className="text-4xl font-poppins text-white">
-                {carData?.carProvider.address ?? ""}
-              </h1>
-            </div>
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">Phone</h1>
-              <h1 className="text-4xl font-poppins text-white">
-                {carData?.carProvider.telephone ?? ""}
-              </h1>
-            </div>
-            <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
-              <h1 className="text-2xl font-kiona text-white">Price</h1>
-              <h1 className="text-4xl font-poppins text-white">
-                {carData?.price ?? ""}
-              </h1>
-            </div>
+            {/*End of CarProvider information */}
 
             <div className="w-full h-[1px] flex flex-col items-center mt-10">
               <div className="bg-white w-[95%] h-full"></div>

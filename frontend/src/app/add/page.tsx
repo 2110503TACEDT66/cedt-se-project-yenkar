@@ -8,7 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
 
 // form////
-import { z } from "zod";
+import { nan, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -65,11 +65,9 @@ const page = ({ params }: { params: { cid: string } }) => {
     brand: z.string().min(2, {
       message: "Your brand must be at least 2 characters long",
     }),
-    price: z.string().min(2, {
-      message: "Your price must be at least 2 characters long",
-    }),
-    doors: z.string(),
-    seats: z.string()
+    price: z.coerce.number().int().positive().gte(1),
+    doors: z.coerce.number().int().positive().gte(1),
+    seats: z.coerce.number().int().positive().gte(1)
   });
 
   // 1. Define your form.
@@ -78,9 +76,9 @@ const page = ({ params }: { params: { cid: string } }) => {
     defaultValues: {
       model: "",
       brand: "",
-      price: "",
-      doors: "",
-      seats: ""
+      price: undefined,
+      doors: undefined,
+      seats: undefined
     },
   });
 
@@ -92,17 +90,26 @@ const page = ({ params }: { params: { cid: string } }) => {
         session?.user?._id!,
         values.brand,
         values.model,
-        parseInt(values.price),
-        parseInt(values.doors),
-        parseInt(values.seats),
+        values.price,
+        values.doors,
+        values.seats,
         editingImageData
       ).then((res) => {
-        toast({
-          title: "Success",
-          description: "Car added successfully",
-        });
-        router.back();
-        // fetchData();
+        if (res) {
+          toast({
+            title: "Success",
+            description: "Car added successfully",
+            duration: 3000,
+          });
+          router.back();
+        } else {
+          toast({
+            title: "Error",
+            description: "Car not added",
+            variant: "destructive",
+            duration: 3000,
+          });
+        }
       });
       setIsAdding(false);
     } catch (error) {
@@ -127,7 +134,8 @@ const page = ({ params }: { params: { cid: string } }) => {
                     );
                     toast({
                       title: "Upload Success",
-                      description: "Image has been uploaded waiting for submit",
+                      description: "Image has been updated",
+                      duration: 3000,
                     });
                   }}
                 >

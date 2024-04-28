@@ -220,13 +220,13 @@ exports.getCarsForCarProvider = async (req, res, next) => {
     if (!carProvider)
       return res.status(400).json({
         success: false,
-        message: `No car with the ID of ${req.params.id}`,
+        message: `No car provider with the ID of ${req.params.id}`,
       });
 
     res.status(200).json({ success: true, data: carProvider.cars });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ success: false, message: "Cannot find car" });
+    return res.status(500).json({ success: false, message: "Cannot find car provider" });
   }
 };
 
