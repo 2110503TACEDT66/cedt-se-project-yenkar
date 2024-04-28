@@ -16,6 +16,32 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide car's model"],
     },
+    doors: {
+        type: Number,
+        required: [true, "Please provide car's door"],
+    },
+    seats: {
+        type: Number,
+        required: [true, "Please provide car's seats number"],
+    },
+    transmission: {
+        type: String,
+        enum: ['manual', 'auto', 'AWT', 'other'],
+        default : 'other'
+    },
+    cargo: {
+        type: String,
+        enum: ['-','small', 'medium', 'large', 'super large'],
+        default : '-'
+    },
+    radio: {
+        type: Boolean,
+        default : false
+    },
+    air: {
+        type: Boolean,
+        default : false
+    },
     price: {
         type: Number,
         required: [true, "Please provide car's rental price"],

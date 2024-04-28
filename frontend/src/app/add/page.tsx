@@ -65,7 +65,9 @@ const page = ({ params }: { params: { cid: string } }) => {
     brand: z.string().min(2, {
       message: "Your brand must be at least 2 characters long",
     }),
-    price: z.coerce.number().int().positive(),
+    price: z.coerce.number().int().positive().gte(1),
+    doors: z.coerce.number().int().positive().gte(1),
+    seats: z.coerce.number().int().positive().gte(1)
   });
 
   // 1. Define your form.
@@ -75,6 +77,8 @@ const page = ({ params }: { params: { cid: string } }) => {
       model: "",
       brand: "",
       price: undefined,
+      doors: undefined,
+      seats: undefined
     },
   });
 
@@ -87,14 +91,25 @@ const page = ({ params }: { params: { cid: string } }) => {
         values.brand,
         values.model,
         values.price,
+        values.doors,
+        values.seats,
         editingImageData
       ).then((res) => {
-        toast({
-          title: "Success",
-          description: "Car added successfully",
-        });
-        router.back();
-        // fetchData();
+        if (res) {
+          toast({
+            title: "Success",
+            description: "Car added successfully",
+            duration: 3000,
+          });
+          router.back();
+        } else {
+          toast({
+            title: "Error",
+            description: "Car not added",
+            variant: "destructive",
+            duration: 3000,
+          });
+        }
       });
       setIsAdding(false);
     } catch (error) {
@@ -119,7 +134,8 @@ const page = ({ params }: { params: { cid: string } }) => {
                     );
                     toast({
                       title: "Upload Success",
-                      description: "Image has been uploaded waiting for submit",
+                      description: "Image has been updated",
+                      duration: 3000,
                     });
                   }}
                 >
@@ -275,6 +291,50 @@ const page = ({ params }: { params: { cid: string } }) => {
                       </FormItem>
                     )}
                   />
+                  <div className="flex">
+                    <FormField
+                      control={form.control}
+                      name="doors"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="font-kiona text-xl">
+                            Amount of doors
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder=""
+                              className="w-[30%] text-black"
+                              {...field}
+                            />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="seats"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="font-kiona text-xl">
+                            Seats
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder=""
+                              className="w-[30%] text-black"
+                              {...field}
+                            />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   <Button
                     type="submit"
                     className="py-1 px-5 bg-gradient-to-r from-[#F05B80] to-[#4158F0] text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"

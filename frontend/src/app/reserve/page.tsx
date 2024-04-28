@@ -111,6 +111,7 @@ const page = () => {
           toast({
             title: "Failed to create reservation",
             description: "Failed to create reservation",
+            variant: "destructive",
             duration: 3000,
           });
         });
@@ -126,7 +127,7 @@ const page = () => {
           <div className=" w-[30%] h-[100%] flex flex-col relative justify-center items-center">
             <div className=" w-full h-[35rem]  flex flex-col relative">
               <ExploreCard
-                src={carData?.src ?? ""}
+                src={carData?.src}
                 _id={carData?._id ?? ""}
                 model={carData?.model ?? ""}
                 brand={carData?.brand ?? ""}

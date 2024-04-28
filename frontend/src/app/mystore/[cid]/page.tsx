@@ -67,7 +67,7 @@ const page = ({ params }: { params: { cid: string } }) => {
     brand: z.string().min(2, {
       message: "Your brand must be at least 2 characters long",
     }),
-    price: z.coerce.number().int().positive(),
+    price: z.coerce.number().int().positive().gte(1),
   });
 
   // 1. Define your form.
@@ -94,6 +94,7 @@ const page = ({ params }: { params: { cid: string } }) => {
           toast({
             title: "Success",
             description: "Car updated successfully",
+            duration: 3000,
           });
           fetchData();
           setOpen(false);
@@ -101,6 +102,8 @@ const page = ({ params }: { params: { cid: string } }) => {
           toast({
             title: "Update Failed",
             description: "Your provider has not been updated",
+            variant: "destructive",
+            duration: 3000,
           });
         }
       });
@@ -108,6 +111,8 @@ const page = ({ params }: { params: { cid: string } }) => {
       toast({
         title: "Update Failed",
         description: "Your provider has not been updated",
+        variant: "destructive",
+        duration: 3000,
       });
     }
   }
@@ -170,9 +175,17 @@ const page = ({ params }: { params: { cid: string } }) => {
                       toast({
                         title: "Success",
                         description: "Car updated successfully",
+                        duration: 3000,
                       });
 
                       fetchData();
+                    } else {
+                      toast({
+                        title: "Update Failed",
+                        description: "Your provider has not been updated",
+                        variant: "destructive",
+                        duration: 3000,
+                      });
                     }
                   });
                 }}
@@ -434,6 +447,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                           className="bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
                           onClick={() => {
                             deleteCar(params.cid, session.user.token);
+                            router.prefetch("/mystore");
                             router.push("/mystore");
                           }}
                         >

@@ -10,7 +10,8 @@ const ExploreCard = ({
   brand,
   price,
   carProvider,
-}: CarProps) => {
+  myCar,
+}: CarProps & { myCar?: boolean }) => {
   return (
     <div className="w-full h-full">
       <div className="w-full h-[75%] relative">
@@ -21,7 +22,11 @@ const ExploreCard = ({
           className="w-full h-full rounded-xl object-cover"
         />
       </div>
-      <div className="bg-white rounded-b-lg w-full h-[30%] absolute bottom-0 flew flex-col">
+      <div
+        className={`${
+          myCar ? "bg-cyan-300" : "bg-white"
+        }  bg-white rounded-b-lg w-full h-[30%] absolute bottom-0 flew flex-col`}
+      >
         <div className="relative">
           <div className="absolute -top-16 right-4">
             <h1
