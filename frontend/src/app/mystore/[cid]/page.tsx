@@ -58,10 +58,66 @@ const page = ({ params }: { params: { cid: string } }) => {
   const [editedCarBrand, setEditedCarBrand] = useState<string | undefined>("");
   const [editedCarPrice, setEditedCarPrice] = useState<number | undefined>(0);
   const [numberOfCars, setNumberOfCars] = useState<number>(0);
+  const [open, setOpen] = useState(false);
+
+  const formSchema = z.object({
+    model: z.string().min(2, {
+      message: "Your model must be at least 2 characters long",
+    }),
+    brand: z.string().min(2, {
+      message: "Your brand must be at least 2 characters long",
+    }),
+    price: z.coerce.number().int().positive(),
+  });
+
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      model: carItem?.model!,
+      brand: carItem?.brand!,
+      price: carItem?.price!,
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>): void {
+    try {
+      editCar(
+        session?.user?.token!,
+        params.cid,
+        values.brand,
+        values.model,
+        values.price,
+        editingImageData
+      ).then((res) => {
+        if (res) {
+          toast({
+            title: "Success",
+            description: "Car updated successfully",
+          });
+          fetchData();
+          setOpen(false);
+        } else {
+          toast({
+            title: "Update Failed",
+            description: "Your provider has not been updated",
+          });
+        }
+      });
+    } catch (error) {
+      toast({
+        title: "Update Failed",
+        description: "Your provider has not been updated",
+      });
+    }
+  }
+
   const fetchData = () => {
     const carJson = getSingleCar(params.cid).then((res) => {
       setCarItem(res.data);
-
+      form.setValue("model", res.data.model);
+      form.setValue("brand", res.data.brand);
+      form.setValue("price", res.data.price);
       console.log(res.data);
     });
   };
@@ -194,7 +250,12 @@ const page = ({ params }: { params: { cid: string } }) => {
                 </h1>
               </div>
               <div className="flex flex-row gap-4 justify-end pt-5">
-                <Dialog>
+                <Dialog
+                  open={open}
+                  onOpenChange={(e) => {
+                    setOpen(e);
+                  }}
+                >
                   <DialogTrigger asChild>
                     <Button
                       variant="default"
@@ -211,7 +272,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                         you're done.
                       </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-4 py-4">
+                    {/* <div className="grid gap-4 py-4">
                       <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="model" className="text-right">
                           Model
@@ -257,33 +318,83 @@ const page = ({ params }: { params: { cid: string } }) => {
                           className="col-span-3 text-white w-fit h-12 bg-[#0b0b0c] border-white border-[1px] text-base"
                         />
                       </div>
-                    </div>
-                    <DialogFooter>
-                      <DialogClose asChild>
+                    </div> */}
+                    <Form {...form}>
+                      <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-8"
+                      >
+                        <FormField
+                          control={form.control}
+                          name="model"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="font-kiona">
+                                Model
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  defaultValue={carItem?.model!}
+                                  className="w-[80%] bg-black border-white border-[1px] text-base "
+                                  placeholder="shadcn"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage className="text-rose-600" />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="brand"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="font-kiona">
+                                Brand
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  defaultValue={carItem?.brand!}
+                                  className="w-[80%] bg-black border-white border-[1px] text-base "
+                                  placeholder="shadcn"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage className="text-rose-600" />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="price"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="font-kiona">
+                                Model
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  defaultValue={carItem?.price!}
+                                  className="w-[80%] bg-black border-white border-[1px] text-base "
+                                  placeholder="shadcn"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage className="text-rose-600" />
+                            </FormItem>
+                          )}
+                        />
+
                         <Button
-                          onClick={(e) => {
-                            editCar(
-                              session?.user?.token!,
-                              params.cid,
-                              editedCarBrand,
-                              editedCarName,
-                              editedCarPrice,
-                              editingImageData
-                            ).then((res) => {
-                              toast({
-                                title: "Success",
-                                description: "Car updated successfully",
-                              });
-                              fetchData();
-                            });
-                          }}
+                          {...form}
                           type="submit"
-                          className="bg-white text-black"
+                          className="px-3 py-1 bg-white text-black "
                         >
-                          Save changes
+                          Submit
                         </Button>
-                      </DialogClose>
-                    </DialogFooter>
+                      </form>
+                    </Form>
+                    <DialogFooter></DialogFooter>
                   </DialogContent>
                 </Dialog>
                 <Dialog>

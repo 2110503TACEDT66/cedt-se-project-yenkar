@@ -42,6 +42,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -64,41 +65,22 @@ const page = ({ params }: { params: { id: string } }) => {
   const [editedTelephone, setEditedTelephone] = useState<string | undefined>(
     undefined
   );
-
-  const fetchData = () => {
-    const providerJson = getSingleCarProvider(session?.user?._id!).then(
-      (res) => {
-        setproviderData(res.data);
-      }
-    );
-  };
-  const fetchCarForProvider = () => {
-    const cars = getCarForOneProvider(session?.user?._id!).then((res) => {
-      setCarArray(res.data);
-      setisLoading(false);
-    });
-  };
-
-  useEffect(() => {
-    fetchData();
-    fetchCarForProvider();
-  }, []);
-
-  if (!session || !session.user.token) {
-    router.push("/sign-in");
-    return null;
-  }
-  console.log(carArray);
+  const [open, setOpen] = useState(false);
 
   const formSchema = z.object({
     name: z.string().min(2, {
       message: "Your model must be at least 2 characters long",
     }),
-    address: z.string().min(2, {
-      message: "Your brand must be at least 2 characters long",
-    }),
-    telephone: z.string().min(2, {
-      message: "Your price must be at least 2 characters long",
+    address: z
+      .string()
+      .min(2, {
+        message: "Your brand must be at least 2 characters long",
+      })
+      .max(100, {
+        message: "Your brand must be at most 100 characters long",
+      }),
+    telephone: z.string().length(10, {
+      message: "Your telephone must be 10 characters long",
     }),
   });
 
@@ -128,7 +110,7 @@ const page = ({ params }: { params: { id: string } }) => {
             title: "Update Success",
             description: "Your provider has been updated",
           });
-          setIsEditing(false);
+          setOpen(false);
           fetchData();
         } else {
           toast({
@@ -144,6 +126,35 @@ const page = ({ params }: { params: { id: string } }) => {
       });
     }
   }
+
+  const fetchData = () => {
+    const providerJson = getSingleCarProvider(session?.user?._id!).then(
+      (res) => {
+        setproviderData(res.data);
+        form.setValue("name", res.data.name);
+        form.setValue("address", res.data.address);
+        form.setValue("telephone", res.data.telephone);
+      }
+    );
+  };
+  const fetchCarForProvider = () => {
+    const cars = getCarForOneProvider(session?.user?._id!).then((res) => {
+      setCarArray(res.data);
+      setisLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+    fetchCarForProvider();
+  }, []);
+
+  if (!session || !session.user.token) {
+    router.push("/sign-in");
+    return null;
+  }
+  console.log(carArray);
+
   return (
     <main>
       <NavBar stickyState={false} session={session} />;
@@ -235,25 +246,23 @@ const page = ({ params }: { params: { id: string } }) => {
                     {providerData?.name ?? ""}
                   </h1>
                 </div>
-                  <div className="flex flex-row gap-1 items-baseline pt-3">
-                    <h1 className="text-xl font-kiona text-white">address | </h1>
-                    <h1 className="text-xl font-Poppins font-semibold text-white pl-2">
-                      {providerData?.address ?? ""}
-                    </h1>
-                  </div>{" "}
-                  <div className="flex flex-row gap-1 items-baseline pt-3">
-                    <h1 className="text-xl font-kiona text-white">
-                      telephone | 
-                    </h1>
-                    <h1 className="text-xl font-Poppins font-semibold text-white pl-2">
-                      {providerData?.telephone.slice(0, 3) +
-                        "-" +
-                        providerData?.telephone.slice(3, 6) +
-                        "-" +
-                        providerData?.telephone.slice(6, 10) ?? ""}
-                    </h1>
-                  </div>{" "}
-                  {/* <div className="flex flex-row gap-1 items-baseline">
+                <div className="flex flex-row gap-1 items-baseline pt-3">
+                  <h1 className="text-xl font-kiona text-white">address | </h1>
+                  <h1 className="text-xl font-Poppins font-semibold text-white pl-2">
+                    {providerData?.address ?? ""}
+                  </h1>
+                </div>{" "}
+                <div className="flex flex-row gap-1 items-baseline pt-3">
+                  <h1 className="text-xl font-kiona text-white">telephone |</h1>
+                  <h1 className="text-xl font-Poppins font-semibold text-white pl-2">
+                    {providerData?.telephone.slice(0, 3) +
+                      "-" +
+                      providerData?.telephone.slice(3, 6) +
+                      "-" +
+                      providerData?.telephone.slice(6, 10) ?? ""}
+                  </h1>
+                </div>{" "}
+                {/* <div className="flex flex-row gap-1 items-baseline">
                     <h1 className="text-xl font-kiona text-white">price |</h1>
                     <h1 className="text-xl font-poppins text-white">
                       {carData?.price ?? ""}
@@ -264,7 +273,7 @@ const page = ({ params }: { params: { id: string } }) => {
 
             <div className="flex flex-col w-full h-fit p-6 justify-center">
               <div className="flex flex-row self-end">
-                <Dialog>
+                <Dialog open={open} onOpenChange={setOpen}>
                   <DialogTrigger asChild>
                     <Button
                       variant="default"
@@ -281,14 +290,14 @@ const page = ({ params }: { params: { id: string } }) => {
                         you're done.
                       </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-4 py-4">
+                    {/* <div className="grid gap-4 py-4">
                       <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="name" className="text-right">
                           Name
                         </Label>
                         <Input
                           id="name"
-                          placeholder="Enter your store name"
+                          placeholder="Enter your stor bg-blacke name"
                           defaultValue={providerData?.name!}
                           value={editedName}
                           onChange={(e) => {
@@ -318,7 +327,7 @@ const page = ({ params }: { params: { id: string } }) => {
                         </Label>
                         <Input
                           id="telephone"
-                          placeholder="Enter your telephone number"
+                          placeholder="Ente bg-blackr your telephone number"
                           defaultValue={providerData?.telephone!}
                           value={editedTelephone}
                           onChange={(e) => {
@@ -327,43 +336,80 @@ const page = ({ params }: { params: { id: string } }) => {
                           className="col-span-3 text-white w-fit h-12 bg-[#0b0b0c] border-white border-[1px] text-base"
                         />
                       </div>
-                    </div>
-                    <DialogFooter>
-                      <DialogClose asChild>
+                    </div> */}
+                    <Form {...form}>
+                      <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-8"
+                      >
+                        <FormField
+                          control={form.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="font-kiona">Name</FormLabel>
+                              <FormControl>
+                                <Input
+                                  defaultValue={providerData?.name!}
+                                  className="w-[80%] bg-black border-white border-[1px] text-base "
+                                  placeholder="shadcn"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage className="text-rose-600" />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="address"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="font-kiona">
+                                Address
+                              </FormLabel>
+                              <FormControl>
+                                <Textarea
+                                  defaultValue={providerData?.address!}
+                                  className="w-[80%] bg-black border-white border-[1px] text-base "
+                                  placeholder="shadcn"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage className="text-rose-600" />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="telephone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="font-kiona">
+                                Telephone
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  defaultValue={providerData?.telephone!}
+                                  className="w-[80%] bg-black border-white border-[1px] text-base "
+                                  placeholder="shadcn"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage className="text-rose-600" />
+                            </FormItem>
+                          )}
+                        />
                         <Button
-                          onClick={(e) => {
-                            console.log(session?.user?.token!);
-                            updataCarProvider(
-                              session?.user?._id!,
-                              editedName!,
-                              editedAddress!,
-                              editedTelephone!,
-                              editingImageData!,
-                              session?.user.token!
-                            ).then((res) => {
-                              if (res) {
-                                toast({
-                                  title: "Update Success",
-                                  description: "Your provider has been updated",
-                                });
-                                setIsEditing(false);
-                                fetchData();
-                              } else {
-                                toast({
-                                  title: "Update Failed",
-                                  description:
-                                    "Your provider has not been updated",
-                                });
-                              }
-                            });
-                          }}
+                          {...form}
                           type="submit"
-                          className="bg-white text-black"
+                          className="px-3 py-1 bg-white text-black "
                         >
-                          Save changes
+                          Submit
                         </Button>
-                      </DialogClose>
-                    </DialogFooter>
+                      </form>
+                    </Form>
+                    <DialogFooter></DialogFooter>
                   </DialogContent>
                 </Dialog>
                 <button

@@ -8,7 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
 
 // form////
-import { z } from "zod";
+import { nan, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -65,9 +65,7 @@ const page = ({ params }: { params: { cid: string } }) => {
     brand: z.string().min(2, {
       message: "Your brand must be at least 2 characters long",
     }),
-    price: z.string().min(2, {
-      message: "Your price must be at least 2 characters long",
-    }),
+    price: z.coerce.number().int().positive(),
   });
 
   // 1. Define your form.
@@ -76,7 +74,7 @@ const page = ({ params }: { params: { cid: string } }) => {
     defaultValues: {
       model: "",
       brand: "",
-      price: "",
+      price: undefined,
     },
   });
 
@@ -88,7 +86,7 @@ const page = ({ params }: { params: { cid: string } }) => {
         session?.user?._id!,
         values.brand,
         values.model,
-        parseInt(values.price),
+        values.price,
         editingImageData
       ).then((res) => {
         toast({
