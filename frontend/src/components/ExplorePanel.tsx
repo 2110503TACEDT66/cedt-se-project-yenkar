@@ -48,9 +48,7 @@ const ExplorePanel = ({ carJson }: { carJson: Promise<CarJson> }) => {
               myCar?.map((carItem: CarItem) => {
                 return (
                   <div className="h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow ">
-                    <Link
-                      href={`/reserve?pid=${carItem.carProvider._id}&cid=${carItem._id}`}
-                    >
+                    <Link href={`/mystore/${carItem._id}`}>
                       <ExploreCard
                         key={carItem._id}
                         _id={carItem._id}
