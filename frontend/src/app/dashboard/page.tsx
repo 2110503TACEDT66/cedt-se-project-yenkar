@@ -14,6 +14,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
 interface Profile {
   data: {
     email: string;
@@ -257,10 +267,59 @@ const page = () => {
                 </div>
               </div>
               <div className="bg-[#0b0c0c] shadow-lg h-[70%] w-full rounded-lg py-6">
-                <div className="px-8 py-2 h-full">
+                <div className="px-8 py-2 h-full overflow-y-scroll">
                   <h1 className="text-xl text-white font-kiona">
                     Transaction History
                   </h1>
+                  <Table className="w-full h-full text-white">
+                    <TableCaption>A list of your recent invoices.</TableCaption>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[100px]">Invoice</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Method</TableHead>
+                        <TableHead className="text-right">Amount</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody className="overflow-y-scroll">
+                      <TableRow className="">
+                        <TableCell className="font-medium">INV001</TableCell>
+                        <TableCell>Paid</TableCell>
+                        <TableCell>Credit Card</TableCell>
+                        <TableCell className="text-right">$250.00</TableCell>
+                      </TableRow>
+                      <TableRow className="">
+                        <TableCell className="font-medium">INV001</TableCell>
+                        <TableCell>Paid</TableCell>
+                        <TableCell>Credit Card</TableCell>
+                        <TableCell className="text-right">$250.00</TableCell>
+                      </TableRow>
+                      <TableRow className="">
+                        <TableCell className="font-medium">INV001</TableCell>
+                        <TableCell>Paid</TableCell>
+                        <TableCell>Credit Card</TableCell>
+                        <TableCell className="text-right">$250.00</TableCell>
+                      </TableRow>
+                      <TableRow className="">
+                        <TableCell className="font-medium">INV001</TableCell>
+                        <TableCell>Paid</TableCell>
+                        <TableCell>Credit Card</TableCell>
+                        <TableCell className="text-right">$250.00</TableCell>
+                      </TableRow>
+                      <TableRow className="">
+                        <TableCell className="font-medium">INV001</TableCell>
+                        <TableCell>Paid</TableCell>
+                        <TableCell>Credit Card</TableCell>
+                        <TableCell className="text-right">$250.00</TableCell>
+                      </TableRow>
+                      <TableRow className="">
+                        <TableCell className="font-medium">INV001</TableCell>
+                        <TableCell>Paid</TableCell>
+                        <TableCell>Credit Card</TableCell>
+                        <TableCell className="text-right">$250.00</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 </div>
               </div>
             </div>
