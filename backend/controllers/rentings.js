@@ -2,6 +2,7 @@ const Renting = require("../models/Renting");
 const Provider = require("../models/CarProvider");
 const User = require("../models/User");
 const Car = require("../models/Car");
+const Transaction = require("../models/Transaction");
 
 //@desc     Get all renting
 //@route    GET /api/v1/rentings
@@ -10,12 +11,13 @@ exports.getRentings = async (req, res, next) => {
   let query;
   if (req.user.role == "admin") {
     if (req.params.carProviderId) {
-      query = Renting.find({ user: req.user.carProviderId }).populate(["car",
+      query = Renting.find({ user: req.user.carProviderId }).populate([
+        "car",
         {
           path: "carProvider",
           select: "name address telephone price src", //  Added price field to populate
         },
-        { 
+        {
           path: "user",
           select: "name email", //  Added user field to populate
         },
@@ -25,7 +27,8 @@ exports.getRentings = async (req, res, next) => {
         // }
       ]);
     } else {
-      query = Renting.find().populate(["car",
+      query = Renting.find().populate([
+        "car",
         {
           path: "carProvider",
           select: "name address telephone price src", //  Added price field to populate
@@ -41,7 +44,8 @@ exports.getRentings = async (req, res, next) => {
       ]);
     }
   } else {
-    query = Renting.find({ user: req.user.id }).populate(["car",
+    query = Renting.find({ user: req.user.id }).populate([
+      "car",
       {
         path: "carProvider",
         select: "name address telephone price src", //  Added price field to populate
@@ -75,10 +79,11 @@ exports.getRentings = async (req, res, next) => {
 //@access   Public
 exports.getRenting = async (req, res, next) => {
   try {
-    const renting = await Renting.findById(req.params.id).populate([{
-      path: "carProvider",
-      select: "name address telephone price", //  Added price field to populate
-      }
+    const renting = await Renting.findById(req.params.id).populate([
+      {
+        path: "carProvider",
+        select: "name address telephone price", //  Added price field to populate
+      },
     ]);
 
     if (!renting)
@@ -159,9 +164,9 @@ exports.addRenting = async (req, res, next) => {
     // console.log(req);
 
     // req.body.user = req.user.id;
-    const { rentDate, rentTo, returned , carModel} = req.body;
+    const { rentDate, rentTo, returned, carModel } = req.body;
     console.log(req.body);
-    console.log(rentDate, rentTo, returned , carModel);
+    console.log(rentDate, rentTo, returned, carModel);
 
     const existedRenting = await Renting.find({ user: req.user.id });
     console.log(existedRenting);
@@ -171,16 +176,20 @@ exports.addRenting = async (req, res, next) => {
     const user = await User.findById(req.user.id);
     console.log(user);
 
-    const car = await Car.find({carProvider : req.params.carProviderId, model:carModel });
-    console.log(car)
-    if(car.length==0){
-      return res
-        .status(400)
-        .json({success:false,message:"The provider doesn't have this car"})
+    const car = await Car.find({
+      carProvider: req.params.carProviderId,
+      model: carModel,
+    });
+    console.log(car);
+    if (car.length == 0) {
+      return res.status(400).json({
+        success: false,
+        message: "The provider doesn't have this car",
+      });
     }
 
     const isBalanceEnough = await user.checkBalance(car[0].price);
-    console.log(car[0].price)
+    console.log(car[0].price);
     console.log(isBalanceEnough);
 
     //if user is adding renting to other user
@@ -201,10 +210,18 @@ exports.addRenting = async (req, res, next) => {
 
     // const newBalance = user.setBalance(user.balance - carProvider.price);
     if (req.user.role != "admin") {
-      await user.updateOne({ $inc: { balance: -(car[0].price) } });
-      await carProvider.updateOne({ $inc: { balance: (car[0].price) } });
-    }   
-    
+      await user.updateOne({ $inc: { balance: -car[0].price } });
+      await carProvider.updateOne({ $inc: { balance: car[0].price } });
+      await Transaction.create({
+        amount: car[0].price,
+        userId: req.user.id,
+        carProviderId: req.params.carProviderId,
+        type: "payment",
+        stripeId: null,
+        direction: "userToCarProvider",
+      });
+    }
+
     /***************************************************************** */
 
     //renting limit
@@ -217,12 +234,12 @@ exports.addRenting = async (req, res, next) => {
 
     const renting = await Renting.create({
       //rentDate, rentTo, user, carProvider, returned createAt, carModel
-      rentDate :rentDate ,
-      rentTo :rentTo,
+      rentDate: rentDate,
+      rentTo: rentTo,
       user: req.body.user,
       carProvider: req.body.carProvider,
-      returned :returned,
-      car : car[0]
+      returned: returned,
+      car: car[0],
     });
 
     res.status(200).json({ success: true, data: renting });
@@ -253,7 +270,6 @@ exports.updateRenting = async (req, res, next) => {
         message: `user ${req.user.id} is not authorized to change this renting`,
       });
     }
-
 
     renting = await Renting.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -323,12 +339,20 @@ exports.deleteRenting = async (req, res, next) => {
 
     const user = await User.findById(renting.user);
     const carProvider = await Provider.findById(renting.carProvider);
-    const car = await Car.findById(renting.car)
-    console.log("gtttttttttttttt")
-    console.log(car)
-    if(car){
+    const car = await Car.findById(renting.car);
+    console.log("gtttttttttttttt");
+    console.log(car);
+    if (car) {
       await user.updateOne({ $inc: { balance: car.price } });
-      await carProvider.updateOne({ $inc: { balance: -car.price}});
+      await carProvider.updateOne({ $inc: { balance: -car.price } });
+      await Transaction.create({
+        amount: car.price,
+        userId: renting.user,
+        carProviderId: renting.carProvider,
+        type: "refund",
+        stripeId: null,
+        direction: "carProviderToUser",
+      });
     }
     await renting.deleteOne();
 

@@ -61,3 +61,38 @@ interface CreateTransactionProps {
   buyerId: string;
   createdAt: Date;
 }
+interface TransactionHisResponse {
+  success: boolean;
+  count: number;
+  data: TransactionHis[];
+}
+
+interface TransactionHis {
+  _id: string;
+  stripeId?: string;
+  amount: number;
+  userId: UserId;
+  carProviderId?: CarProviderId;
+  direction: Direction;
+  type: string;
+  createdAt: string;
+}
+
+interface UserId {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+interface CarProviderId {
+  _id: string;
+  email: string;
+  name: string;
+  id: string;
+}
+
+enum Direction {
+  userToCarProvider = "userToCarProvider",
+  carProviderToUser = "carProviderToUser",
+  userTopUp = "userTopUp",
+}

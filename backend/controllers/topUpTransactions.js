@@ -1,4 +1,5 @@
 const TopUpTransaction = require("../models/TopUpTransaction");
+const Transaction = require("../models/Transaction");
 
 //@desc     Get all topUpTransaction
 //@route    GET /api/v1/topUpTransaction
@@ -66,6 +67,24 @@ exports.getSingleTopUpTransaction = async (req, res, next) => {
 exports.createTopUpTransaction = async (req, res, next) => {
   try {
     const topUpTransaction = await TopUpTransaction.create(req.body);
+    if (req.user.role === "user") {
+      Transaction.create({
+        stripeId: topUpTransaction.stripeId,
+        amount: topUpTransaction.amount,
+        userId: req.user.id,
+        direction: "userTopUp",
+        type: "topUp",
+      });
+    } else if (req.user.role === "carProvider") {
+      Transaction.create({
+        stripeId: topUpTransaction.stripeId,
+        amount: topUpTransaction.amount,
+        carProviderId: req.user.id,
+        direction: "userTopUp",
+        type: "topUp",
+      });
+    }
+
     res.status(201).json({
       success: true,
       data: topUpTransaction,
