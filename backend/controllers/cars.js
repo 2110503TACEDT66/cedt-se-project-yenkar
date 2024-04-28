@@ -1,5 +1,8 @@
 const Car = require('../models/Car');
+const CarProvider = require('../models/CarProvider');
 const Provider = require("../models/CarProvider");
+const Renting = require('../models/Renting');
+const User = require('../models/User');
 
 //@desc     add a Car to The Store
 //@route    POST /api/v1/carproviders/:carProviderId/cars
@@ -79,7 +82,20 @@ exports.deleteCar = async (req, res, next) => {
         else if (req.user.id != car.carProvider.toString() && req.user.role != 'admin') {
             return res.status(400).json({success: false, message: `Not authorized to delete car with id ${req.params.id}!`});
         }
+        const rentings = await Renting.find({ car: car._id });
 
+        // Before delete car Refund money to user first!
+        for (const renting of rentings) {
+          const user = await User.findById(renting.user);
+          const carProvider = await CarProvider.findById(renting.carProvider);
+            if (user) {
+                await user.updateOne({ $inc: { balance: car.price } } );
+                await carProvider.updateOne( { $inc: { balance: -car.price } } );
+            }
+
+        }
+        
+        
         await car.deleteOne();
         res.status(200).json({success: true, data: {}, message: `Successfully deleted car id ${req.params.id}`}); 
     }
