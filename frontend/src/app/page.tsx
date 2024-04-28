@@ -27,6 +27,10 @@ export default function Home() {
     setTimeout(() => {
       setIsFirst(false);
     }, 100);
+    router.prefetch("/explore");
+    router.prefetch("/manage");
+    router.prefetch("/dashboard");
+    router.prefetch("/balance");
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
