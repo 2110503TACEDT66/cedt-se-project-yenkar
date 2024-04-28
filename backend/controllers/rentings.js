@@ -328,6 +328,7 @@ exports.deleteRenting = async (req, res, next) => {
     console.log(car)
     if(car){
       await user.updateOne({ $inc: { balance: car.price } });
+      await carProvider.updateOne({ $inc: { balance: -car.price}});
     }
     await renting.deleteOne();
 
