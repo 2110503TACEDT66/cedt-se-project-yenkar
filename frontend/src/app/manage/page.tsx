@@ -115,55 +115,65 @@ const page = () => {
                 rentDate={new Date(item.rentDate)}
                 returnDate={new Date(item.rentTo)}
                 carProviderId={item.carProvider._id}
-                onRemove={(_id: any) => {
-                  userReservationDispatch({
-                    type: "REMOVE",
-                    payload: [
-                      {
-                        _id,
-                        rentDate: "",
-                        rentTo: "",
-                        user: {
-                          _id: "",
-                          name: "",
-                          email: "",
-                        },
-                        carProvider: {
-                          _id: "",
-                          name: "",
-                          address: "",
-                          telephone: "",
-                          src: "",
-                        },
-                        car: {
-                          src: "",
-                          _id: "",
-                          brand: "",
-                          model: "",
-                          price: 0,
-                          carProvider: {
-                            _id: "",
-                            name: "",
-                            address: "",
-                            telephone: "",
-                            src: "",
-                          },
-                        },
-                        createAt: "",
-                        returned: false,
-                        __v: 0,
-                      },
-                    ],
-                  });
-                }}
+                onRemove={(_id: any) => {}}
                 deleteReservation={(_id: any, token: string) =>
-                  deleteReservation(_id, token).then(() =>
-                    toast({
-                      title: "Reservation Deleted",
-                      description: "Your reservation has been deleted",
-                      duration: 3000,
-                    })
-                  )
+                  deleteReservation(_id, token).then((res) => {
+                    if (res.status === 200) {
+                      toast({
+                        title: "Reservation Deleted",
+                        description: "Your reservation has been deleted",
+                        duration: 3000,
+                      });
+
+                      userReservationDispatch({
+                        type: "REMOVE",
+                        payload: [
+                          {
+                            _id,
+                            rentDate: "",
+                            rentTo: "",
+                            user: {
+                              _id: "",
+                              name: "",
+                              email: "",
+                            },
+                            carProvider: {
+                              _id: "",
+                              name: "",
+                              address: "",
+                              telephone: "",
+                              src: "",
+                            },
+                            car: {
+                              src: "",
+                              _id: "",
+                              brand: "",
+                              model: "",
+                              price: 0,
+                              carProvider: {
+                                _id: "",
+                                name: "",
+                                address: "",
+                                telephone: "",
+                                src: "",
+                              },
+                            },
+                            createAt: "",
+                            returned: false,
+                            __v: 0,
+                          },
+                        ],
+                      });
+                    } else {
+                      const errorMess = res.json().then((res) => res.message);
+                      toast({
+                        title: "Reservation Delete Failed",
+                        description: errorMess ?? "Something went wrong!",
+                        variant: "destructive",
+                        duration: 3000,
+                      });
+                    }
+                  })
                 }
                 carId={item.car._id}
                 adminView={isAdmin}
@@ -188,7 +198,9 @@ const page = () => {
                   width={50}
                   height={50}
                 />
-                <h1 className="text-white font-Poppins pt-6">Add More Reservation</h1>
+                <h1 className="text-white font-Poppins pt-6">
+                  Add More Reservation
+                </h1>
               </div>
             </div>
           ) : (
