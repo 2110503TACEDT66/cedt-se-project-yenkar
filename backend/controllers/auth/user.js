@@ -19,7 +19,7 @@ exports.register = async (req, res, next) => {
       address,
     });
 
-    sendTokenResponse(newUser, 200, res);
+    sendTokenResponse(newUser, "user", 200, res);
   } catch (error) {
     res.status(400).json({ success: false });
     console.log(error);
