@@ -1,4 +1,4 @@
-export default async function addCar(token:string,pid:string,brand:string,model:string,price:number,src?:string) {
+export default async function addCar(token:string,pid:string,brand:string,model:string,price:number,doors:number,seats:number,src?:string) {
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/carproviders/${pid}/cars`,{
         method: "POST",
         headers: {
@@ -9,6 +9,8 @@ export default async function addCar(token:string,pid:string,brand:string,model:
             brand : brand,
             model : model,
             price : price,
+            doors : doors,
+            seats : seats,
             src : src
         }),
     })

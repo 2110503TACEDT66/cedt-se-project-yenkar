@@ -68,6 +68,8 @@ const page = ({ params }: { params: { cid: string } }) => {
     price: z.string().min(2, {
       message: "Your price must be at least 2 characters long",
     }),
+    doors: z.string(),
+    seats: z.string()
   });
 
   // 1. Define your form.
@@ -77,6 +79,8 @@ const page = ({ params }: { params: { cid: string } }) => {
       model: "",
       brand: "",
       price: "",
+      doors: "",
+      seats: ""
     },
   });
 
@@ -89,6 +93,8 @@ const page = ({ params }: { params: { cid: string } }) => {
         values.brand,
         values.model,
         parseInt(values.price),
+        parseInt(values.doors),
+        parseInt(values.seats),
         editingImageData
       ).then((res) => {
         toast({
@@ -277,6 +283,50 @@ const page = ({ params }: { params: { cid: string } }) => {
                       </FormItem>
                     )}
                   />
+                  <div className="flex">
+                    <FormField
+                      control={form.control}
+                      name="doors"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="font-kiona text-xl">
+                            Amount of doors
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder=""
+                              className="w-[30%] text-black"
+                              {...field}
+                            />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="seats"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="font-kiona text-xl">
+                            Seats
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder=""
+                              className="w-[30%] text-black"
+                              {...field}
+                            />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   <Button
                     type="submit"
                     className="py-1 px-5 bg-gradient-to-r from-[#F05B80] to-[#4158F0] text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
