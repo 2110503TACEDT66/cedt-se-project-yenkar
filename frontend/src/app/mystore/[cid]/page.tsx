@@ -349,7 +349,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 <Input
                                   defaultValue={carItem?.model!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="shadcn"
+                                  placeholder="Enter your car model"
                                   {...field}
                                 />
                               </FormControl>
@@ -369,7 +369,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 <Input
                                   defaultValue={carItem?.brand!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="shadcn"
+                                  placeholder="Enter your car brand"
                                   {...field}
                                 />
                               </FormControl>
@@ -383,13 +383,13 @@ const page = ({ params }: { params: { cid: string } }) => {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="font-kiona">
-                                Model
+                                Price
                               </FormLabel>
                               <FormControl>
                                 <Input
                                   defaultValue={carItem?.price!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="shadcn"
+                                  placeholder="Enter your car price"
                                   {...field}
                                 />
                               </FormControl>

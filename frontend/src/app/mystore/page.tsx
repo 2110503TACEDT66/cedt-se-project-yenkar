@@ -364,7 +364,7 @@ const page = ({ params }: { params: { id: string } }) => {
                                 <Input
                                   defaultValue={providerData?.name!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="shadcn"
+                                  placeholder="Enter your store name"
                                   {...field}
                                 />
                               </FormControl>
@@ -384,7 +384,7 @@ const page = ({ params }: { params: { id: string } }) => {
                                 <Textarea
                                   defaultValue={providerData?.address!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="shadcn"
+                                  placeholder="Enter your address"
                                   {...field}
                                 />
                               </FormControl>
@@ -404,7 +404,7 @@ const page = ({ params }: { params: { id: string } }) => {
                                 <Input
                                   defaultValue={providerData?.telephone!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="shadcn"
+                                  placeholder="Enter your telephone number"
                                   {...field}
                                 />
                               </FormControl>
