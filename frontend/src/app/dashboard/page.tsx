@@ -13,6 +13,9 @@ import { format, set } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import TransactionHis from "@/components/TransactionHisCard";
+import { getTransactions } from "@/libs/transaction.action";
+import TransactionHisCard from "@/components/TransactionHisCard";
 
 interface Profile {
   data: {
@@ -50,6 +53,14 @@ const page = () => {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [isLoadingCar, setIsLoadingCar] = useState(true);
   const router = useRouter();
+  const [transaction, setTransaction] = useState<TransactionHis[] | null>(null);
+
+  const fetchHistory = (token: string) => {
+    getTransactions(token).then((res) => {
+      console.log(res);
+      setTransaction(res.data);
+    });
+  };
 
   const fetchData = (token: string) => {
     const userProfile = getMe(token).then((res) => {
@@ -73,6 +84,7 @@ const page = () => {
   useEffect(() => {
     fetchData(session.user.token);
     fetchReservation(session.user.token);
+    fetchHistory(session.user.token);
   }, []);
 
   return (
@@ -258,9 +270,31 @@ const page = () => {
               </div>
               <div className="bg-[#0b0c0c] shadow-lg h-[70%] w-full rounded-lg py-6">
                 <div className="px-8 py-2 h-full">
-                  <h1 className="text-xl text-white font-kiona">
+                  <h1 className="text-xl text-white font-kiona pb-2">
                     Transaction History
                   </h1>
+                  <div className=" w-full h-[95%] flex flex-col gap-1 overflow-y-scroll">
+                    {transaction?.map((transaction) => (
+                      <div
+                        key={transaction._id}
+                        className=" w-full h-fit bg-[#17191C] rounded-lg"
+                      >
+                        <TransactionHisCard
+                          type={transaction.type}
+                          _id={transaction?._id!}
+                          amount={transaction?.amount!}
+                          createdAt={transaction?.createdAt!}
+                          stripeId={transaction?.stripeId!}
+                          userId={transaction?.userId!}
+                          carProviderId={transaction?.carProviderId!}
+                          direction={transaction?.direction!}
+                          currentUserId={session.user._id}
+                          userRole={session.user.role}
+                        />
+                      </div>
+                    ))}
+                    <div className=" w-full h-[25%]"></div>
+                  </div>
                 </div>
               </div>
             </div>

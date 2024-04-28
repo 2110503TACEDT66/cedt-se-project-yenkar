@@ -214,10 +214,11 @@ exports.addRenting = async (req, res, next) => {
       await carProvider.updateOne({ $inc: { balance: car[0].price } });
       await Transaction.create({
         amount: car[0].price,
-        origin: { id: req.user.id, model: "User" },
-        designation: { id: req.params.carProviderId, model: "CarProvider" },
+        userId: req.user.id,
+        carProviderId: req.params.carProviderId,
         type: "payment",
         stripeId: null,
+        direction: "userToCarProvider",
       });
     }
 
@@ -346,10 +347,11 @@ exports.deleteRenting = async (req, res, next) => {
       await carProvider.updateOne({ $inc: { balance: -car.price } });
       await Transaction.create({
         amount: car.price,
-        origin: { id: renting.carProvider, model: "CarProvider" },
-        designation: { id: req.user.id, model: "User" },
+        userId: renting.user,
+        carProviderId: renting.carProvider,
         type: "refund",
         stripeId: null,
+        direction: "carProviderToUser",
       });
     }
     await renting.deleteOne();

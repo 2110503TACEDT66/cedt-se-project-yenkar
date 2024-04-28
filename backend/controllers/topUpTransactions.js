@@ -67,19 +67,24 @@ exports.getSingleTopUpTransaction = async (req, res, next) => {
 exports.createTopUpTransaction = async (req, res, next) => {
   try {
     const topUpTransaction = await TopUpTransaction.create(req.body);
-    Transaction.create({
-      stripeId: req.body.stripeId,
-      amount: req.body.amount,
-      origin: {
-        id: req.user.id,
-        model: "User",
-      },
-      designation: {
-        id: req.user.id,
-        model: "User",
-      },
-      type: "topUp",
-    });
+    if (req.user.role === "user") {
+      Transaction.create({
+        stripeId: topUpTransaction.stripeId,
+        amount: topUpTransaction.amount,
+        userId: req.user.id,
+        direction: "userTopUp",
+        type: "topUp",
+      });
+    } else if (req.user.role === "carProvider") {
+      Transaction.create({
+        stripeId: topUpTransaction.stripeId,
+        amount: topUpTransaction.amount,
+        carProviderId: req.user.id,
+        direction: "userTopUp",
+        type: "topUp",
+      });
+    }
+
     res.status(201).json({
       success: true,
       data: topUpTransaction,

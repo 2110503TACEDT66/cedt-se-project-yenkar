@@ -76,15 +76,17 @@ const NavBar = ({
                 My Store
               </button>
             ) : (
-              <button
-                onClick={() => router.push("/dashboard")}
-                className={`font-normal text-xl hover:font-bold hover:scale-105 transition duration-300 ease-in-out active:font-normal ${
-                  isSticky ? "text-black  " : "text-white"
-                }`}
-              >
-                Dashboard
-              </button>
+              ""
             )}
+
+            <button
+              onClick={() => router.push("/dashboard")}
+              className={`font-normal text-xl hover:font-bold hover:scale-105 transition duration-300 ease-in-out active:font-normal ${
+                isSticky ? "text-black  " : "text-white"
+              }`}
+            >
+              Dashboard
+            </button>
           </div>
         </div>
 

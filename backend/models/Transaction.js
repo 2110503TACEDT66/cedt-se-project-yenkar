@@ -13,28 +13,19 @@ const TransactionSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  origin: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    model: {
-      type: String,
-      required: true,
-      enum: ["User", "CarProvider"],
-    },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  carProviderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CarProvider",
   },
 
-  designation: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    model: {
-      type: String,
-      required: true,
-      enum: ["User", "CarProvider"],
-    },
+  direction: {
+    type: String,
+    required: true,
+    enum: ["userToCarProvider", "carProviderToUser", "userTopUp"],
   },
 
   type: {
