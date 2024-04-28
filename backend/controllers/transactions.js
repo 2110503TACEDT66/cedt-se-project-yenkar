@@ -7,6 +7,9 @@ const Transaction = require("../models/Transaction");
 exports.getTransactions = async (req, res, next) => {
   let query;
 
+  console.log("GETTING TRANSACTIONS");
+  console.log(req.user);
+
   if (req.user.role === "admin") {
     query = Transaction.find();
   } else {
@@ -17,16 +20,21 @@ exports.getTransactions = async (req, res, next) => {
 
   try {
     let transactions = await query;
-    transactions = await Transaction.populate(transactions, {
-      path: "origin.id",
-      model: transactions.origin.model,
-      select: "name email",
-    });
-    transactions = await Transaction.populate(transactions, {
-      path: "designation.id",
-      model: transactions.designation.model,
-      select: "name email",
-    });
+    console.log(transactions);
+    if (transactions && transactions.origin) {
+      transactions = await Transaction.populate(transactions, {
+        path: "origin.id",
+        model: transactions.origin.model,
+        select: "name email",
+      });
+    }
+    if (transactions && transactions.designation) {
+      transactions = await Transaction.populate(transactions, {
+        path: "designation.id",
+        model: transactions.designation.model,
+        select: "name email",
+      });
+    }
     res.status(200).json({
       success: true,
       count: transactions.length,

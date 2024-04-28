@@ -7,7 +7,7 @@ const TransactionSchema = new mongoose.Schema({
   },
   stripeId: {
     type: String,
-    unique: true,
+    nullable: true,
   },
   amount: {
     type: Number,
@@ -21,7 +21,7 @@ const TransactionSchema = new mongoose.Schema({
     model: {
       type: String,
       required: true,
-      enum: ["User", "CarProvider"], // Only allow these two values
+      enum: ["User", "CarProvider"],
     },
   },
 
@@ -33,8 +33,14 @@ const TransactionSchema = new mongoose.Schema({
     model: {
       type: String,
       required: true,
-      enum: ["User", "CarProvider"], // Only allow these two values
+      enum: ["User", "CarProvider"],
     },
+  },
+
+  type: {
+    type: String,
+    required: true,
+    enum: ["topUp", "payment", "refund"],
   },
 });
 

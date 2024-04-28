@@ -1,4 +1,5 @@
 const TopUpTransaction = require("../models/TopUpTransaction");
+const Transaction = require("../models/Transaction");
 
 //@desc     Get all topUpTransaction
 //@route    GET /api/v1/topUpTransaction
@@ -66,6 +67,19 @@ exports.getSingleTopUpTransaction = async (req, res, next) => {
 exports.createTopUpTransaction = async (req, res, next) => {
   try {
     const topUpTransaction = await TopUpTransaction.create(req.body);
+    Transaction.create({
+      stripeId: req.body.stripeId,
+      amount: req.body.amount,
+      origin: {
+        id: req.user.id,
+        model: "User",
+      },
+      designation: {
+        id: req.user.id,
+        model: "User",
+      },
+      type: "topUp",
+    });
     res.status(201).json({
       success: true,
       data: topUpTransaction,
