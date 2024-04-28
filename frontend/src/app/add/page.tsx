@@ -65,7 +65,7 @@ const page = ({ params }: { params: { cid: string } }) => {
     brand: z.string().min(2, {
       message: "Your brand must be at least 2 characters long",
     }),
-    price: z.coerce.number().int().positive(),
+    price: z.coerce.number().int().positive().gte(1),
   });
 
   // 1. Define your form.
