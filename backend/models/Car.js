@@ -34,7 +34,6 @@ const carSchema = new mongoose.Schema({
 carSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
     console.log(`Renting being remove from car ${this._id}`);
     await Renting.deleteMany({ car: this._id });
-
     next();
 });
 

@@ -94,7 +94,7 @@ exports.getCarProvider = async (req, res, next) => {
 exports.createCarProvider = async (req, res, next) => {
   try {
     // Added email password to create car Provider //
-    const { email, password, name, address, telephone, price } = req.body;
+    const { email, password, name, address, telephone, src } = req.body;
 
     const carProvider = await CarProvider.create({
       // Added email password to create car Provider
