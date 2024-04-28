@@ -51,26 +51,27 @@ const page = () => {
 
   const formSchema = z.object({
     name: z.string().min(2, {
-      message: "name must be at least 2 characters.",
+      message: "Name must be at least 2 characters.",
     }),
-    email: z.string().min(2, {
-      message: "email must be at least 2 characters.",
-    }),
-    password: z.string().min(2, {
-      message: "password must be at least 2 characters.",
-    }),
-    phone: z
+    email: z
       .string()
-      .min(10, {
-        message: "phone number must be exactly 10 digits.",
+      .min(1, {
+        message: "This field has to be filled.",
       })
-      .max(10, {
-        message: "phone number must be exactly 10 digits.",
-      }),
-
-    location: z.string().min(2, {
-      message: "location must be at least 2 characters.",
+      .email("Invalid email address."),
+    password: z.string().min(8, {
+      message: "Password must be at least 8 characters.",
     }),
+    phone: z.string().length(10, {
+      message: "Phone number must be 10 characters.",
+    }),
+
+    location: z
+      .string()
+      .min(2, {
+        message: "Location must be at least 2 characters.",
+      })
+      .max(100, {}),
   });
 
   // 1. Define your form.
