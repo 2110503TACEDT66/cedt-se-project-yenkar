@@ -106,9 +106,10 @@ const ManageCard = ({
             {isEditing ? "Cancel" : "Edit"}
           </button>
           <button
-            onClick={(e) => {
+            onClick={() => {
               onRemove(id);
               deleteReservation(id, session?.user.token);
+              router.push(`/manage/${carId}`)
             }}
             className="py-1 px-5 bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
           >
@@ -134,7 +135,7 @@ const ManageCard = ({
             }
           />
         </div>
-        <div className="p-6 w-[50%] ">
+        <div className="p-6 w-[80%] ">
           <h1
             onClick={() =>
               router.push(`/reserve?pid=${carProviderId}&cid=${carId}`)
@@ -155,7 +156,7 @@ const ManageCard = ({
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-x-4 flex flex-row items-start justify-between w-full"
+                  className="flex flex-row w-full gap-40"
                 >
                   <FormField
                     control={form.control}
@@ -256,13 +257,14 @@ const ManageCard = ({
                       </FormItem>
                     )}
                   />
-
+                <div>
                   <Button
                     type="submit"
                     className="mt-12 bg-gradient-to-r font-kiona text-xl from-[#F05B80] to-[#4158F0] text-white hover:scale-105 transition duration-300 ease-in-out hover:saturate-150 active:scale-100"
                   >
                     Submit
                   </Button>
+                </div>
                 </form>
               </Form>
             </div>
