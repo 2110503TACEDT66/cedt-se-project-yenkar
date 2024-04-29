@@ -43,8 +43,8 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { CarItem, CarProvider } from "../../../interface";
 import { CommandMenu } from "@/components/CommandMenu";
+import { CarItem, CarProvider, formPlaceholder } from "@/index";
 
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -205,7 +205,7 @@ const page = ({ params }: { params: { id: string } }) => {
                 {({ open }) => {
                   return (
                     <div className=" w-full h-full flex flex-col justify-center items-center gap-4">
-                      <Button
+                      <button
                         onClick={(e) => {
                           open();
                         }}
@@ -213,7 +213,7 @@ const page = ({ params }: { params: { id: string } }) => {
             bg-black bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-50 rounded-xl text-white hover:scale-105 transition duration-300 ease-in-out active:scale-100 active:bg-opacity-100 active:duration-75"
                       >
                         Change profile image
-                      </Button>
+                      </button>
 
                       <ProviderCard
                         _id={providerData?._id!}
@@ -365,9 +365,8 @@ const page = ({ params }: { params: { id: string } }) => {
                               <FormLabel className="font-kiona">Name</FormLabel>
                               <FormControl>
                                 <Input
-                                  defaultValue={providerData?.name!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="Enter your store name"
+                                  placeholder={formPlaceholder.carProvider.name}
                                   {...field}
                                 />
                               </FormControl>
@@ -385,9 +384,10 @@ const page = ({ params }: { params: { id: string } }) => {
                               </FormLabel>
                               <FormControl>
                                 <Textarea
-                                  defaultValue={providerData?.address!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base"
-                                  placeholder="Enter your address"
+                                  placeholder={
+                                    formPlaceholder.carProvider.address
+                                  }
                                   {...field}
                                 />
                               </FormControl>
@@ -405,9 +405,10 @@ const page = ({ params }: { params: { id: string } }) => {
                               </FormLabel>
                               <FormControl>
                                 <Input
-                                  defaultValue={providerData?.telephone!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="Enter your telephone number"
+                                  placeholder={
+                                    formPlaceholder.carProvider.phone
+                                  }
                                   {...field}
                                 />
                               </FormControl>
@@ -424,7 +425,6 @@ const page = ({ params }: { params: { id: string } }) => {
                         </Button>
                       </form>
                     </Form>
-                    <DialogFooter></DialogFooter>
                   </DialogContent>
                 </Dialog>
                 <button
@@ -451,7 +451,10 @@ const page = ({ params }: { params: { id: string } }) => {
                 <div className="grid grid-cols-2 w-full h-full mt-10 ml-5">
                   {carArray
                     ? carArray.map((carItem: CarItem) => (
-                        <Link href={`/mystore/${carItem._id}`}>
+                        <Link
+                          href={`/mystore/${carItem._id}`}
+                          key={carItem._id}
+                        >
                           <div className="w-[90%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow ">
                             <CarProviderCard
                               _id={carItem._id}

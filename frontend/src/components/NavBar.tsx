@@ -39,7 +39,8 @@ const NavBar = ({
               }`}
               width={255}
               height={55}
-              className="z-50 hover:scale-110 transition duration-300 ease-in-out"
+              className="z-50 hover:scale-110 transition duration-300 ease-in-out w-auto h-auto"
+              priority={true}
             />
           </Link>
 
@@ -121,7 +122,8 @@ const NavBar = ({
                   }`}
                   width={30}
                   height={30}
-                  className="z-50 hover:scale-110 transition duration-300 ease-in-out"
+                  className="z-50 hover:scale-110 transition duration-300 ease-in-out w-auto h-auto"
+                  priority={true}
                 />
               </PopoverTrigger>
               <PopoverContent className="bg-white w-36 p-3 mr-3 mt-3 flex flex-col space-y-4">

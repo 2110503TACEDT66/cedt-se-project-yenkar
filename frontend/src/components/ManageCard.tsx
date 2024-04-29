@@ -109,7 +109,6 @@ const ManageCard = ({
             onClick={() => {
               onRemove(id);
               deleteReservation(id, session?.user.token);
-              router.push(`/manage/${carId}`)
             }}
             className="py-1 px-5 bg-rose-600 text-white rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
           >
@@ -129,10 +128,12 @@ const ManageCard = ({
             alt="image"
             src={src ?? "YenKar/ivrxoeccbri8gxjb4pnx"}
             fill={true}
-            className="object-cover rounded-l-lg shadow-xl hover:contrast-150  transition duration-300 ease-in-out "
+            className="object-cover rounded-l-lg shadow-xl hover:contrast-150  transition duration-300 ease-in-out"
             onClick={() =>
               router.push(`/reserve?pid=${carProviderId}&cid=${carId}`)
             }
+            sizes="33vw"
+            priority={true}
           />
         </div>
         <div className="p-6 w-[80%] ">
@@ -144,11 +145,11 @@ const ManageCard = ({
           >
             {adminView ? (
               <div>
-                <h1>{name}</h1>
+                <p>{name}</p>
                 <span className="text-sm"> | Reserve by {userName}</span>
               </div>
             ) : (
-              <h1>{name}</h1>
+              <p>{name}</p>
             )}
           </h1>
           {isEditing ? (
@@ -257,14 +258,14 @@ const ManageCard = ({
                       </FormItem>
                     )}
                   />
-                <div>
-                  <Button
-                    type="submit"
-                    className="mt-12 bg-gradient-to-r font-kiona text-xl from-[#F05B80] to-[#4158F0] text-white hover:scale-105 transition duration-300 ease-in-out hover:saturate-150 active:scale-100"
-                  >
-                    Submit
-                  </Button>
-                </div>
+                  <div>
+                    <Button
+                      type="submit"
+                      className="mt-12 bg-gradient-to-r font-kiona text-xl from-[#F05B80] to-[#4158F0] text-white hover:scale-105 transition duration-300 ease-in-out hover:saturate-150 active:scale-100"
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 </form>
               </Form>
             </div>
@@ -272,15 +273,15 @@ const ManageCard = ({
             <div className="flex flex-row pt-12 space-x-16">
               <div>
                 <h1 className="text-white font-kiona text-lg">Rent Date</h1>
-                <h1 className="text-white pt-3 text-3xl font-Poppins font-">
+                <p className="text-white pt-3 text-3xl font-Poppins font-">
                   {format(rentDate, "PPP")}
-                </h1>
+                </p>
               </div>
               <div>
                 <h1 className="text-white font-kiona text-lg">Return Date</h1>
-                <h1 className="text-white pt-3 text-3xl font-Poppins font-">
+                <p className="text-white pt-3 text-3xl font-Poppins font-">
                   {format(returnDate, "PPP")}
-                </h1>
+                </p>
               </div>
             </div>
           )}

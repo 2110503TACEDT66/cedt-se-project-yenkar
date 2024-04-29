@@ -1,4 +1,4 @@
-import { Cargo, Transmission } from "../../interface";
+import { Cargo, Transmission } from "..";
 
 export default async function addCar(
   token: string,

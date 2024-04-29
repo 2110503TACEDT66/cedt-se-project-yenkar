@@ -6,8 +6,8 @@ import ExploreCard from "./ExploreCard";
 import { Skeleton } from "./ui/skeleton";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { CarItem, CarJson } from "../../interface";
 import Fuse from "fuse.js";
+import { CarItem, CarJson } from "..";
 
 const ExplorePanel = ({
   carJson,
@@ -84,7 +84,10 @@ const ExplorePanel = ({
             ) : (
               myCar?.map((carItem: CarItem) => {
                 return (
-                  <div className="h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow ">
+                  <div
+                    key={carItem._id}
+                    className="h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow "
+                  >
                     <Link href={`/mystore/${carItem._id}`}>
                       <ExploreCard
                         key={carItem._id}
@@ -166,10 +169,13 @@ const ExplorePanel = ({
         ) : (
           carData?.data.map((carItem: CarItem) => {
             if (myCar?.find((item) => item._id === carItem._id)) {
-              return <></>;
+              return null;
             }
             return (
-              <div className=" h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow ">
+              <div
+                key={carItem._id}
+                className=" h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow "
+              >
                 <Link
                   href={`/reserve?pid=${carItem.carProvider._id}&cid=${carItem._id}`}
                 >

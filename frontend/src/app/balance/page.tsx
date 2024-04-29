@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { checkoutCredits } from "@/libs/topUpTransaction.actions";
 import { CommandMenu } from "@/components/CommandMenu";
+import { formPlaceholder } from "@/index";
 
 const page = () => {
   const { data: session } = useSession();
@@ -147,7 +148,7 @@ const page = () => {
                             <Input
                               typeof="number"
                               className="bg-[#222529] text-white font-Poppins font-light"
-                              placeholder="Enter amount in $"
+                              placeholder={formPlaceholder.balance.amount}
                               {...field}
                             />
                           </FormControl>

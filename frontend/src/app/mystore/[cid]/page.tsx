@@ -55,10 +55,15 @@ import {
 } from "next-cloudinary";
 import getCarForOneProvider from "@/libs/getCarForOneProvider";
 import EditCarCard from "@/components/EditCarCard";
-import { Cargo, CarItem, Transmission } from "../../../../interface";
 import { cn } from "@/libs/utils";
 import { CommandList } from "cmdk";
 import { CommandMenu } from "@/components/CommandMenu";
+import {
+  cargoOptions,
+  CarItem,
+  formPlaceholder,
+  transmissionOptions,
+} from "@/index";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -75,20 +80,6 @@ const page = ({ params }: { params: { cid: string } }) => {
   const [editedCarPrice, setEditedCarPrice] = useState<number | undefined>(0);
   const [numberOfCars, setNumberOfCars] = useState<number>(0);
   const [open, setOpen] = useState(false);
-
-  const cargoOptions = [
-    { label: "-", value: Cargo.none },
-    { label: "small", value: Cargo.small },
-    { label: "medium", value: Cargo.medium },
-    { label: "large", value: Cargo.large },
-    { label: "super large", value: Cargo.superLarge },
-  ] as const;
-  const transmissionOptions = [
-    { label: "manual", value: Transmission.manual },
-    { label: "auto", value: Transmission.auto },
-    { label: "AWT", value: Transmission.AWT },
-    { label: "other", value: Transmission.other },
-  ] as const;
 
   const formSchema = z.object({
     model: z.string().min(2, {
@@ -471,7 +462,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 <Input
                                   defaultValue={carItem?.model!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="Enter your car model"
+                                  placeholder={formPlaceholder.car.model}
                                   {...field}
                                 />
                               </FormControl>
@@ -491,7 +482,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 <Input
                                   defaultValue={carItem?.brand!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="Enter your car brand"
+                                  placeholder={formPlaceholder.car.brand}
                                   {...field}
                                 />
                               </FormControl>
@@ -511,7 +502,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 <Input
                                   defaultValue={carItem?.price!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="Enter your car price"
+                                  placeholder={formPlaceholder.car.price}
                                   {...field}
                                 />
                               </FormControl>
@@ -531,7 +522,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 <Input
                                   defaultValue={carItem?.doors!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="Enter your car doors"
+                                  placeholder={formPlaceholder.car.doors}
                                   {...field}
                                 />
                               </FormControl>
@@ -551,7 +542,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 <Input
                                   defaultValue={carItem?.seats!}
                                   className="w-[80%] bg-black border-white border-[1px] text-base "
-                                  placeholder="Enter your car seats"
+                                  placeholder={formPlaceholder.car.seats}
                                   {...field}
                                 />
                               </FormControl>
@@ -583,7 +574,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                             (transmission) =>
                                               transmission.value === field.value
                                           )?.label
-                                        : "Select transmission size"}
+                                        : `${formPlaceholder.car.transmission}`}
                                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                     </Button>
                                   </FormControl>
@@ -591,12 +582,10 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 <PopoverContent className="w-[200px] p-0">
                                   <Command className="bg-zinc-950">
                                     <CommandInput
-                                      placeholder="Search transmission size"
+                                      placeholder="Search"
                                       className="text-white"
                                     />
-                                    <CommandEmpty>
-                                      No transmission size found.
-                                    </CommandEmpty>
+                                    <CommandEmpty>Not found.</CommandEmpty>
                                     <CommandGroup className=" text-white">
                                       <CommandList>
                                         {transmissionOptions.map(
@@ -658,7 +647,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                             (cargo) =>
                                               cargo.value === field.value
                                           )?.label
-                                        : "Select cargo size"}
+                                        : `${formPlaceholder.car.cargo}`}
                                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                     </Button>
                                   </FormControl>
@@ -666,12 +655,10 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 <PopoverContent className="w-[200px] p-0">
                                   <Command className="bg-zinc-950">
                                     <CommandInput
-                                      placeholder="Search cargo size"
+                                      placeholder="Search"
                                       className="text-white"
                                     />
-                                    <CommandEmpty>
-                                      No cargo size found.
-                                    </CommandEmpty>
+                                    <CommandEmpty>Not found.</CommandEmpty>
                                     <CommandGroup className=" text-white">
                                       <CommandList>
                                         {cargoOptions.map((cargo) => (

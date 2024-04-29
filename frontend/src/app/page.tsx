@@ -45,7 +45,7 @@ export default function Home() {
       {/* Background */}
       <div className="overflow-hidden">
         <Image
-          className={`absolute  z-0 h-[100vh]  ${
+          className={`absolute  z-0 h-[100vh] w-auto h-auto ${
             isSticky || isFirst
               ? "top-[-100vh] right-[-16rem] transition-[top,right] duration-1000 ease-in-out"
               : "top-0 right-64 transition-[top,right] duration-1000 ease-in-out"
@@ -92,7 +92,7 @@ export default function Home() {
               src="/img/explore_icon.png"
               width={50}
               height={50}
-              className="z-0"
+              className="z-0 w-auto h-auto"
             />
             <div className="flex flex-col">
               <h1 className="text-white text-lg">Explore the </h1>
@@ -109,7 +109,13 @@ export default function Home() {
           </div>
 
           <div className="flex flex-row space-x-4">
-            <Image alt="dec" src="/img/dec_1.png" width={100} height={100} />
+            <Image
+              alt="dec"
+              src="/img/dec_1.png"
+              width={100}
+              height={100}
+              className="w-auto h-auto"
+            />
           </div>
         </div>
       </div>

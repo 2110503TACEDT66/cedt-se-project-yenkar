@@ -2,7 +2,7 @@
 import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import React from "react";
-import { CarProps } from "../../interface";
+import { CarProps } from "..";
 
 const ExploreCard = ({
   _id,
@@ -20,7 +20,9 @@ const ExploreCard = ({
           alt="image"
           src={src ?? "YenKar/ivrxoeccbri8gxjb4pnx"}
           fill={true}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="w-full h-full rounded-xl object-cover"
+          priority={true}
         />
       </div>
       <div

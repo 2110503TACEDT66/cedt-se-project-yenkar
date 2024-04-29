@@ -27,7 +27,6 @@ import {
   CldUploadWidget,
   CloudinaryUploadWidgetInfo,
 } from "next-cloudinary";
-import { Cargo, Transmission } from "../../../interface";
 import {
   Popover,
   PopoverContent,
@@ -45,6 +44,15 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/libs/utils";
 import { CommandMenu } from "@/components/CommandMenu";
+import {
+  addCarSchemaMessage,
+  Cargo,
+  cargoOptions,
+  formPlaceholder,
+  toastIndex,
+  Transmission,
+  transmissionOptions,
+} from "@/index";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -71,31 +79,16 @@ const page = ({ params }: { params: { cid: string } }) => {
     router.push("/sign-in");
     return null;
   }
-
-  const cargoOptions = [
-    { label: "-", value: Cargo.none },
-    { label: "small", value: Cargo.small },
-    { label: "medium", value: Cargo.medium },
-    { label: "large", value: Cargo.large },
-    { label: "super large", value: Cargo.superLarge },
-  ] as const;
-  const transmissionOptions = [
-    { label: "manual", value: Transmission.manual },
-    { label: "auto", value: Transmission.auto },
-    { label: "AWT", value: Transmission.AWT },
-    { label: "other", value: Transmission.other },
-  ] as const;
-
   // console.log(carArray);
 
   // form ////
 
   const formSchema = z.object({
     model: z.string().min(2, {
-      message: "Your model must be at least 2 characters long",
+      message: addCarSchemaMessage.model,
     }),
     brand: z.string().min(2, {
-      message: "Your brand must be at least 2 characters long",
+      message: addCarSchemaMessage.brand,
     }),
     price: z.coerce.number().int().positive().gte(1),
     doors: z.coerce.number().int().positive().gte(1),
@@ -143,19 +136,10 @@ const page = ({ params }: { params: { cid: string } }) => {
         editingImageData
       ).then((res) => {
         if (res) {
-          toast({
-            title: "Success",
-            description: "Car added successfully",
-            duration: 3000,
-          });
+          toast(toastIndex.toastAddCarSuccess);
           router.back();
         } else {
-          toast({
-            title: "Error",
-            description: "Car not added",
-            variant: "destructive",
-            duration: 3000,
-          });
+          toast(toastIndex.toastAddCarFail);
         }
       });
       setIsAdding(false);
@@ -180,11 +164,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     setEditingImageData(
                       (results?.info as CloudinaryUploadWidgetInfo)?.public_id
                     );
-                    toast({
-                      title: "Upload Success",
-                      description: "Image has been updated",
-                      duration: 3000,
-                    });
+                    toast(toastIndex.toastUploadImageSuccess);
                   }}
                 >
                   {({ open }) => {
@@ -290,7 +270,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                         <FormControl>
                           <Input
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
-                            placeholder="Enter your car model"
+                            placeholder={formPlaceholder.car.model}
                             {...field}
                           />
                         </FormControl>
@@ -309,7 +289,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                         <FormControl>
                           <Input
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
-                            placeholder="Enter your car brand"
+                            placeholder={formPlaceholder.car.brand}
                             {...field}
                           />
                         </FormControl>
@@ -328,7 +308,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                         <FormControl>
                           <Input
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
-                            placeholder="Enter your car plate number"
+                            placeholder={formPlaceholder.car.vrm}
                             {...field}
                           />
                         </FormControl>
@@ -348,7 +328,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <Input
                             type="number"
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
-                            placeholder="Enter your car price"
+                            placeholder={formPlaceholder.car.price}
                             {...field}
                           />
                         </FormControl>
@@ -368,7 +348,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <Input
                             type="number"
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
-                            placeholder="Enter your car doors"
+                            placeholder={formPlaceholder.car.doors}
                             {...field}
                           />
                         </FormControl>
@@ -388,7 +368,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <Input
                             type="number"
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
-                            placeholder="Enter your car seats"
+                            placeholder={formPlaceholder.car.seats}
                             {...field}
                           />
                         </FormControl>
@@ -408,6 +388,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
+                                {...form}
                                 variant="outline"
                                 role="combobox"
                                 className={cn(
@@ -420,7 +401,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                       (transmission) =>
                                         transmission.value === field.value
                                     )?.label
-                                  : "Select transmission"}
+                                  : `${formPlaceholder.car.transmission}`}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
                             </FormControl>
@@ -428,11 +409,11 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <PopoverContent className="w-[300px] p-0">
                             <Command className="bg-zinc-950">
                               <CommandInput
-                                placeholder="Search transmission"
+                                placeholder="Search"
                                 className="text-white"
                               />
                               <CommandEmpty className="text-white font-kiona text-sm p-3">
-                                No transmission found.
+                                Not found.
                               </CommandEmpty>
                               <CommandGroup className=" text-white">
                                 <CommandList>
@@ -480,6 +461,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
+                                {...form}
                                 variant="outline"
                                 role="combobox"
                                 className={cn(
@@ -491,7 +473,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                   ? cargoOptions.find(
                                       (cargo) => cargo.value === field.value
                                     )?.label
-                                  : "Select cargo size"}
+                                  : `${formPlaceholder.car.cargo}`}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
                             </FormControl>
@@ -499,11 +481,11 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <PopoverContent className="w-[300px] p-0">
                             <Command className="bg-zinc-950">
                               <CommandInput
-                                placeholder="Search cargo size"
+                                placeholder="Search"
                                 className="text-white"
                               />
                               <CommandEmpty className="text-white font-kiona text-sm p-3">
-                                No cargo size found.
+                                Not found.
                               </CommandEmpty>
                               <CommandGroup className=" text-white">
                                 <CommandList>
