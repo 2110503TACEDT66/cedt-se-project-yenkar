@@ -81,6 +81,60 @@ module.exports = router;
  *         address:
  *           type: string
  *           description: User's address
+ *     CarProvider:
+ *       type: object
+ *       required:
+ *         - name
+ *         - telephone
+ *         - email
+ *         - password
+ *         - address
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: CarProvider's name
+ *         telephone:
+ *           type: string
+ *           uniqueItems: true
+ *           maxLength: 10
+ *           description: Telephone number
+ *           example: '0123456789'
+ *         email:
+ *           type: string
+ *           uniqueItems: true
+ *           description: CarProviders email address
+ *           pattern: '^(([^<>()\[\]\\.,;:\s@"]+(\\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+ *           example: 'john@example.com'
+ *         password:
+ *           type: string
+ *           minLength: 8
+ *           description: CarProvider's password
+ *         resetPasswordToken:
+ *           type: string
+ *           description: Token used for password reset
+ *         resetPasswordExpire:
+ *           type: string
+ *           format: date-time
+ *           description: Expiration date for password reset token
+ *         balance:
+ *          type: number
+ *          description: CarProvider's account balance
+ *          minimum: 0
+ *          default: 0
+ *         role:
+ *           type: string
+ *           default: carProvider
+ *           description: User's role
+ *         createAt:
+ *           type: string
+ *           format: date-time
+ *           description: Date when the CarProvider was created
+ *         address:
+ *           type: string
+ *           description: CarProvider's address
+ *         src: 
+ *           type: string 
+ *           default: "YenKar/ivrxoeccbri8gxjb4pnx"
  */
 
 
@@ -117,6 +171,7 @@ module.exports = router;
 *           type: string
 *           example: 'user'
 *           enum:
+*             - carProvider
 *             - user
 *             - admin
 *           description: The user's role
@@ -129,8 +184,8 @@ module.exports = router;
 /**
 * @swagger
 * tags:
-*   name: User
-*   description: The user API
+*   name: Authentication
+*   description: authentication API
 */
 
 /**
@@ -138,7 +193,7 @@ module.exports = router;
 * /auth/register:
 *   post:
 *     summary: Create a new user
-*     tags: [User]
+*     tags: [Authentication]
 *     requestBody:
 *       required: true
 *       content:
@@ -161,7 +216,7 @@ module.exports = router;
 * /auth/login:
 *   post:
 *     summary: Log-in to the system
-*     tags: [User]
+*     tags: [Authentication]
 *     requestBody:
 *       required: true
 *       content:
@@ -191,7 +246,7 @@ module.exports = router;
 *     security:
 *       - bearerAuth: []
 *     summary: information about me
-*     tags: [User]
+*     tags: [Authentication]
 *     responses:
 *       201:
 *         description: user profile
@@ -207,8 +262,8 @@ module.exports = router;
  * @swagger
  * /auth/logout:
  *   get:
- *     tags: [User]
- *     summary: Log user out and clear cookie
+ *     tags: [Authentication]
+ *     summary: Log out and clear cookie
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -229,9 +284,9 @@ module.exports = router;
 
 /**
  * @swagger
- * /auth/logout:
+ * /auth/deleteUser/{id}:
  *   delete:
- *     tags: [User]
+ *     tags: [Authentication]
  *     summary: Delete user
  *     security:
  *       - bearerAuth: []
@@ -282,3 +337,73 @@ module.exports = router;
  *                   example: "Cannot delete user"
  */
 
+
+/**
+* @swagger
+* /auth/register/carProvider:
+*   post:
+*     summary: Create a new carProvider
+*     tags: [Authentication]
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/CarProvider'
+*     responses:
+*       201:
+*         description: The CarProvider was successfully created
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/TokenResponse'
+*       500:
+*         description: Some server error
+*/
+
+/**
+* @swagger
+* /auth/login/carProvider:
+*   post:
+*     summary: Log-in to the system as a carProvider
+*     tags: [Authentication]
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             type: object
+*             properties: 
+*               email: 
+*                   type: string
+*               password: 
+*                   type: string
+*     responses:
+*       201:
+*         description: Log-in Successfully
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/TokenResponse'
+*       500:
+*         description: Some server error
+*/
+
+/**
+* @swagger
+* /auth/me/carProvider:
+*   get:
+*     security:
+*       - bearerAuth: []
+*     summary: information about me as a carProvider
+*     tags: [Authentication]
+*     responses:
+*       201:
+*         description: CarProvider's profile
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/CarProvider'
+*       500:
+*         description: Some server error
+*/
