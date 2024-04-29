@@ -157,6 +157,8 @@ module.exports = router;
 * @swagger
 * /carproviders/{id}/cars:
 *   post:
+*     security:
+*       - bearerAuth: []
 *     summary: Create a new car
 *     tags: [Cars]
 *     parameters:
@@ -189,6 +191,8 @@ module.exports = router;
 * @swagger
 * /cars/{id}:
 *   put:
+*     security:
+*       - bearerAuth: []
 *     summary: Update a new car
 *     tags: [Cars]
 *     parameters:
@@ -221,6 +225,8 @@ module.exports = router;
 * @swagger
 * /cars/{id}:
 *   delete:
+*     security:
+*       - bearerAuth: []
 *     summary: Remove the car by ID
 *     tags: [Cars]
 *     parameters:

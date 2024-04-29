@@ -121,7 +121,7 @@ const swaggerOptions={
       info : {
           title : 'Library API',
           version : '1.0.0',
-          description : 'A simple Express VacQ API'
+          description : 'Yenkar API'
       },
       servers:[
           {
