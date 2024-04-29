@@ -135,8 +135,8 @@ const page = ({ params }: { params: { cid: string } }) => {
         values.doors,
         values.seats,
         values.vrm,
-        values.transmission,
-        values.cargo,
+        values.transmission as Transmission,
+        values?.cargo as Cargo,
         values.radio,
         values.air,
         editingImageData
