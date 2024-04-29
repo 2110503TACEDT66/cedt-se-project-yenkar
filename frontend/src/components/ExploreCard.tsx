@@ -2,7 +2,7 @@
 import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import React from "react";
-import { CarProps } from "../../interface";
+import { CarProps } from "..";
 
 const ExploreCard = ({
   _id,

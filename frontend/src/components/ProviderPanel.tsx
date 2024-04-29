@@ -5,8 +5,8 @@ import React, { useEffect, useState } from "react";
 import ExploreCard from "./ExploreCard";
 import ProviderCard from "./ProviderCard";
 import { Skeleton } from "./ui/skeleton";
-import { CarProvider, CarProviderJson } from "../../interface";
 import Fuse from "fuse.js";
+import { CarProvider, CarProviderJson } from "..";
 const ProviderPanel = ({
   providerJson,
   query,

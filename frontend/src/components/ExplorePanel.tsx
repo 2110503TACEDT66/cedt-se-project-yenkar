@@ -6,8 +6,8 @@ import ExploreCard from "./ExploreCard";
 import { Skeleton } from "./ui/skeleton";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { CarItem, CarJson } from "../../interface";
 import Fuse from "fuse.js";
+import { CarItem, CarJson } from "..";
 
 const ExplorePanel = ({
   carJson,

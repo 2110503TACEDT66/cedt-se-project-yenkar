@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import Image from "next/image";
 import React from "react";
-import { TransactionHis } from "../../interface";
+import { TransactionHis } from "..";
 
 const TransactionHisCard = ({
   type,
