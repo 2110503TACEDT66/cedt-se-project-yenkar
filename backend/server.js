@@ -5,6 +5,8 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
 
 ///////////////////////////////////////////////////////////////
 // Import authentication packages
@@ -111,3 +113,24 @@ process.on("unhandledRejection", (err, promise) => {
   console.log(`Error: ${err.message}`);
   server.close(() => process.exit(1));
 });
+
+
+const swaggerOptions={
+  swaggerDefinition:{
+      openapi : '3.1.0',
+      info : {
+          title : 'Library API',
+          version : '1.0.0',
+          description : 'A simple Express VacQ API'
+      },
+      servers:[
+          {
+              url : 'http://localhost:5000/api/v1'
+          }
+      ],
+  },
+  apis:['./routes/*.js'],
+};
+
+const swaggerDocs=swaggerJsDoc(swaggerOptions);
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocs));
