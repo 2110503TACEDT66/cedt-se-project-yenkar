@@ -140,7 +140,7 @@ const ManageCard = ({
             onClick={() =>
               router.push(`/reserve?pid=${carProviderId}&cid=${carId}`)
             }
-            className="text-white font-poppins font-bold text-4xl hover:text-gray-300 transition duration-100 ease-in-out hover:scale-[101%] active:scale-100"
+            className="text-white font-Poppins font-bold text-4xl hover:text-gray-300 transition duration-100 ease-in-out hover:scale-[101%] active:scale-100"
           >
             {adminView ? (
               <div>
@@ -272,13 +272,13 @@ const ManageCard = ({
             <div className="flex flex-row pt-12 space-x-16">
               <div>
                 <h1 className="text-white font-kiona text-lg">Rent Date</h1>
-                <h1 className="text-white pt-3 text-3xl font-poppins font-">
+                <h1 className="text-white pt-3 text-3xl font-Poppins font-">
                   {format(rentDate, "PPP")}
                 </h1>
               </div>
               <div>
                 <h1 className="text-white font-kiona text-lg">Return Date</h1>
-                <h1 className="text-white pt-3 text-3xl font-poppins font-">
+                <h1 className="text-white pt-3 text-3xl font-Poppins font-">
                   {format(returnDate, "PPP")}
                 </h1>
               </div>

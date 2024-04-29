@@ -16,6 +16,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getTransactions } from "@/libs/transaction.action";
 import TransactionHisCard from "@/components/TransactionHisCard";
 import { CarItem, CarProvider, TransactionHis } from "../../../interface";
+import { CommandMenu } from "@/components/CommandMenu";
 
 interface Profile {
   data: {
@@ -89,6 +90,8 @@ const page = () => {
 
   return (
     <main>
+      <CommandMenu session={session} />
+
       <NavBar stickyState={false} session={session} />
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-start">
@@ -101,7 +104,7 @@ const page = () => {
                       <div className="text-xl text-white font-kiona">
                         Profile
                       </div>
-                      <h1 className="text-3xl text-white  font-poppins pt-2 pb-4">
+                      <h1 className="text-3xl text-white  font-Poppins pt-2 pb-4">
                         {session.user.name}
                       </h1>
                       <div className="grid grid-cols-3 justify-center items-start gap-y-2">
@@ -117,26 +120,26 @@ const page = () => {
                 ) : (
                   <div className="px-8 py-2">
                     <h1 className="text-xl text-white font-kiona">Profile</h1>
-                    <h1 className="text-3xl text-white  font-poppins pt-2 pb-4">
+                    <h1 className="text-3xl text-white  font-Poppins pt-2 pb-4">
                       {session.user.name}
                     </h1>
                     <div className="grid grid-cols-3 justify-center items-start gap-y-2">
                       <h1 className="text-zinc-400 text-xl font-kiona">
                         Email{" "}
                       </h1>
-                      <h1 className="text-white text-xl col-span-2 break-words">
+                      <h1 className="text-white text-xl col-span-2 break-words pl-2">
                         {profile?.data.email}
                       </h1>
                       <h1 className="text-zinc-400 text-xl font-kiona">
                         Address{" "}
                       </h1>
-                      <h1 className="text-white text-xl col-span-2 break-words">
+                      <h1 className="text-white text-xl col-span-2 break-words pl-2">
                         {profile?.data.address}
                       </h1>
                       <h1 className="text-zinc-400 text-xl font-kiona">
                         Telephone{" "}
                       </h1>
-                      <h1 className="text-white text-xl col-span-2 ">
+                      <h1 className="text-white text-xl col-span-2 pl-8">
                         {profile?.data.telephone.slice(0, 3) +
                           "-" +
                           profile?.data.telephone.slice(3, 6) +
@@ -188,7 +191,7 @@ const page = () => {
                               />
                             </div>
                             <div className="w-[65%] h-full flex flex-col p-5 relative group-hover:invert">
-                              <h1 className="text-white font-poppins text-xl">
+                              <h1 className="text-white font-Poppins text-xl">
                                 {item.car.model}
                               </h1>
                               <h1 className="text-white">
@@ -257,9 +260,9 @@ const page = () => {
                   <div className="flex flex-col w-full h-full justify-center pb-8">
                     <div className="flex flex-row gap-3 w-full h-fit justify-start items-center">
                       {isLoadingProfile ? (
-                        <Skeleton className="text-xl text-white font-poppins bg-zinc-700 w-20 h-10"></Skeleton>
+                        <Skeleton className="text-xl text-white font-Poppins bg-zinc-700 w-20 h-10"></Skeleton>
                       ) : (
-                        <h1 className="text-xl text-white font-poppins">
+                        <h1 className="text-xl text-white font-Poppins">
                           <span>$ </span> {profile?.data.balance}
                         </h1>
                       )}
@@ -279,7 +282,7 @@ const page = () => {
                   <h1 className="text-xl text-white font-kiona pb-2">
                     Transaction History
                   </h1>
-                  <div className=" w-full h-[95%] flex flex-col gap-1 overflow-y-scroll">
+                  <div className=" w-full h-[95%] flex flex-col gap-1 overflow-y-scroll no-scrollbar">
                     {transaction?.map((transaction) => (
                       <div
                         key={transaction._id}

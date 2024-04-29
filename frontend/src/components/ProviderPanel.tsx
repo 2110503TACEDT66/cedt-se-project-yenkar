@@ -25,7 +25,7 @@ const ProviderPanel = ({
   }, []);
   //console.log(carJsonReady);
   return (
-    <div className="w-[93%] h-2 flex flex-row flex-wrap">
+    <div className="w-[93%] h-fit flex flex-row flex-wrap">
       {isLoading ? (
         <>
           <Skeleton className="w-[24%] h-[35rem] m-2 rounded-lg bg-zinc-700 flex-grow " />

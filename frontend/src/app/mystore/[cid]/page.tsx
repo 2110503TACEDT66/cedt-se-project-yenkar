@@ -58,6 +58,7 @@ import EditCarCard from "@/components/EditCarCard";
 import { Cargo, CarItem, Transmission } from "../../../../interface";
 import { cn } from "@/libs/utils";
 import { CommandList } from "cmdk";
+import { CommandMenu } from "@/components/CommandMenu";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -206,6 +207,7 @@ const page = ({ params }: { params: { cid: string } }) => {
 
   return (
     <main>
+      <CommandMenu session={session} />
       <NavBar stickyState={false} session={session} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
@@ -278,7 +280,7 @@ const page = ({ params }: { params: { cid: string } }) => {
             </div>
           </div>
 
-          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
+          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll no-scrollbar overflow-x-hidden">
             <div className="pt-5 pl-5">
               <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
                 <h1 className="text-4xl font-kiona text-white">
@@ -286,7 +288,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                 </h1>
                 {/* <div className="flex flex-row gap-1 items-baseline pt-3">
                   <h1 className="text-xl font-kiona text-zinc-400">model |</h1>
-                  <h1 className="text-xl font-poppins  font-bold text-white">
+                  <h1 className="text-xl font-Poppins  font-bold text-white">
                     {carItem?.model ?? ""}
                   </h1>
                 </div> */}
@@ -295,7 +297,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Brand |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.brand ?? ""}
                     </h1>
                   </div>{" "}
@@ -303,7 +305,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       price |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.price + " $" ?? ""}
                     </h1>
                   </div>{" "}
@@ -311,7 +313,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Plate number |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.vrm ?? ""}
                     </h1>
                   </div>{" "}
@@ -319,7 +321,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Doors |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.doors ?? ""}
                     </h1>
                   </div>{" "}
@@ -327,7 +329,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       seats |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.seats ?? ""}
                     </h1>
                   </div>{" "}
@@ -335,7 +337,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       transmission |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.transmission ?? ""}
                     </h1>
                   </div>{" "}
@@ -343,7 +345,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       cargo |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.cargo ?? ""}
                     </h1>
                   </div>{" "}
@@ -351,7 +353,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       radio |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.radio ? "Yes" : "No" ?? ""}
                     </h1>
                   </div>{" "}
@@ -359,13 +361,13 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       air conditioner |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.air ? "Yes" : "No" ?? ""}
                     </h1>
                   </div>{" "}
                   {/* <div className="flex flex-row gap-1 items-baseline">
                     <h1 className="text-xl font-kiona text-zinc-400">price |</h1>
-                    <h1 className="text-xl font-poppins text-white">
+                    <h1 className="text-xl font-Poppins text-white">
                       {carData?.price ?? ""}
                     </h1>
                   </div> */}
@@ -455,7 +457,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <Form {...form}>
                       <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-8 overflow-y-scroll h-[50vh]"
+                        className="space-y-8 overflow-y-scroll scrollbar h-[50vh]"
                       >
                         <FormField
                           control={form.control}

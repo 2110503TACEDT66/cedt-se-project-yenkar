@@ -44,6 +44,7 @@ import {
 } from "@/components/ui/command";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/libs/utils";
+import { CommandMenu } from "@/components/CommandMenu";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -166,6 +167,7 @@ const page = ({ params }: { params: { cid: string } }) => {
 
   return (
     <main>
+      <CommandMenu session={session} />
       <NavBar stickyState={false} session={session} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
@@ -221,7 +223,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                 </CldUploadWidget>
               </div>
             </div>
-            {/* <div className="flex flex-col gap-3 p-4 font-poppins">
+            {/* <div className="flex flex-col gap-3 p-4 font-Poppins">
                 <div className="text-xl">{carItem?.model!}</div>
                 <div>{carItem?.brand!}</div>
                 <div>{`${carItem?.price!} $`}</div>
@@ -230,22 +232,22 @@ const page = ({ params }: { params: { cid: string } }) => {
           </div>
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
-          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
+          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden no-scrollbar">
             {/* <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">model</h1>
-              <h1 className="text-5xl font-poppins text-white">
+              <h1 className="text-5xl font-Poppins text-white">
                 {carItem?.model ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">brand</h1>
-              <h1 className="text-4xl font-poppins text-white">
+              <h1 className="text-4xl font-Poppins text-white">
                 {carItem?.brand ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">price</h1>
-              <h1 className="text-4xl font-poppins text-white">
+              <h1 className="text-4xl font-Poppins text-white">
                 {carItem?.price ?? ""}
               </h1>
             </div> */}
@@ -254,19 +256,19 @@ const page = ({ params }: { params: { cid: string } }) => {
               <div>
                 <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
                   <h1 className="text-2xl font-kiona text-white">model</h1>
-                  <h1 className="text-5xl font-poppins text-white">
+                  <h1 className="text-5xl font-Poppins text-white">
                     {carItem?.model ?? ""}
                   </h1>
                 </div>
                 <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
                   <h1 className="text-2xl font-kiona text-white">brand</h1>
-                  <h1 className="text-4xl font-poppins text-white">
+                  <h1 className="text-4xl font-Poppins text-white">
                     {carItem?.brand ?? ""}
                   </h1>
                 </div>
                 <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
                   <h1 className="text-2xl font-kiona text-white">price</h1>
-                  <h1 className="text-4xl font-poppins text-white">
+                  <h1 className="text-4xl font-Poppins text-white">
                     {carItem?.price ?? ""}
                   </h1>
                 </div>
@@ -558,7 +560,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     control={form.control}
                     name="radio"
                     render={({ field }) => (
-                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md pl-4 pb-2">
                         <FormControl>
                           <Checkbox
                             className={cn("text-white")}
@@ -578,7 +580,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                   <Button
                     {...form}
                     type="submit"
-                    className="px-3 py-1 bg-white text-black "
+                    className="self-end w-fit ml-1 px-4 py-1 bg-white text-black hover:scale-105 transition duration-300 ease-in-out active:scale-100"
                   >
                     Submit
                   </Button>

@@ -1,4 +1,5 @@
 "use client";
+import { CommandMenu } from "@/components/CommandMenu";
 import HomeCard from "@/components/HomeCard";
 import NavBar from "@/components/NavBar";
 import { useSession } from "next-auth/react";
@@ -38,6 +39,7 @@ export default function Home() {
 
   return (
     <main className="h-[200vh]">
+      <CommandMenu session={session} />
       <NavBar stickyState={isSticky} session={session} />
 
       {/* Background */}
@@ -98,6 +100,11 @@ export default function Home() {
               {/* {
                 session? <div className="text-white">Hello {session.data?.user.name}</div> : <div className="text-white">Not logged in</div>
               } */}
+            </div>
+          </div>
+          <div className="absolute flex flex-row w-full h-fit justify-center left-0">
+            <div className=" rounded-2xl w-fit h-12 z-[40] flex flex-row justify-center items-center drop-shadow-md p-3 shadow-lg backdrop-blur-xl backdrop-brightness-150 ">
+              <h1 className="text-white relative">⌘K to Show Command Menu</h1>
             </div>
           </div>
 
