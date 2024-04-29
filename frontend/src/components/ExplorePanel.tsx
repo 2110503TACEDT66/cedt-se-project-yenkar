@@ -99,7 +99,7 @@ const ExplorePanel = ({ carJson }: { carJson: Promise<CarJson> }) => {
                   }}
                   className=" h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow bg-zinc-900 flex flex-col justify-center items-center"
                 >
-                  <h1 className="text-2xl text-white">
+                  <h1 className="text-2xl text-white font-Poppins">
                     You don't have any car.
                   </h1>
                   <h1 className=" font-kiona text-white">

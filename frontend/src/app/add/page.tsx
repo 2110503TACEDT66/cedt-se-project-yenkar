@@ -558,7 +558,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     control={form.control}
                     name="radio"
                     render={({ field }) => (
-                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md pl-4 pb-2">
                         <FormControl>
                           <Checkbox
                             className={cn("text-white")}
@@ -578,7 +578,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                   <Button
                     {...form}
                     type="submit"
-                    className="px-3 py-1 bg-white text-black "
+                    className="self-end w-fit ml-1 px-4 py-1 bg-white text-black hover:scale-105 transition duration-300 ease-in-out active:scale-100"
                   >
                     Submit
                   </Button>
