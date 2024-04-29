@@ -228,7 +228,7 @@ const page = ({ params }: { params: { id: string } }) => {
           </div>
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
-          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
+          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden no-scrollbar">
             {/* <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">Provider Name</h1>
               <h1 className="text-5xl font-Poppins text-white">
@@ -384,7 +384,7 @@ const page = ({ params }: { params: { id: string } }) => {
                               <FormControl>
                                 <Textarea
                                   defaultValue={providerData?.address!}
-                                  className="w-[80%] bg-black border-white border-[1px] text-base "
+                                  className="w-[80%] bg-black border-white border-[1px] text-base"
                                   placeholder="Enter your address"
                                   {...field}
                                 />

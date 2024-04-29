@@ -279,7 +279,7 @@ const page = () => {
                   <h1 className="text-xl text-white font-kiona pb-2">
                     Transaction History
                   </h1>
-                  <div className=" w-full h-[95%] flex flex-col gap-1 overflow-y-scroll">
+                  <div className=" w-full h-[95%] flex flex-col gap-1 overflow-y-scroll no-scrollbar">
                     {transaction?.map((transaction) => (
                       <div
                         key={transaction._id}

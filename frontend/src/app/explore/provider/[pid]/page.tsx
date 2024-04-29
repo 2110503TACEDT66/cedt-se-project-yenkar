@@ -55,7 +55,7 @@ const page = ({ params }: { params: { pid: string } }) => {
           </div>
           <div className="bg-white rounded-xl w-[3px] h-[85%]"></div>
 
-          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
+          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden no-scrollbar">
             <div className="pt-5 pl-5">
               <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5 pb-10">
                 <h1 className="text-4xl font-kiona text-white">
