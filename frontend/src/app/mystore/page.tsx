@@ -43,8 +43,8 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { CarItem, CarProvider } from "../../../interface";
 import { CommandMenu } from "@/components/CommandMenu";
+import { CarItem, CarProvider } from "@/index";
 
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();

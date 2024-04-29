@@ -10,26 +10,8 @@ import deleteReservation from "@/libs/deleteReservation";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Cargo, CarItem, CarProvider, Transmission } from "../../../interface";
 import { CommandMenu } from "@/components/CommandMenu";
-
-interface ReservationItem {
-  _id: string;
-  rentDate: string;
-  rentTo: string;
-  user: User;
-  carProvider: CarProvider;
-  createAt: string;
-  returned: boolean;
-  __v: number;
-  car: CarItem;
-}
-
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-}
+import { Cargo, ReservationItem, Transmission } from "@/index";
 
 const page = () => {
   const { data: session } = useSession();

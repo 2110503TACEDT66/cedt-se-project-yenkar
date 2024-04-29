@@ -27,7 +27,6 @@ import {
   CldUploadWidget,
   CloudinaryUploadWidgetInfo,
 } from "next-cloudinary";
-import { Cargo, Transmission } from "../../../interface";
 import {
   Popover,
   PopoverContent,
@@ -45,6 +44,12 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/libs/utils";
 import { CommandMenu } from "@/components/CommandMenu";
+import {
+  Cargo,
+  cargoOptions,
+  Transmission,
+  transmissionOptions,
+} from "@/index";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -71,21 +76,6 @@ const page = ({ params }: { params: { cid: string } }) => {
     router.push("/sign-in");
     return null;
   }
-
-  const cargoOptions = [
-    { label: "-", value: Cargo.none },
-    { label: "small", value: Cargo.small },
-    { label: "medium", value: Cargo.medium },
-    { label: "large", value: Cargo.large },
-    { label: "super large", value: Cargo.superLarge },
-  ] as const;
-  const transmissionOptions = [
-    { label: "manual", value: Transmission.manual },
-    { label: "auto", value: Transmission.auto },
-    { label: "AWT", value: Transmission.AWT },
-    { label: "other", value: Transmission.other },
-  ] as const;
-
   // console.log(carArray);
 
   // form ////

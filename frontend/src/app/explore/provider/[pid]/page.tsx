@@ -11,8 +11,8 @@ import Image from "next/image";
 import { CldImage } from "next-cloudinary";
 import ProviderCard from "@/components/ProviderCard";
 import ExploreCard from "@/components/ExploreCard";
-import { CarItem, CarProvider } from "../../../../../interface";
 import { CommandMenu } from "@/components/CommandMenu";
+import { CarItem, CarProvider } from "@/index";
 const page = ({ params }: { params: { pid: string } }) => {
   const router = useRouter();
   const { data: session } = useSession();

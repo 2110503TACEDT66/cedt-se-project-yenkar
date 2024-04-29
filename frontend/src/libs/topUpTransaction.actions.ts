@@ -2,10 +2,7 @@
 
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
-import {
-  CheckoutTransactionParams,
-  CreateTransactionProps,
-} from "../../interface";
+import { CheckoutTransactionParams, CreateTransactionProps } from "..";
 
 export async function checkoutCredits(
   transaction: CheckoutTransactionParams,

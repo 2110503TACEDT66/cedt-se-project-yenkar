@@ -55,10 +55,10 @@ import {
 } from "next-cloudinary";
 import getCarForOneProvider from "@/libs/getCarForOneProvider";
 import EditCarCard from "@/components/EditCarCard";
-import { Cargo, CarItem, Transmission } from "../../../../interface";
 import { cn } from "@/libs/utils";
 import { CommandList } from "cmdk";
 import { CommandMenu } from "@/components/CommandMenu";
+import { cargoOptions, CarItem, transmissionOptions } from "@/index";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -75,20 +75,6 @@ const page = ({ params }: { params: { cid: string } }) => {
   const [editedCarPrice, setEditedCarPrice] = useState<number | undefined>(0);
   const [numberOfCars, setNumberOfCars] = useState<number>(0);
   const [open, setOpen] = useState(false);
-
-  const cargoOptions = [
-    { label: "-", value: Cargo.none },
-    { label: "small", value: Cargo.small },
-    { label: "medium", value: Cargo.medium },
-    { label: "large", value: Cargo.large },
-    { label: "super large", value: Cargo.superLarge },
-  ] as const;
-  const transmissionOptions = [
-    { label: "manual", value: Transmission.manual },
-    { label: "auto", value: Transmission.auto },
-    { label: "AWT", value: Transmission.AWT },
-    { label: "other", value: Transmission.other },
-  ] as const;
 
   const formSchema = z.object({
     model: z.string().min(2, {

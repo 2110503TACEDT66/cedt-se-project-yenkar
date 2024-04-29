@@ -28,8 +28,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import createReservation from "@/libs/createReservation";
 import { useToast } from "@/components/ui/use-toast";
 import getSingleCar from "@/libs/getSingleCar";
-import { CarItem } from "../../../interface";
 import { CommandMenu } from "@/components/CommandMenu";
+import { CarItem } from "@/index";
 
 //const page = ({ params }: { params: { pid: string, cid:string } }) => {
 const page = () => {
