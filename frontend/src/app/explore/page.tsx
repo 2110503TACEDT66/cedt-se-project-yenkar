@@ -19,6 +19,7 @@ const page = () => {
   const [showCar, setShowCar] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const [query, setQuery] = useState("");
+  const [inputField, setInputField] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,9 +37,18 @@ const page = () => {
     };
   }, []);
 
+  const debounce = (func: (...args: any[]) => void, delay: number) => {
+    let timeoutId: NodeJS.Timeout | null;
+    return (...args: any[]) => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func.apply(null, args), delay);
+    };
+  };
+
   const handleChange = ({ query }: { query: string }) => {
-    console.log(query);
-    setQuery(query);
+    debounce(() => {
+      setQuery(query);
+    }, 500)();
   };
 
   return (
@@ -56,10 +66,11 @@ const page = () => {
           </h1>
           <div className="absolute w-full h-full flex flex-col justify-center items-center">
             <Input
-              value={query}
+              value={inputField}
               placeholder="What are you looking for?"
               onChange={(event) => {
                 handleChange({ query: event.target.value });
+                setInputField(event.target.value);
               }}
               className="w-[30%] h-10 bg-zinc-600 rounded-2xl text-white"
             ></Input>

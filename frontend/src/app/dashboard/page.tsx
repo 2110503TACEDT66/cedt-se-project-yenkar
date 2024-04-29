@@ -148,6 +148,7 @@ const page = () => {
                     ) : (
                       reservation?.map((item) => (
                         <Link
+                          key={item._id}
                           className="w-full h-[33%]"
                           href={`/reserve?pid=${item.carProvider._id}&cid=${item.car._id}`}
                         >
@@ -161,6 +162,8 @@ const page = () => {
                                 alt="car"
                                 fill={true}
                                 className="rounded-l-2xl object-cover"
+                                sizes="33vw"
+                                priority={true}
                               />
                             </div>
                             <div className="w-[65%] h-full flex flex-col p-5 relative group-hover:invert">

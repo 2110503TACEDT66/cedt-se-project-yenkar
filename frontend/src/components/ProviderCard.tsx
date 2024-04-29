@@ -13,6 +13,8 @@ const ProviderCard = ({ _id, name, address, telephone, src }: CarProvider) => {
           src={src ?? "YenKar/ivrxoeccbri8gxjb4pnx"}
           fill={true}
           className="w-full h-full rounded-xl object-cover"
+          sizes="33vw"
+          priority={true}
         />
       </div>
       <div className="bg-white rounded-b-lg w-full h-[30%] absolute bottom-0 flew flex-col">

@@ -5,37 +5,37 @@ import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import { useSession } from "next-auth/react";
 import getSingleCar from "@/libs/getSingleCar";
-import { CarJson } from "@/index";
+import { CarItem } from "@/index";
 
-export default function Page({ params }: { params: { cid: string } }) {
+export default function Page({
+  params,
+  deletePromise,
+}: {
+  params: { cid: string };
+  deletePromise: Response;
+}) {
   const router = useRouter();
   const { data: session } = useSession();
-  const [isSticky, setIsSticky] = useState(false);
-  const [car, setCar] = useState<CarJson>();
+  const [car, setCar] = useState<CarItem>();
+  const [isProcessing, setIsProcessing] = useState(true);
+  const fetchCarData = () => {
+    console.log(params.cid);
+    const carData = getSingleCar(params.cid);
+    console.log(carData);
+    carData.then((res) => {
+      console.log(res);
+      setCar(res.data);
+    });
+  };
 
   useEffect(() => {
-    const fetchCarData = async () => {
-      try {
-        const carData = await getSingleCar(params.cid);
-        setCar(carData);
-      } catch (error) {
-        console.error("Error fetching car:", error);
-      }
-    };
-
     fetchCarData();
-  }, [params.cid]);
-  console.log(car);
-  useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      setIsSticky(offset > 100);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    setTimeout(() => {
+      setIsProcessing(false);
+      setTimeout(() => {
+        router.push("/manage");
+      }, 500);
+    }, 1500);
   }, []);
 
   if (!session) {
@@ -45,11 +45,11 @@ export default function Page({ params }: { params: { cid: string } }) {
 
   return (
     <main>
-      <NavBar stickyState={isSticky} session={session} />
-      <div className="w-full flex justify-center rounded-2xl font-kiona">
-        <div className="bg-[#17191C] w-[88vw] h-[75vh] flex justify-center rounded-xl">
+      <NavBar stickyState={false} session={session} />
+      <div className="w-full flex flex-row justify-center rounded-2xl font-kiona">
+        <div className="bg-[#17191C] w-[88vw] h-[75vh] flex flex-row justify-center rounded-xl">
           <div className="flex flex-col mt-[7%]">
-            <div className="flex flex-row gap-10 justify-center">
+            <div className="flex flex-row gap-10 justify-center mr-16">
               <Image
                 src="/img/wallet_svg.svg"
                 alt="walletPic"
@@ -69,17 +69,28 @@ export default function Page({ params }: { params: { cid: string } }) {
                 height={250}
               />
             </div>
-            <div className="ml-16">
-              <div className=" text-green-700 flex justify-center text-4xl font-bold">
-                REFUND SUCCESSFULLY
+            <div className="">
+              <div
+                className={` ${
+                  isProcessing ? "text-white" : "text-[#6dd375]"
+                } flex justify-center text-4xl font-bold`}
+              >
+                {isProcessing ? "Processing" : "REFUND SUCCESSFULLY"}
               </div>
               <div className="text-white flex justify-center text-2xl mt-5">
-                Thanks for choosing Yenkar. We hope to serve you again in the
-                future.
+                {isProcessing
+                  ? "we are working on Process"
+                  : "Thanks for choosing Yenkar. We hope to serve you again in the future."}
               </div>
               <div className="flex justify-center">
-                <div className="text-black bg-white rounded-lg p-2 mt-7 w-[57%] flex justify-center text-3xl font-bold">
-                  {car?.data[0].price}$ IS ADDED TO YOUR BALANCE
+                <div
+                  className={`${
+                    isProcessing ? "animate-ping" : ""
+                  } backdrop-brightness-[175%] shadow-2xl drop-shadow-xl backdrop-blur-lg text-white rounded-2xl p-3 mt-7 w-fit flex justify-center text-2xl font-bold `}
+                >
+                  {!isProcessing && (
+                    <>{car?.price!}$ IS ADDED TO YOUR BALANCE</>
+                  )}
                 </div>
               </div>
             </div>

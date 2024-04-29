@@ -160,3 +160,122 @@ export interface User {
   name: string;
   email: string;
 }
+
+export const addCarSchemaMessage = {
+  model: "Your model must be at least 2 characters long",
+  brand: "Your brand must be at least 2 characters long",
+};
+
+export enum ToastVariant {
+  destructive = "destructive",
+  default = "default",
+}
+
+export const toastIndex = {
+  toastAddCarSuccess: {
+    title: "Success",
+    description: "Car added successfully",
+    duration: 3000,
+  },
+  toastAddCarFail: {
+    title: "Error",
+    description: "Car has not been added",
+    duration: 3000,
+    variant: ToastVariant.destructive,
+  },
+  toastDeleteCarSuccess: {
+    title: "Success",
+    description: "Car deleted successfully",
+    duration: 3000,
+  },
+
+  toastDeleteCarFail: {
+    title: "Error",
+    description: "Car has not been deleted",
+    duration: 3000,
+    variant: ToastVariant.destructive,
+  },
+
+  toastUpdateCarSuccess: {
+    title: "Success",
+    description: "Car updated successfully",
+    duration: 3000,
+  },
+
+  toastUpdateCarFail: {
+    title: "Error",
+    description: "Car has not been updated",
+    duration: 3000,
+    variant: ToastVariant.destructive,
+  },
+
+  toastUploadImageSuccess: {
+    title: "Success",
+    description: "Image uploaded successfully",
+    duration: 3000,
+  },
+
+  toastUploadImageFail: {
+    title: "Error",
+    description: "Image has not been uploaded",
+    duration: 3000,
+    variant: ToastVariant.destructive,
+  },
+
+  toastEditCarProviderSuccess: {
+    title: "Success",
+    description: "Your store information updated successfully",
+    duration: 3000,
+  },
+
+  toastEditCarProviderFail: {
+    title: "Error",
+    description: "Your store information has not been updated",
+    duration: 3000,
+    variant: ToastVariant.destructive,
+  },
+  toastDeleteReservationSuccess: {
+    title: "Success",
+    description: "Reservation deleted successfully",
+    duration: 3000,
+  },
+
+  toastDeleteReservationFail: {
+    title: "Error",
+    description: "Reservation has not been deleted",
+    duration: 3000,
+    variant: ToastVariant.destructive,
+  },
+};
+
+export const formPlaceholder = {
+  user: {
+    email: "Enter your email",
+    password: "Enter your password",
+    name: "Enter your name",
+    phone: "Enter your phone number",
+    address: "Enter your address",
+  },
+  carProvider: {
+    email: "Enter your email",
+    password: "Enter your password",
+    name: "Enter name for your store",
+    phone: "Enter phone number for your store",
+    address: "Enter address for your store",
+  },
+
+  car: {
+    model: "Enter your car model",
+    brand: "Enter your car brand",
+    price: "Enter your car price",
+    doors: "Enter your car doors",
+    seats: "Enter your car seats",
+    vrm: "Enter your car plate number",
+    transmission: "Select your car transmission type",
+    cargo: "Select your car cargo size",
+  },
+
+  balance: {
+    amount: "Enter your top up amount",
+  },
+};

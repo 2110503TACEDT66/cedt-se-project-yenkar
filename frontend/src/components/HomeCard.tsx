@@ -22,6 +22,7 @@ const HomeCard = ({
         src={src}
         fill={true}
         className="object-cover rounded-lg"
+        sizes="33vw"
       />
       <div className="h-fit w-fit bg-white-400 rounded-xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 hover:scale-105 transition duration-300 ease-in-out hover:backdrop-blur-3xl">
         <div className=" p-5">

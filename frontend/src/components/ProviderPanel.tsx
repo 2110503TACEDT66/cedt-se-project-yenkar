@@ -54,7 +54,7 @@ const ProviderPanel = ({
 
   useEffect(() => {
     handleQuery(query!);
-  });
+  }, [query]);
   //console.log(carJsonReady);
   return (
     <div className="w-[93%] h-fit flex flex-row flex-wrap">
@@ -71,7 +71,10 @@ const ProviderPanel = ({
         </>
       ) : (
         providerData?.data.map((providerItem: CarProvider) => (
-          <div className="w-[24%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow">
+          <div
+            key={providerItem._id}
+            className="w-[24%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow"
+          >
             <Link href={`/explore/provider/${providerItem._id}`}>
               <ProviderCard
                 _id={providerItem._id}
