@@ -562,7 +562,9 @@ const page = ({ params }: { params: { cid: string } }) => {
                           name="transmission"
                           render={({ field }) => (
                             <FormItem className="flex flex-col">
-                              <FormLabel>transmission</FormLabel>
+                              <FormLabel className="font-kiona">
+                                transmission
+                              </FormLabel>
                               <Popover>
                                 <PopoverTrigger asChild>
                                   <FormControl>
@@ -635,7 +637,9 @@ const page = ({ params }: { params: { cid: string } }) => {
                           name="cargo"
                           render={({ field }) => (
                             <FormItem className="flex flex-col">
-                              <FormLabel>cargo</FormLabel>
+                              <FormLabel className="font-kiona">
+                                cargo
+                              </FormLabel>
                               <Popover>
                                 <PopoverTrigger asChild>
                                   <FormControl>
@@ -713,7 +717,9 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 />
                               </FormControl>
                               <div className="space-y-1 leading-none">
-                                <FormLabel>Air conditioner</FormLabel>
+                                <FormLabel className="font-kiona">
+                                  Air conditioner
+                                </FormLabel>
                               </div>
                             </FormItem>
                           )}
@@ -731,7 +737,9 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 />
                               </FormControl>
                               <div className="space-y-1 leading-none">
-                                <FormLabel>Radio</FormLabel>
+                                <FormLabel className="font-kiona">
+                                  Radio
+                                </FormLabel>
                               </div>
                             </FormItem>
                           )}

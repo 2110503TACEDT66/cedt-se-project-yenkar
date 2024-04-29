@@ -418,7 +418,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                                       (transmission) =>
                                         transmission.value === field.value
                                     )?.label
-                                  : "Select transmission size"}
+                                  : "Select transmission"}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
                             </FormControl>
@@ -426,11 +426,11 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <PopoverContent className="w-[300px] p-0">
                             <Command className="bg-zinc-950">
                               <CommandInput
-                                placeholder="Search transmission size"
+                                placeholder="Search transmission"
                                 className="text-white"
                               />
-                              <CommandEmpty>
-                                No transmission size found.
+                              <CommandEmpty className="text-white font-kiona text-sm p-3">
+                                No transmission found.
                               </CommandEmpty>
                               <CommandGroup className=" text-white">
                                 <CommandList>
@@ -500,7 +500,9 @@ const page = ({ params }: { params: { cid: string } }) => {
                                 placeholder="Search cargo size"
                                 className="text-white"
                               />
-                              <CommandEmpty>No cargo size found.</CommandEmpty>
+                              <CommandEmpty className="text-white font-kiona text-sm p-3">
+                                No cargo size found.
+                              </CommandEmpty>
                               <CommandGroup className=" text-white">
                                 <CommandList>
                                   {cargoOptions.map((cargo) => (
