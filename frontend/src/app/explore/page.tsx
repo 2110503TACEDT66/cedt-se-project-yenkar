@@ -1,7 +1,6 @@
 "use client";
 import ExplorePanel from "@/components/ExplorePanel";
 import NavBar from "@/components/NavBar";
-import { Input } from "@/components/ui/input";
 import getAllCarProviders from "@/libs/getAllCarProviders";
 import getAllCars from "@/libs/getAllCars";
 import React, { useEffect, useState } from "react";
@@ -10,6 +9,8 @@ import { useSession } from "next-auth/react";
 import ProviderPanel from "@/components/ProviderPanel";
 import getAvailableCars from "@/libs/getAvailableCars";
 import { CommandMenu } from "@/components/CommandMenu";
+import { Input } from "@/components/ui/input";
+
 const page = () => {
   //const carProviders = getAllCarProviders();
   const carJson = getAllCars();
@@ -17,6 +18,7 @@ const page = () => {
   const { data: session } = useSession();
   const [showCar, setShowCar] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,12 +36,17 @@ const page = () => {
     };
   }, []);
 
+  const handleChange = ({ query }: { query: string }) => {
+    console.log(query);
+    setQuery(query);
+  };
+
   return (
     <main>
       <CommandMenu session={session} />
       <NavBar stickyState={isSticky} session={session} className="z-50" />
       <div className="flex flex-col items-center">
-        <div className="flex flex-row w-[93%] p-6  items-center justify-between">
+        <div className="flex flex-row w-[93%] p-6  items-center justify-between relative">
           <h1 className="text-3xl font-Poppins text-white">
             {!showCar ? (
               <div>Explore the Available Cars</div>
@@ -47,7 +54,17 @@ const page = () => {
               <div>Explore the Car Providers</div>
             )}
           </h1>
-          <div className="flex flex-row items-center">
+          <div className="absolute w-full h-full flex flex-col justify-center items-center">
+            <Input
+              value={query}
+              placeholder="What are you looking for?"
+              onChange={(event) => {
+                handleChange({ query: event.target.value });
+              }}
+              className="w-[30%] h-10 bg-zinc-600 rounded-2xl text-white"
+            ></Input>
+          </div>
+          <div className="flex flex-row items-center ">
             <div
               className={
                 showCar
@@ -84,9 +101,9 @@ const page = () => {
           />
         </div>
         {showCar ? (
-          <ProviderPanel providerJson={providerJson} />
+          <ProviderPanel providerJson={providerJson} query={query} />
         ) : (
-          <ExplorePanel carJson={carJson} />
+          <ExplorePanel carJson={carJson} query={query} />
         )}
       </div>
     </main>

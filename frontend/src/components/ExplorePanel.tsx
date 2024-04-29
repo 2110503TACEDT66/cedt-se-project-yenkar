@@ -7,18 +7,27 @@ import { Skeleton } from "./ui/skeleton";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { CarItem, CarJson } from "../../interface";
+import Fuse from "fuse.js";
 
-const ExplorePanel = ({ carJson }: { carJson: Promise<CarJson> }) => {
+const ExplorePanel = ({
+  carJson,
+  query,
+}: {
+  carJson: Promise<CarJson>;
+  query?: string;
+}) => {
   const { data: session } = useSession();
   const [carData, setCardData] = useState<CarJson>();
   const [isLoading, setIsLoading] = useState(true);
   const [myCar, setMyCar] = useState<CarItem[]>();
+  const [originalCarData, setOriginalCarData] = useState<CarJson>();
   const router = useRouter();
 
   const resolve = () => {
     const carJsonReady = carJson.then((res) => {
       console.log(res);
       setCardData(res);
+      setOriginalCarData(res);
       setIsLoading(false);
       if (session?.user.role === "carProvider") {
         const myCarRes = res.data.filter(
@@ -31,9 +40,35 @@ const ExplorePanel = ({ carJson }: { carJson: Promise<CarJson> }) => {
     });
   };
 
+  const options = {
+    keys: ["model", "brand"],
+    threshold: 0.4, // Adjust this as needed
+  };
+
+  const fuse = new Fuse(originalCarData?.data || [], options);
+  const handleQuery = (query: string) => {
+    if (query === "") {
+      setCardData(originalCarData);
+      return;
+    }
+    console.log(fuse);
+    const result = fuse.search(query);
+    console.log(result);
+
+    setCardData({
+      success: true,
+      count: result.length,
+      data: result.map((item) => item.item),
+    });
+  };
   useEffect(() => {
     resolve();
   }, []);
+
+  useEffect(() => {
+    console.log(query);
+    handleQuery(query!);
+  }, [query]);
   //console.log(carJsonReady);
   return (
     <>

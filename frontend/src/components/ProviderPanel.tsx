@@ -6,23 +6,55 @@ import ExploreCard from "./ExploreCard";
 import ProviderCard from "./ProviderCard";
 import { Skeleton } from "./ui/skeleton";
 import { CarProvider, CarProviderJson } from "../../interface";
+import Fuse from "fuse.js";
 const ProviderPanel = ({
   providerJson,
+  query,
 }: {
   providerJson: Promise<CarProviderJson>;
+  query?: string;
 }) => {
   const [providerData, setProviderData] = useState<CarProviderJson>();
   const [isLoading, setIsLoading] = useState(true);
+  const [originalProviderData, setOriginalProviderData] =
+    useState<CarProviderJson>();
   const resolve = () => {
     const carJsonReady = providerJson.then((res) => {
+      setOriginalProviderData(res);
       setProviderData(res);
       setIsLoading(false);
+    });
+  };
+
+  const options = {
+    keys: ["name", "address"],
+    threshold: 0.4, // Adjust this as needed
+  };
+
+  const fuse = new Fuse(originalProviderData?.data || [], options);
+  const handleQuery = (query: string) => {
+    if (query === "") {
+      setProviderData(originalProviderData);
+      return;
+    }
+    console.log(fuse);
+    const result = fuse.search(query);
+    console.log(result);
+
+    setProviderData({
+      success: true,
+      count: result.length,
+      data: result.map((item) => item.item),
     });
   };
 
   useEffect(() => {
     resolve();
   }, []);
+
+  useEffect(() => {
+    handleQuery(query!);
+  });
   //console.log(carJsonReady);
   return (
     <div className="w-[93%] h-fit flex flex-row flex-wrap">
