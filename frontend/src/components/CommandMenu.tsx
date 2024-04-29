@@ -42,7 +42,7 @@ export function CommandMenu({ session }: { session: Session | null }) {
       { src: "/img/icon/wallet.svg", title: "Balance", ref: "/balance" },
       {
         src: "/img/icon/exit.svg",
-        title: "Logout",
+        title: "Sign-Out",
         ref: "",
       }
     );
@@ -79,12 +79,12 @@ export function CommandMenu({ session }: { session: Session | null }) {
             <CommandItem
               className="aria-selected:invert "
               onSelect={() => {
-                if (command.title === "Logout") {
+                if (command.title === "Sign-Out") {
                   signOut();
                 } else router.push(command.ref);
               }}
               onClick={() => {
-                if (command.title === "Logout") {
+                if (command.title === "Sign-Out") {
                   signOut();
                 } else router.push(command.ref);
               }}
