@@ -148,4 +148,100 @@ module.exports = router;
 *           application/json:
 *               schema:
 *                 $ref: '#/components/schemas/Car'
+*       500:
+*         description: Some Server Error
 */
+
+
+/**
+* @swagger
+* /carproviders/{id}/cars:
+*   post:
+*     summary: Create a new car
+*     tags: [Cars]
+*     parameters:
+*       - name: id
+*         in: path
+*         required: true
+*         description: ID of the car provider
+*         type: string
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/Car'
+*     responses:
+*       201:
+*         description: A single car object
+*         content:
+*           application/json:
+*               schema:
+*                 items:    
+*                   $ref: '#/components/schemas/Car'
+*       500:
+*         description: Some server error
+*       400:
+*         description: Bad Request
+*/
+
+/**
+* @swagger
+* /cars/{id}:
+*   put:
+*     summary: Update a new car
+*     tags: [Cars]
+*     parameters:
+*       - name: id
+*         in: path
+*         required: true
+*         description: ID of the car
+*         type: string
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/Car'
+*     responses:
+*       200:
+*         description: A single car object
+*         content:
+*           application/json:
+*               schema:
+*                 items:    
+*                   $ref: '#/components/schemas/Car'
+*       500:
+*         description: Some server error
+*       404:
+*         description: The car was not found
+*/
+
+/**
+* @swagger
+* /cars/{id}:
+*   delete:
+*     summary: Remove the car by ID
+*     tags: [Cars]
+*     parameters:
+*       - name: id
+*         in: path
+*         required: true
+*         description: ID of the car
+*         type: string
+*     responses:
+*       200:
+*         description: A single car object
+*         content:
+*           application/json:
+*               schema:
+*                 type: array
+*                 items:    
+*                   $ref: '#/components/schemas/Car'
+*       500:
+*         description: Some server error
+*       404:
+*         description: The car was not found
+*/
+
+
