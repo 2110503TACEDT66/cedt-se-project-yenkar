@@ -94,6 +94,37 @@ module.exports = router;
 *       bearerFormat: JWT
 */
 
+/**
+* @swagger
+* components:
+*   schemas:
+*     TokenResponse:
+*       type: object
+*       properties:
+*         _id:
+*           type: string
+*           example: '6093f1a3d94cb31c64e7d3f2'
+*           description: The unique identifier for the user
+*         name:
+*           type: string
+*           example: 'John Doe'
+*           description: The user's name
+*         email:
+*           type: string
+*           example: 'john.doe@example.com'
+*           description: The user's email address
+*         role:
+*           type: string
+*           example: 'user'
+*           enum:
+*             - user
+*             - admin
+*           description: The user's role
+*         token:
+*           type: string
+*           example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOTNmMWEzZDk0Y2IzMWM2NGU3ZDNmMiIsImlhdCI6MTYyMDIzMjY3NywiZXhwIjoxNjIwMzE5MDc3fQ.RlW3ix2yJYVmk5V2dCBVYFW2_Sbr8paAmqz1YzW0zrg'
+*           description: The user's authentication token
+*/
 
 /**
 * @swagger
@@ -120,20 +151,7 @@ module.exports = router;
 *         content:
 *           application/json:
 *             schema:
-*               type: object
-*               properties:
-*                 success:
-*                   type: boolean 
-*                 _id: 
-*                   type: string
-*                 name: 
-*                   type: string
-*                 email: 
-*                   type: string
-*                 role: 
-*                   type: string
-*                 token: 
-*                   type: string
+*               $ref: '#/components/schemas/TokenResponse'
 *       500:
 *         description: Some server error
 */
@@ -161,20 +179,7 @@ module.exports = router;
 *         content:
 *           application/json:
 *             schema:
-*               type: object
-*               properties:
-*                 success:
-*                   type: boolean 
-*                 _id: 
-*                   type: string
-*                 name: 
-*                   type: string
-*                 email: 
-*                   type: string
-*                 role: 
-*                   type: string
-*                 token: 
-*                   type: string
+*               $ref: '#/components/schemas/TokenResponse'
 *       500:
 *         description: Some server error
 */
