@@ -1,4 +1,4 @@
-export default async function updataCarProvider(
+export default async function updateCarProvider(
   pid: string,
   name: string,
   address: string,

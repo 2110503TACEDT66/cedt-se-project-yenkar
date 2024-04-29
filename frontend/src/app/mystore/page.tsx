@@ -28,7 +28,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import updataCarProvider from "@/libs/updateCarProvider";
+import updateCarProvider from "@/libs/updateCarProvider";
 import ProviderCard from "@/components/ProviderCard";
 
 import {
@@ -43,16 +43,17 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { CarItem, CarProvider } from "../../../interface";
 
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const { data: session } = useSession();
   console.log(session);
   const [isSticky, setIsSticky] = useState(false);
-  const [providerData, setproviderData] = useState<CarProvider>();
+  const [providerData, setProviderData] = useState<CarProvider>();
   const [userProfile, setUserProfile] = useState();
   const [carArray, setCarArray] = useState([]);
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [editingImageData, setEditingImageData] = useState<string | undefined>(
@@ -97,7 +98,7 @@ const page = ({ params }: { params: { id: string } }) => {
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>): void {
     try {
-      updataCarProvider(
+      updateCarProvider(
         session?.user?._id!,
         values.name,
         values.address,
@@ -135,7 +136,7 @@ const page = ({ params }: { params: { id: string } }) => {
   const fetchData = () => {
     const providerJson = getSingleCarProvider(session?.user?._id!).then(
       (res) => {
-        setproviderData(res.data);
+        setProviderData(res.data);
         form.setValue("name", res.data.name);
         form.setValue("address", res.data.address);
         form.setValue("telephone", res.data.telephone);
@@ -145,7 +146,7 @@ const page = ({ params }: { params: { id: string } }) => {
   const fetchCarForProvider = () => {
     const cars = getCarForOneProvider(session?.user?._id!).then((res) => {
       setCarArray(res.data);
-      setisLoading(false);
+      setIsLoading(false);
     });
   };
 
@@ -173,7 +174,7 @@ const page = ({ params }: { params: { id: string } }) => {
                   setEditingImageData(
                     (results?.info as CloudinaryUploadWidgetInfo)?.public_id
                   );
-                  updataCarProvider(
+                  updateCarProvider(
                     session?.user?._id!,
                     providerData?.name!,
                     providerData?.address!,
@@ -309,7 +310,7 @@ const page = ({ params }: { params: { id: string } }) => {
                         </Label>
                         <Input
                           id="name"
-                          placeholder="Enter your stor bg-blacke name"
+                          placeholder="Enter your stor bg-black name"
                           defaultValue={providerData?.name!}
                           value={editedName}
                           onChange={(e) => {
@@ -339,7 +340,7 @@ const page = ({ params }: { params: { id: string } }) => {
                         </Label>
                         <Input
                           id="telephone"
-                          placeholder="Ente bg-blackr your telephone number"
+                          placeholder="Enter bg-black your telephone number"
                           defaultValue={providerData?.telephone!}
                           value={editedTelephone}
                           onChange={(e) => {
@@ -448,7 +449,6 @@ const page = ({ params }: { params: { id: string } }) => {
                 <div className="grid grid-cols-2 w-full h-full mt-10 ml-5">
                   {carArray
                     ? carArray.map((carItem: CarItem) => (
-                        //  <AvaliableCarCard _id={carItem._id} src={carItem.src} model={carItem.model} brand={carItem.brand} price={carItem.price} carProvider={carItem.carProvider}/>
                         <Link href={`/mystore/${carItem._id}`}>
                           <div className="w-[90%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow ">
                             <CarProviderCard
@@ -464,7 +464,7 @@ const page = ({ params }: { params: { id: string } }) => {
                       ))
                     : ""}
                   <Link href="/add">
-                    <div className="w-[90%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow rounded-2xl border-white border flex flex-col items-center justify-center">
+                    <div className="w-[90%] h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow border-white border flex flex-col items-center justify-center">
                       <Image
                         src="/img/plus_sign.svg"
                         alt="plus"

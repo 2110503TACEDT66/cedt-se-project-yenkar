@@ -86,19 +86,17 @@ const page = () => {
           <div className=" w-full h-[100%] flex flex-col relative justify-center items-center">
             <div className="w-[60%] h-[40%] relative ">
               <Image
-                alt="walleticon"
+                alt="walletIcon"
                 src="/img/wallet_svg.svg"
                 fill={true}
                 className="object-cover "
               />
             </div>
             <div className=" w-fit h-fit left-8 flex flex-col space-y-6 text-center">
-              {/*Please change walletplaceholder to wallet icon you'll actually use*/}
               <h1 className="font-kiona text-white text-4xl">
                 Current Balance
               </h1>
               <h1 className="text-5xl z-40 text-white font-Poppins text-wrap font-light">
-                {/* {userProfile.data.balance} $ */}
                 {isLoading ? "Loading..." : userProfile.data.balance + " $"}
               </h1>
             </div>
@@ -111,7 +109,7 @@ const page = () => {
           <div className="w-[60%] h-full absolute top-0 right-0">
             <Image
               src="/img/line_art.svg"
-              alt="lineart"
+              alt="lineArt"
               fill={true}
               className="object-cover "
             />
@@ -120,7 +118,7 @@ const page = () => {
             <div className="font-Poppins font-light text-white absolute top-12 left-16 text-4xl flex flex-row">
               Add to Balance
               <Image
-                alt="carticon"
+                alt="cartIcon"
                 src="/img/addbalancecarticon.png"
                 width={40}
                 height={40}

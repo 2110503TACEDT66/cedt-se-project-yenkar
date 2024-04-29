@@ -3,6 +3,7 @@ import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
+import { CarProps } from "../../interface";
 
 const EditCarCard = ({
   _id,

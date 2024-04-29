@@ -11,15 +11,16 @@ import Image from "next/image";
 import { CldImage } from "next-cloudinary";
 import ProviderCard from "@/components/ProviderCard";
 import ExploreCard from "@/components/ExploreCard";
+import { CarItem, CarProvider } from "../../../../../interface";
 const page = ({ params }: { params: { pid: string } }) => {
   const router = useRouter();
   const { data: session } = useSession();
-  const [providerData, setproviderData] = useState<CarProvider>();
+  const [providerData, setProviderData] = useState<CarProvider>();
   const [carArray, setCarArray] = useState([]);
   useEffect(() => {
     const fetchData = () => {
       const providerJson = getSingleCarProvider(params.pid).then((res) => {
-        setproviderData(res.data);
+        setProviderData(res.data);
       });
     };
     const fetchCarForProvider = () => {
@@ -108,7 +109,6 @@ const page = ({ params }: { params: { pid: string } }) => {
               <div className="grid grid-cols-2 w-full h-full mt-10 ml-5">
                 {carArray
                   ? carArray.map((carItem: CarItem) => (
-                      //  <AvaliableCarCard _id={carItem._id} src={carItem.src} model={carItem.model} brand={carItem.brand} price={carItem.price} carProvider={carItem.carProvider}/>
                       <Link
                         href={`/reserve?pid=${providerData?._id}&cid=${carItem._id}`}
                       >

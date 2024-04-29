@@ -96,7 +96,7 @@ export default function Home() {
               <h1 className="text-white text-lg">Explore the </h1>
               <h1 className="text-white text-lg">new travel experience</h1>
               {/* {
-                session? <div className="text-white">Hello {session.data?.user.name}</div> : <div className="text-white">Not loged in</div>
+                session? <div className="text-white">Hello {session.data?.user.name}</div> : <div className="text-white">Not logged in</div>
               } */}
             </div>
           </div>

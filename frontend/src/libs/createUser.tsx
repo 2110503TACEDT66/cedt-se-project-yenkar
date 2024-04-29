@@ -1,3 +1,5 @@
+import { CreateUserProps } from "../../interface";
+
 export default async function createUser({
   userName,
   userEmail,
