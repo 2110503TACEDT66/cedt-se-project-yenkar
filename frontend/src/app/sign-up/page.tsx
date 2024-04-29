@@ -27,6 +27,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { CommandMenu } from "@/components/CommandMenu";
 
 const page = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -131,6 +132,7 @@ const page = () => {
 
   return (
     <main>
+      <CommandMenu session={null} />
       <NavBar stickyState={isSticky} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-fit flex flex-row justify-around items-center mb-10">

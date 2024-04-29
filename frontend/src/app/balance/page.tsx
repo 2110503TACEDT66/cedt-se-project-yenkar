@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { checkoutCredits } from "@/libs/topUpTransaction.actions";
+import { CommandMenu } from "@/components/CommandMenu";
 
 const page = () => {
   const { data: session } = useSession();
@@ -77,6 +78,8 @@ const page = () => {
 
   return (
     <main>
+      <CommandMenu session={session} />
+
       <NavBar stickyState={false} session={session} />
       <div className="flex flex-row items-center justify-center gap-[3%]">
         <div

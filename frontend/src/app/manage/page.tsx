@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Cargo, CarItem, CarProvider, Transmission } from "../../../interface";
+import { CommandMenu } from "@/components/CommandMenu";
 
 interface ReservationItem {
   _id: string;
@@ -93,6 +94,8 @@ const page = () => {
   console.log(userReservationState);
   return (
     <main>
+      <CommandMenu session={session} />
+
       <NavBar stickyState={isSticky} session={session} />
       <div className="flex flex-col items-center ">
         <div className=" rounded-xl w-[90vw] h-[80vh] flex flex-col justify-start space-y-4 items-center">

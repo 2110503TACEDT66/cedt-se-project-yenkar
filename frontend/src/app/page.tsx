@@ -1,4 +1,5 @@
 "use client";
+import { CommandMenu } from "@/components/CommandMenu";
 import HomeCard from "@/components/HomeCard";
 import NavBar from "@/components/NavBar";
 import { useSession } from "next-auth/react";
@@ -38,6 +39,7 @@ export default function Home() {
 
   return (
     <main className="h-[200vh]">
+      <CommandMenu session={session} />
       <NavBar stickyState={isSticky} session={session} />
 
       {/* Background */}

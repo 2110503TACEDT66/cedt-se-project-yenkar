@@ -44,6 +44,7 @@ import {
 } from "@/components/ui/command";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/libs/utils";
+import { CommandMenu } from "@/components/CommandMenu";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -166,6 +167,7 @@ const page = ({ params }: { params: { cid: string } }) => {
 
   return (
     <main>
+      <CommandMenu session={session} />
       <NavBar stickyState={false} session={session} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">

@@ -16,6 +16,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getTransactions } from "@/libs/transaction.action";
 import TransactionHisCard from "@/components/TransactionHisCard";
 import { CarItem, CarProvider, TransactionHis } from "../../../interface";
+import { CommandMenu } from "@/components/CommandMenu";
 
 interface Profile {
   data: {
@@ -89,6 +90,8 @@ const page = () => {
 
   return (
     <main>
+      <CommandMenu session={session} />
+
       <NavBar stickyState={false} session={session} />
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-start">

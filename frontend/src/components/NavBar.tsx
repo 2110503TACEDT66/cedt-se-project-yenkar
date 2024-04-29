@@ -11,14 +11,16 @@ import { Session } from "next-auth";
 const NavBar = ({
   stickyState,
   session,
+  className,
 }: {
   stickyState: boolean;
   session?: Session | null;
+  className?: string;
 }) => {
   const router = useRouter();
   const isSticky = stickyState;
   return (
-    <div className="py-12  sticky top-[-3rem] z-50">
+    <div className={`py-12  sticky top-[-3rem] z-[100] ${className}`}>
       <div
         className={`flex flex-row  justify-between items-center px-12 h-20 ${
           isSticky

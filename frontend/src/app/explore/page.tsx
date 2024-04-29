@@ -4,20 +4,40 @@ import NavBar from "@/components/NavBar";
 import { Input } from "@/components/ui/input";
 import getAllCarProviders from "@/libs/getAllCarProviders";
 import getAllCars from "@/libs/getAllCars";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import ProviderPanel from "@/components/ProviderPanel";
 import getAvailableCars from "@/libs/getAvailableCars";
+import { CommandMenu } from "@/components/CommandMenu";
 const page = () => {
   //const carProviders = getAllCarProviders();
   const carJson = getAllCars();
   const providerJson = getAvailableCars();
   const { data: session } = useSession();
   const [showCar, setShowCar] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      if (offset > 100) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <main>
-      <NavBar stickyState={false} session={session} />
+      <CommandMenu session={session} />
+      <NavBar stickyState={isSticky} session={session} className="z-50" />
       <div className="flex flex-col items-center">
         <div className="flex flex-row w-[93%] p-6  items-center justify-between">
           <h1 className="text-3xl font-Poppins text-white">

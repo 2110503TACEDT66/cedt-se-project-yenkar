@@ -44,6 +44,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { CarItem, CarProvider } from "../../../interface";
+import { CommandMenu } from "@/components/CommandMenu";
 
 const page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -163,6 +164,7 @@ const page = ({ params }: { params: { id: string } }) => {
 
   return (
     <main>
+      <CommandMenu session={session} />
       <NavBar stickyState={false} session={session} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">

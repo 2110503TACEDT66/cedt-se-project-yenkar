@@ -29,6 +29,7 @@ import createReservation from "@/libs/createReservation";
 import { useToast } from "@/components/ui/use-toast";
 import getSingleCar from "@/libs/getSingleCar";
 import { CarItem } from "../../../interface";
+import { CommandMenu } from "@/components/CommandMenu";
 
 //const page = ({ params }: { params: { pid: string, cid:string } }) => {
 const page = () => {
@@ -121,6 +122,8 @@ const page = () => {
 
   return (
     <main>
+      <CommandMenu session={session} />
+
       <NavBar stickyState={false} session={session} />
 
       <div className="flex flex-col items-center">

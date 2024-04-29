@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { CommandMenu } from "@/components/CommandMenu";
 
 const page = () => {
   const router = useRouter();
@@ -55,6 +56,7 @@ const page = () => {
 
   return (
     <main>
+      <CommandMenu session={null} />
       <NavBar stickyState={false} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-around items-center">

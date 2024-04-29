@@ -58,6 +58,7 @@ import EditCarCard from "@/components/EditCarCard";
 import { Cargo, CarItem, Transmission } from "../../../../interface";
 import { cn } from "@/libs/utils";
 import { CommandList } from "cmdk";
+import { CommandMenu } from "@/components/CommandMenu";
 ///////
 
 const page = ({ params }: { params: { cid: string } }) => {
@@ -206,6 +207,7 @@ const page = ({ params }: { params: { cid: string } }) => {
 
   return (
     <main>
+      <CommandMenu session={session} />
       <NavBar stickyState={false} session={session} />;
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-evenly items-center">
@@ -278,7 +280,7 @@ const page = ({ params }: { params: { cid: string } }) => {
             </div>
           </div>
 
-          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
+          <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll scrollbar overflow-x-hidden">
             <div className="pt-5 pl-5">
               <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
                 <h1 className="text-4xl font-kiona text-white">
@@ -455,7 +457,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <Form {...form}>
                       <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-8 overflow-y-scroll h-[50vh]"
+                        className="space-y-8 overflow-y-scroll scrollbar h-[50vh]"
                       >
                         <FormField
                           control={form.control}

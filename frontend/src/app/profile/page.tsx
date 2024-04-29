@@ -1,30 +1,51 @@
+"use client";
+
 import NavBar from "@/components/NavBar";
 import { getServerSession } from "next-auth";
-import React from "react";
+import React, { useEffect } from "react";
 import getMe from "@/libs/getMe";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/libs/auth";
+import { useSession } from "next-auth/react";
+import { CommandMenu } from "@/components/CommandMenu";
 
-const page = async () => {
-  const session = await getServerSession(authOptions);
-  console.log(`server-session: ${session?.user.name}`);
+interface Profile {
+  data: {
+    email: string;
+    telephone: string;
+    address: string;
+    balance: number;
+  };
+}
 
-  if (!session || !session.user.token) {
-    redirect("/sign-in");
-  }
+const page = () => {
+  const { data: session } = useSession();
+  const [profile, setProfile] = React.useState<Profile | null>(null);
 
-  const profile: {
-    data: {
-      email: string;
-      telephone: string;
-      address: string;
-      balance: number;
-    };
-  } = await getMe(session?.user.token);
-  console.log(profile);
+  // const profile: {
+  //   data: {
+  //     email: string;
+  //     telephone: string;
+  //     address: string;
+  //     balance: number;
+  //   };
+  // } = getMe(session?.user.token);
+  // console.log(profile);
+
+  const fetchProfile = () => {
+    const response = getMe(session?.user.token).then((data) => {
+      console.log(data);
+      setProfile(data);
+    });
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
   return (
     <main>
+      <CommandMenu session={session} />
       <NavBar stickyState={false} session={session} />
       <div className="flex flex-col items-center">
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-[72vh] flex flex-row justify-around items-center">
