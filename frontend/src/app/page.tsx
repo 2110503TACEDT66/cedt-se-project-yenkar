@@ -102,6 +102,11 @@ export default function Home() {
               } */}
             </div>
           </div>
+          <div className="absolute flex flex-row w-full h-fit justify-center left-0">
+            <div className=" rounded-2xl w-fit h-12 z-[40] flex flex-row justify-center items-center drop-shadow-md p-3 shadow-lg backdrop-blur-xl backdrop-brightness-150 ">
+              <h1 className="text-white relative">⌘K to Show Command Menu</h1>
+            </div>
+          </div>
 
           <div className="flex flex-row space-x-4">
             <Image alt="dec" src="/img/dec_1.png" width={100} height={100} />
