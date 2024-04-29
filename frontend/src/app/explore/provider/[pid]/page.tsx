@@ -63,14 +63,14 @@ const page = ({ params }: { params: { pid: string } }) => {
                 </h1>
                 <div className="flex flex-row gap-1 items-baseline pt-3">
                   <h1 className="text-xl font-kiona text-white">name |</h1>
-                  <h1 className="text-xl font-poppins  font-bold text-white">
+                  <h1 className="text-xl font-Poppins  font-bold text-white">
                     {providerData?.name ?? ""}
                   </h1>
                 </div>
                 <div className="pt-3 grid grid-cols-3 ">
                   <div className="flex flex-row gap-1 items-baseline">
                     <h1 className="text-xl font-kiona text-white">address |</h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {providerData?.address ?? ""}
                     </h1>
                   </div>{" "}
@@ -78,7 +78,7 @@ const page = ({ params }: { params: { pid: string } }) => {
                     <h1 className="text-xl font-kiona text-white">
                       telephone |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {providerData?.telephone.slice(0, 3) +
                         "-" +
                         providerData?.telephone.slice(3, 6) +
@@ -88,7 +88,7 @@ const page = ({ params }: { params: { pid: string } }) => {
                   </div>{" "}
                   {/* <div className="flex flex-row gap-1 items-baseline">
                     <h1 className="text-xl font-kiona text-white">price |</h1>
-                    <h1 className="text-xl font-poppins text-white">
+                    <h1 className="text-xl font-Poppins text-white">
                       {carData?.price ?? ""}
                     </h1>
                   </div> */}

@@ -148,14 +148,14 @@ const page = () => {
                 </h1>
                 {/* <div className="flex flex-row gap-1 items-baseline pt-3">
                   <h1 className="text-xl font-kiona text-zinc-400">model |</h1>
-                  <h1 className="text-xl font-poppins  font-bold text-white">
+                  <h1 className="text-xl font-Poppins  font-bold text-white">
                     {carData?.model ?? ""}
                   </h1>
                 </div> */}
                 <div className="pt-3 grid grid-cols-3 gap-y-6">
                   {/* <div className="flex flex-row gap-1 items-baseline">
                     <h1 className="text-xl font-kiona text-zinc-400">Model |</h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.model ?? ""}
                     </h1>
                   </div> */}
@@ -163,7 +163,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Brand |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.brand ?? ""}
                     </h1>
                   </div>{" "}
@@ -171,7 +171,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       price |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.price + " $" ?? ""}
                     </h1>
                   </div>
@@ -179,7 +179,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Plate number |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.vrm ?? ""}
                     </h1>
                   </div>
@@ -187,7 +187,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Doors |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.doors ?? ""}
                     </h1>
                   </div>
@@ -195,7 +195,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Seats |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.seats ?? ""}
                     </h1>
                   </div>
@@ -203,7 +203,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       transmission |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.transmission ?? ""}
                     </h1>
                   </div>
@@ -211,7 +211,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       cargo |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.cargo ?? ""}
                     </h1>
                   </div>
@@ -219,19 +219,19 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       radio |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.radio ? "Yes" : "No" ?? ""}
                     </h1>
                   </div>
                   <div className="flex flex-row gap-1 items-baseline">
                     <h1 className="text-xl font-kiona text-zinc-400">air |</h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.air ? "Yes" : "No" ?? ""}
                     </h1>
                   </div>
                   {/* <div className="flex flex-row gap-1 items-baseline">
                     <h1 className="text-xl font-kiona text-zinc-400">price |</h1>
-                    <h1 className="text-xl font-poppins text-white">
+                    <h1 className="text-xl font-Poppins text-white">
                       {carData?.price ?? ""}
                     </h1>
                   </div> */}
@@ -247,7 +247,7 @@ const page = () => {
                 </h1>
                 <div className="flex flex-row gap-1 items-baseline pt-3">
                   <h1 className="text-xl font-kiona text-zinc-400">Name |</h1>
-                  <h1 className="text-xl font-poppins   font-bold text-white">
+                  <h1 className="text-xl font-Poppins   font-bold text-white">
                     {carData?.carProvider.name ?? ""}
                   </h1>
                 </div>
@@ -256,7 +256,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Address |
                     </h1>
-                    <h1 className="text-xl font-poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white">
                       {carData?.carProvider.address ?? ""}
                     </h1>
                   </div>{" "}
@@ -264,7 +264,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Telephone |
                     </h1>
-                    <h1 className="text-xl font-poppins font-bold text-white">
+                    <h1 className="text-xl font-Poppins font-bold text-white">
                       {carData?.carProvider.telephone.slice(0, 3) +
                         "-" +
                         carData?.carProvider.telephone.slice(3, 6) +
@@ -274,7 +274,7 @@ const page = () => {
                   </div>{" "}
                   {/* <div className="flex flex-row gap-1 items-baseline">
                     <h1 className="text-xl font-kiona text-zinc-400">price |</h1>
-                    <h1 className="text-xl font-poppins text-white">
+                    <h1 className="text-xl font-Poppins text-white">
                       {carData?.price ?? ""}
                     </h1>
                   </div> */}

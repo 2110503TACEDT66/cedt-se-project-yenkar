@@ -20,7 +20,7 @@ const page = () => {
       <NavBar stickyState={false} session={session} />
       <div className="flex flex-col items-center">
         <div className="flex flex-row w-[93%] p-6  items-center justify-between">
-          <h1 className="text-3xl font-poppins text-white">
+          <h1 className="text-3xl font-Poppins text-white">
             {!showCar ? (
               <div>Explore the Available Cars</div>
             ) : (

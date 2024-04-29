@@ -31,16 +31,16 @@ const CarProviderCard = ({
             >{`${price} $`}</h1>
           </div>
           <div className="text-black pt-5 pl-7">
-            <h1 className="text-2xl font-poppins font-bold">{model}</h1>
+            <h1 className="text-2xl font-Poppins font-bold">{model}</h1>
           </div>
           <div className="grid grid-cols-2 px-7 py-1 text-black gap-y-1">
             <div className="col-span-2">
-              <h1 className="font-poppins">
+              <h1 className="font-Poppins">
                 <span className="font-kiona text-lg">BRAND | </span> {brand}
               </h1>
             </div>
             {/* <div>
-              <h1 className="font-poppins">
+              <h1 className="font-Poppins">
                 <span className="font-kiona text-lg">PRICE | </span>{" "}
                 {`${price} $`}
               </h1>

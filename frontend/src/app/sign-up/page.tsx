@@ -136,7 +136,7 @@ const page = () => {
         <div className="bg-[#17191C] rounded-xl w-[90vw] h-fit flex flex-row justify-around items-center mb-10">
           <div className=" w-[45vw] h-[120vh] flex flex-col relative justify-center">
             <div className=" w-fit h-fit absolute left-16 flex flex-col space-y-3">
-              <h1 className="text-6xl z-40 text-white font-poppins ">
+              <h1 className="text-6xl z-40 text-white font-Poppins ">
                 Sign-up
               </h1>
               <h1 className="text-base z-40 text-white font-kiona ">

@@ -231,19 +231,19 @@ const page = ({ params }: { params: { id: string } }) => {
           <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
             {/* <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">Provider Name</h1>
-              <h1 className="text-5xl font-poppins text-white">
+              <h1 className="text-5xl font-Poppins text-white">
                 {providerData?.name ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">Location</h1>
-              <h1 className="text-4xl font-poppins text-white">
+              <h1 className="text-4xl font-Poppins text-white">
                 {providerData?.address ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">Phone</h1>
-              <h1 className="text-4xl font-poppins text-white">
+              <h1 className="text-4xl font-Poppins text-white">
                 {providerData?.telephone ?? ""}
               </h1>
             </div> */}
@@ -277,7 +277,7 @@ const page = ({ params }: { params: { id: string } }) => {
                 </div>{" "}
                 {/* <div className="flex flex-row gap-1 items-baseline">
                     <h1 className="text-xl font-kiona text-white">price |</h1>
-                    <h1 className="text-xl font-poppins text-white">
+                    <h1 className="text-xl font-Poppins text-white">
                       {carData?.price ?? ""}
                     </h1>
                   </div> */}

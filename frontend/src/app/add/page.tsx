@@ -221,7 +221,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                 </CldUploadWidget>
               </div>
             </div>
-            {/* <div className="flex flex-col gap-3 p-4 font-poppins">
+            {/* <div className="flex flex-col gap-3 p-4 font-Poppins">
                 <div className="text-xl">{carItem?.model!}</div>
                 <div>{carItem?.brand!}</div>
                 <div>{`${carItem?.price!} $`}</div>
@@ -233,19 +233,19 @@ const page = ({ params }: { params: { cid: string } }) => {
           <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll overflow-x-hidden">
             {/* <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">model</h1>
-              <h1 className="text-5xl font-poppins text-white">
+              <h1 className="text-5xl font-Poppins text-white">
                 {carItem?.model ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">brand</h1>
-              <h1 className="text-4xl font-poppins text-white">
+              <h1 className="text-4xl font-Poppins text-white">
                 {carItem?.brand ?? ""}
               </h1>
             </div>
             <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
               <h1 className="text-2xl font-kiona text-white">price</h1>
-              <h1 className="text-4xl font-poppins text-white">
+              <h1 className="text-4xl font-Poppins text-white">
                 {carItem?.price ?? ""}
               </h1>
             </div> */}
@@ -254,19 +254,19 @@ const page = ({ params }: { params: { cid: string } }) => {
               <div>
                 <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
                   <h1 className="text-2xl font-kiona text-white">model</h1>
-                  <h1 className="text-5xl font-poppins text-white">
+                  <h1 className="text-5xl font-Poppins text-white">
                     {carItem?.model ?? ""}
                   </h1>
                 </div>
                 <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
                   <h1 className="text-2xl font-kiona text-white">brand</h1>
-                  <h1 className="text-4xl font-poppins text-white">
+                  <h1 className="text-4xl font-Poppins text-white">
                     {carItem?.brand ?? ""}
                   </h1>
                 </div>
                 <div className=" w-fit h-fit flex flex-col space-y-3 pt-9 pl-6">
                   <h1 className="text-2xl font-kiona text-white">price</h1>
-                  <h1 className="text-4xl font-poppins text-white">
+                  <h1 className="text-4xl font-Poppins text-white">
                     {carItem?.price ?? ""}
                   </h1>
                 </div>
