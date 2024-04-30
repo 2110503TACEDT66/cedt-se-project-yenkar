@@ -384,7 +384,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                 >
                   <DialogTrigger asChild>
                     <Button
-                      variant="default"
+                      variant="default" id="editBtn"
                       className="p-3 mr-2 rounded-lg bg-gradient-to-r font-light text-base from-[#F05B80] to-[#4158F0] text-white hover:scale-105 transition duration-300 ease-in-out hover:saturate-150 active:scale-100"
                     >
                       Edit Car
