@@ -271,7 +271,9 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <Input
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
                             placeholder={formPlaceholder.car.model}
+                            id="model"
                             {...field}
+                            
                           />
                         </FormControl>
                         <FormMessage className="text-rose-600" />
@@ -290,6 +292,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <Input
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
                             placeholder={formPlaceholder.car.brand}
+                            id="brand"
                             {...field}
                           />
                         </FormControl>
@@ -309,7 +312,9 @@ const page = ({ params }: { params: { cid: string } }) => {
                           <Input
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
                             placeholder={formPlaceholder.car.vrm}
+                            id="plate"
                             {...field}
+                            
                           />
                         </FormControl>
                         <FormMessage className="text-rose-600" />
@@ -329,6 +334,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                             type="number"
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
                             placeholder={formPlaceholder.car.price}
+                            id="price"
                             {...field}
                           />
                         </FormControl>
@@ -349,6 +355,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                             type="number"
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
                             placeholder={formPlaceholder.car.doors}
+                            id="door"
                             {...field}
                           />
                         </FormControl>
@@ -369,6 +376,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                             type="number"
                             className="w-[80%] bg-black border-white border-[1px] text-base text-white"
                             placeholder={formPlaceholder.car.seats}
+                            id="seat"
                             {...field}
                           />
                         </FormControl>
@@ -563,6 +571,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     {...form}
                     type="submit"
                     className="self-end w-fit ml-1 px-4 py-1 bg-white text-black hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                    id="submit"
                   >
                     Submit
                   </Button>

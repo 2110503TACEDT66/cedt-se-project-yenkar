@@ -1,28 +1,24 @@
 const {
-    getPaymentTransactions,
-    createPaymentTransaction,
-    getSinglePaymentTransaction,
-  } = require("../controllers/PaymentTransactions");
-  const { protect, authorize } = require("../middleware/auth");
-  const express = require("express");
-  
-  const router = express.Router();
-  
-  router
-    .route("/")
-    .get(protect, authorize("admin", "user"), getPaymentTransactions);
-  router
-    .route("/:id")
-    .get(protect, authorize("admin", "user"), getSinglePaymentTransaction);
-  
-  router
-    .route("/")
-    .post(protect, authorize("admin", "user"), createPaymentTransaction);
-  
-  module.exports = router;
-  
+  getPaymentTransactions,
+  createPaymentTransaction,
+  getSinglePaymentTransaction,
+} = require("../controllers/PaymentTransactions");
+const { protect, authorize } = require("../middleware/auth");
+const express = require("express");
 
-  /**
+const router = express.Router();
+
+router
+  .route("/")
+  .get(protect, authorize("admin", "user"), getPaymentTransactions)
+  .post(protect, authorize("admin", "user"), createPaymentTransaction);
+router
+  .route("/:id")
+  .get(protect, authorize("admin", "user"), getSinglePaymentTransaction);
+
+module.exports = router;
+
+/**
  * @swagger
  * components:
  *   schemas:
@@ -53,13 +49,12 @@ const {
  *         renting: "65e5a1c8d1ed717a4fe87578"
  */
 
-
 /**
-* @swagger
-* tags:
-*   name: PaymentTransactions
-*   description: Payment transactions API
-*/
+ * @swagger
+ * tags:
+ *   name: PaymentTransactions
+ *   description: Payment transactions API
+ */
 
 /**
  * @swagger
@@ -83,57 +78,56 @@ const {
  */
 
 /**
-* @swagger
-* /paymenttransactions/{id}:
-*   get:
-*     security:
-*       - bearerAuth: []
-*     summary: Retrieve a single payment transaction by ID
-*     tags: [PaymentTransactions]
-*     parameters:
-*       - name: id
-*         in: path
-*         required: true
-*         description: ID of the payment transaction
-*         type: string
-*     responses:
-*       '200':
-*         description: A payment transaction
-*         content:
+ * @swagger
+ * /paymenttransactions/{id}:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Retrieve a single payment transaction by ID
+ *     tags: [PaymentTransactions]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the payment transaction
+ *         type: string
+ *     responses:
+ *       '200':
+ *         description: A payment transaction
+ *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/PaymentTransactions'
-*       '500':
-*         description: Some Server Error
-*/
-
+ *       '500':
+ *         description: Some Server Error
+ */
 
 /**
-* @swagger
-* /paymenttransactions:
-*   post:
-*     security:
-*       - bearerAuth: []
-*     summary: Create a payment transaction
-*     tags: [PaymentTransactions]
-*     requestBody:
-*       required: true
-*       content:
-*         application/json:
-*           schema:
-*             $ref: '#/components/schemas/PaymentTransactions'
-*     responses:
-*       '201':
-*         description: A payment transaction
-*         content:
-*           application/json:
-*               schema:
-*                 items:    
-*                   $ref: '#/components/schemas/PaymentTransactions'
-*       '500':
-*         description: Some server error
-*       '400':
-*         description: Bad Request
-*/
+ * @swagger
+ * /paymenttransactions:
+ *   post:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Create a payment transaction
+ *     tags: [PaymentTransactions]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PaymentTransactions'
+ *     responses:
+ *       '201':
+ *         description: A payment transaction
+ *         content:
+ *           application/json:
+ *               schema:
+ *                 items:
+ *                   $ref: '#/components/schemas/PaymentTransactions'
+ *       '500':
+ *         description: Some server error
+ *       '400':
+ *         description: Bad Request
+ */

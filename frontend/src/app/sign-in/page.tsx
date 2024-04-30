@@ -97,6 +97,7 @@ const page = () => {
                           <Input
                             className="bg-[#222529] text-white"
                             placeholder="Example@domain.com"
+                            id="emailInput"
                             {...field}
                           />
                         </FormControl>
@@ -117,6 +118,7 @@ const page = () => {
                             type="password"
                             placeholder="Password"
                             className="bg-[#222529] text-white"
+                            id="passwordInput"
                             {...field}
                           />
                         </FormControl>
