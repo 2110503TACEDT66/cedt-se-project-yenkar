@@ -429,6 +429,7 @@ const page = () => {
                     <Button
                       type="submit"
                       className="mt-12 bg-gradient-to-r font-kiona text-xl from-[#F05B80] to-[#4158F0] text-white hover:scale-105 transition duration-300 ease-in-out hover:saturate-150 active:scale-100"
+                      id="reserveBtn"
                     >
                       Submit
                     </Button>
