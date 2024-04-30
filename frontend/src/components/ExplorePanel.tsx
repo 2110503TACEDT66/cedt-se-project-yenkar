@@ -193,6 +193,11 @@ const ExplorePanel = ({
             );
           })
         )}
+        {carData?.data?.length! === 0 ? <div className=" h-[35rem] m-2 rounded-lg relative hover:scale-[102%] transition duration-200 ease-in-out active:scale-100 flex-grow bg-zinc-900 flex flex-col justify-center items-center">
+                  <h1 className="text-2xl text-white font-Poppins">
+                    Cars not found.
+                  </h1>
+                </div> : null}
 
         {carData?.data?.length! % 4 === 0
           ? null
