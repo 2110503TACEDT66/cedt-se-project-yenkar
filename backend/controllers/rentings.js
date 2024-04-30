@@ -75,7 +75,7 @@ exports.getRentings = async (req, res, next) => {
 };
 
 //@desc     Get a renting
-//@route    GET /api/v1/rentings
+//@route    GET /api/v1/rentings/:id
 //@access   Public
 exports.getRenting = async (req, res, next) => {
   try {
@@ -297,7 +297,7 @@ exports.updateRenting = async (req, res, next) => {
 };
 
 //@desc     Delete a Renting
-//@route    DELETE /api/v1/Renting/:id
+//@route    DELETE /api/v1/rentings/:id
 //@access   Private
 exports.deleteRenting = async (req, res, next) => {
   // Please Refund user's balance if User delete their renting
