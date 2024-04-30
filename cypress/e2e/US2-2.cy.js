@@ -36,6 +36,8 @@ describe('US2-2', () => {
     cy.get('#radioData').should("contain", "Yes")
     cy.get('#airData').should("contain", "No")
     })
+    
 
   })
+  
 })

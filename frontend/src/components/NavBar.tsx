@@ -20,7 +20,7 @@ const NavBar = ({
   const router = useRouter();
   const isSticky = stickyState;
   return (
-    <div className={`py-12  sticky top-[-3rem] z-50 ${className}`}>
+    <div className={`py-12  sticky top-[-3rem] z-40${className}`}>
       <div
         className={`flex flex-row  justify-between items-center px-12 h-20 ${
           isSticky
@@ -39,7 +39,7 @@ const NavBar = ({
               }`}
               width={255}
               height={55}
-              className="z-50 hover:scale-110 transition duration-300 ease-in-out w-auto h-auto"
+              className="z-40 hover:scale-110 transition duration-300 ease-in-out w-auto h-auto"
               priority={true}
             />
           </Link>
@@ -122,7 +122,7 @@ const NavBar = ({
                   }`}
                   width={30}
                   height={30}
-                  className="z-50 hover:scale-110 transition duration-300 ease-in-out w-auto h-auto"
+                  className="z-40 hover:scale-110 transition duration-300 ease-in-out w-auto h-auto"
                   priority={true}
                 />
               </PopoverTrigger>
