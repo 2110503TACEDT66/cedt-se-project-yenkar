@@ -48,7 +48,7 @@ describe('US2-1_1', () => {
         .type('{enter}');
       cy.get('#submit').click();
       cy.visit('http://localhost:3000/mystore');
-      cy.get('h1').contains('honda').as('newCar');
+      cy.get('h1').contains('civic').as('newCar');
       expect('@newCar').to.exist;
 
       cy.visit('http://localhost:3000/explore');
@@ -62,10 +62,10 @@ describe('US2-1_1', () => {
       cy.visit(`http://localhost:3000/add`);
       cy.get('#model')
         .click()
-        .type("civic")
+        .type("cv")
       cy.get('#brand')
         .click()
-        .type("h");
+        .type("honda");
       cy.get('#plate')
         .click()
         .type('ab-1234');
@@ -90,7 +90,7 @@ describe('US2-1_1', () => {
         .type('{enter}');
       cy.get('#submit').click();
       cy.visit('http://localhost:3000/mystore');
-      cy.get('h1').contains('honda').as('newCar');
+      cy.get('h1').contains('cv').as('newCar');
       expect('@newCar').to.exist;
 
       cy.visit('http://localhost:3000/explore');
