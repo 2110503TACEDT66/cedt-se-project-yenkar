@@ -170,7 +170,7 @@ const page = () => {
                               <h1 className="text-white font-Poppins text-xl">
                                 {item.car.model}
                               </h1>
-                              {/*<h1 className="text-white">
+                              <h1 className="text-white">
                                 <span className="font-kiona">Provider | </span>
                                 {item.carProvider.name}
                               </h1>
@@ -179,7 +179,7 @@ const page = () => {
                                   Plate number |{" "}
                                 </span>
                                 {item.car.vrm}
-                              </h1>*/}
+                              </h1>
                               <div className="grid grid-cols-3 text-white justify-center absolute bottom-6 pr-4">
                                 <h1 className="font-kiona">Pickup Date </h1>
                                 <h1 className="justify-self-center">{}</h1>
