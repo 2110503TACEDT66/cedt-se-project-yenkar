@@ -1,0 +1,14 @@
+FROM node:20-alpine
+
+WORKDIR /app/frontend
+
+COPY package*.json .
+
+RUN cd /app/frontend; \
+    npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]

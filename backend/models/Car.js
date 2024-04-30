@@ -21,10 +21,12 @@ const carSchema = new mongoose.Schema(
     doors: {
       type: Number,
       required: [true, "Please provide car's door"],
+      min: [1, "Door can't below than 1"]
     },
     seats: {
       type: Number,
       required: [true, "Please provide car's seats number"],
+      min: [1, "Seat can't below than 1"]
     },
     transmission: {
       type: String,
