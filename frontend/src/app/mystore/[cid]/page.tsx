@@ -719,7 +719,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                           render={({ field }) => (
                             <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
                               <FormControl>
-                                <Checkbox
+                                <Checkbox id="radio"
                                   defaultChecked={carItem?.air!}
                                   checked={field.value}
                                   onCheckedChange={field.onChange}
