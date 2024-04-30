@@ -1,4 +1,4 @@
-const TopUpTransaction = require("../models/PaymentTransactions");
+const PaymentTransaction = require("../models/PaymentTransactions");
 
 //@desc     Get all topUpTransaction
 //@route    GET /api/v1/topUpTransaction

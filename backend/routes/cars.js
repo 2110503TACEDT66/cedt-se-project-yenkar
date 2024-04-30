@@ -142,13 +142,13 @@ module.exports = router;
 *         description: ID of the car
 *         type: string
 *     responses:
-*       200:
+*       '200':
 *         description: A single car object
 *         content:
 *           application/json:
 *               schema:
 *                 $ref: '#/components/schemas/Car'
-*       500:
+*       '500':
 *         description: Some Server Error
 */
 
@@ -174,16 +174,16 @@ module.exports = router;
 *           schema:
 *             $ref: '#/components/schemas/Car'
 *     responses:
-*       201:
+*       '201':
 *         description: A single car object
 *         content:
 *           application/json:
 *               schema:
 *                 items:    
 *                   $ref: '#/components/schemas/Car'
-*       500:
+*       '500':
 *         description: Some server error
-*       400:
+*       '400':
 *         description: Bad Request
 */
 
@@ -208,16 +208,16 @@ module.exports = router;
 *           schema:
 *             $ref: '#/components/schemas/Car'
 *     responses:
-*       200:
+*       '200':
 *         description: A single car object
 *         content:
 *           application/json:
 *               schema:
 *                 items:    
 *                   $ref: '#/components/schemas/Car'
-*       500:
+*       '500':
 *         description: Some server error
-*       404:
+*       '404':
 *         description: The car was not found
 */
 
@@ -236,7 +236,7 @@ module.exports = router;
 *         description: ID of the car
 *         type: string
 *     responses:
-*       200:
+*       '200':
 *         description: A single car object
 *         content:
 *           application/json:
@@ -244,9 +244,9 @@ module.exports = router;
 *                 type: array
 *                 items:    
 *                   $ref: '#/components/schemas/Car'
-*       500:
+*       '500':
 *         description: Some server error
-*       404:
+*       '404':
 *         description: The car was not found
 */
 
