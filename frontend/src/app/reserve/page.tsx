@@ -111,8 +111,8 @@ const page = () => {
         })
         .catch(() => {
           toast({
-            title: "Failed",
-            description: "Failed to create reservation",
+            title: "Failed to create reservation",
+            description: "Your reservation has not been created",
             variant: "destructive",
             duration: 3000,
           });
