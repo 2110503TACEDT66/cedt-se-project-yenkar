@@ -25,6 +25,7 @@ const page = () => {
     useState<Promise<Response> | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [deletingCar, setDeletingCar] = useState<CarItem>();
+  const [isFailed, setIsFailed] = useState(false);
 
   if (!session) {
     router.push("/sign-in");
@@ -110,14 +111,24 @@ const page = () => {
               <div className="">
                 <div
                   className={` ${
-                    isProcessing ? "text-white" : "text-[#6dd375]"
+                    isProcessing
+                      ? "text-white"
+                      : isFailed
+                      ? "text-red-500"
+                      : "text-green-500"
                   } flex justify-center text-4xl font-bold`}
                 >
-                  {isProcessing ? "Processing" : "REFUND SUCCESSFULLY"}
+                  {isProcessing
+                    ? "Processing"
+                    : isFailed
+                    ? "Something went wrong"
+                    : "REFUND SUCCESSFULLY"}
                 </div>
                 <div className="text-white flex justify-center text-2xl mt-5">
                   {isProcessing
                     ? "we are working on Process"
+                    : isFailed
+                    ? "Please try again later"
                     : "Thanks for choosing Yenkar. We hope to serve you again in the future."}
                 </div>
                 <div className="flex justify-center">
@@ -127,7 +138,11 @@ const page = () => {
                     } backdrop-brightness-[175%] shadow-2xl drop-shadow-xl backdrop-blur-lg text-white rounded-2xl p-3 mt-7 w-fit flex justify-center text-2xl font-bold `}
                   >
                     {!isProcessing && (
-                      <>{deletingCar?.price!}$ IS ADDED TO YOUR BALANCE</>
+                      <>
+                        {isFailed
+                          ? ""
+                          : `${deletingCar?.price!}$ IS ADDED TO YOUR BALANCE`}
+                      </>
                     )}
                   </div>
                 </div>
@@ -164,52 +179,43 @@ const page = () => {
                     setIsDeleting(true);
                     setDeletingCar(item.car);
                     setIsProcessing(true);
-                    deleteReservation(_id, token).then((res) => {
-                      if (res.status === 200) {
-                        setIsProcessing(false);
-                        setTimeout(() => {
-                          setIsDeleting(false);
-                          setDeletingCar(undefined);
-                        }, 3000);
-                        toast({
-                          title: "Reservation Deleted",
-                          description: "Your reservation has been deleted",
-                          duration: 3000,
-                        });
 
-                        userReservationDispatch({
-                          type: "REMOVE",
-                          payload: [
-                            {
-                              _id,
-                              rentDate: "",
-                              rentTo: "",
-                              user: {
-                                _id: "",
-                                name: "",
-                                email: "",
-                              },
-                              carProvider: {
-                                _id: "",
-                                name: "",
-                                address: "",
-                                telephone: "",
-                                src: "",
-                              },
-                              car: {
-                                _id: "",
-                                brand: "",
-                                model: "",
-                                price: 0,
-                                src: "",
-                                air: true,
-                                cargo: Cargo.large,
-                                doors: 0,
-                                radio: true,
-                                seats: 0,
-                                transmission: Transmission.auto,
-                                id: "",
-                                vrm: "",
+                    const timeoutPromise = new Promise((_, reject) =>
+                      setTimeout(
+                        () => reject(new Error("Request timed out")),
+                        10000
+                      )
+                    );
+
+                    Promise.race([
+                      deleteReservation(_id, token),
+                      timeoutPromise,
+                    ])
+                      .then((res) => {
+                        if ((res as Response).status === 200) {
+                          setIsProcessing(false);
+                          setTimeout(() => {
+                            setIsDeleting(false);
+                            setDeletingCar(undefined);
+                          }, 3000);
+                          toast({
+                            title: "Reservation Deleted",
+                            description: "Your reservation has been deleted",
+                            duration: 3000,
+                          });
+
+                          userReservationDispatch({
+                            type: "REMOVE",
+                            payload: [
+                              {
+                                _id,
+                                rentDate: "",
+                                rentTo: "",
+                                user: {
+                                  _id: "",
+                                  name: "",
+                                  email: "",
+                                },
                                 carProvider: {
                                   _id: "",
                                   name: "",
@@ -217,23 +223,69 @@ const page = () => {
                                   telephone: "",
                                   src: "",
                                 },
+                                car: {
+                                  _id: "",
+                                  brand: "",
+                                  model: "",
+                                  price: 0,
+                                  src: "",
+                                  air: true,
+                                  cargo: Cargo.large,
+                                  doors: 0,
+                                  radio: true,
+                                  seats: 0,
+                                  transmission: Transmission.auto,
+                                  id: "",
+                                  vrm: "",
+                                  carProvider: {
+                                    _id: "",
+                                    name: "",
+                                    address: "",
+                                    telephone: "",
+                                    src: "",
+                                  },
+                                },
+                                createAt: "",
+                                returned: false,
+                                __v: 0,
                               },
-                              createAt: "",
-                              returned: false,
-                              __v: 0,
-                            },
-                          ],
-                        });
-                      } else {
-                        const errorMess = res.json().then((res) => res.message);
+                            ],
+                          });
+                        } else {
+                          const errorMess = (res as Response)
+                            .json()
+                            .then((res) => {
+                              setIsProcessing(false);
+                              setIsFailed(true);
+                              setTimeout(() => {
+                                setIsDeleting(false);
+                                setDeletingCar(undefined);
+                              }, 3000);
+
+                              toast({
+                                title: "Reservation Delete Failed",
+                                description:
+                                  res.message ?? "Something went wrong",
+                                variant: "destructive",
+                                duration: 3000,
+                              });
+                            });
+                        }
+                      })
+                      .catch((err) => {
+                        setIsProcessing(false);
+                        setIsFailed(true);
+                        setTimeout(() => {
+                          setIsDeleting(false);
+                          setDeletingCar(undefined);
+                        }, 3000);
                         toast({
                           title: "Reservation Delete Failed",
-                          description: errorMess ?? "Something went wrong!",
+                          description: err.message,
                           variant: "destructive",
                           duration: 3000,
                         });
-                      }
-                    });
+                      });
                   }}
                   carId={item.car._id}
                   adminView={isAdmin}

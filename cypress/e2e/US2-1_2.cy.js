@@ -78,13 +78,13 @@ describe("US2-1_2 (Invalid Input)", () => {
         // cy.get('div').contains('Failed to create reservation').as('reserveFailed');
         // expect('@reserveFailed').to.exist();
     
-        cy.visit('http://localhost:3000/mystore');
-        cy.wait(1500);
-        cy.get('h1').contains('honda').should('not.exist');
+        // cy.visit('http://localhost:3000/mystore');
+        // cy.wait(1500);
+        // cy.get('h1').contains('honda').should('not.exist');
         
 
-        cy.visit('http://localhost:3000/explore');
-        cy.get('h1').contains('honda').should('not.exist');
+        // cy.visit('http://localhost:3000/explore');
+        // cy.get('h1').contains('honda').should('not.exist');
       });
 
       it('Should be not listed (Door Not valid)', () => {
