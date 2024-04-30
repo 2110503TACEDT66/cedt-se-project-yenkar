@@ -169,6 +169,20 @@ exports.addRenting = async (req, res, next) => {
     console.log(req.body);
     console.log(rentDate, rentTo, returned, carModel);
 
+    /**************************** Check if rentDate is before rentTo ************************** */
+
+    const rentDateInt = Date.parse(rentDate);
+    const rentToInt = Date.parse(rentTo);
+  
+    if(rentDateInt > rentToInt) {
+      return res.status(400).json({
+        success: false,
+        message: "Rent date must be before return date.",
+      });
+    }
+  
+    /***************************************************************** */
+
     const existedRenting = await Renting.find({ user: req.user.id });
     console.log(existedRenting);
     // const {rentDate, user} = req.body;
@@ -272,22 +286,38 @@ exports.updateRenting = async (req, res, next) => {
       });
     }
 
-    renting = await Renting.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const { rentDate, rentTo } = req.body;
+
+    /**************************** Check if rentDate is before rentTo ************************** */
+
+    const rentDateInt = Date.parse(rentDate);
+    const rentToInt = Date.parse(rentTo);
+
+    if(rentDateInt > rentToInt) {
+      return res.status(400).json({
+        success: false,
+        message: "Rent date must be before return date.",
+      });
+    }
+
+    /***************************************************************** */
 
     const today = new Date();
     let before = new Date();
-    before.setDate(today.getDate() - 1);
+    before.setDate(today.getDate() + 1);
     //not allow to edit one day before renting start
-    if (renting.rentDate >= before && req.user.role !== "admin") {
+    if (renting.rentDate <= before && req.user.role !== "admin") {
       return res.status(403).json({
         success: false,
         message:
           "User are not allowed to edit renting information after a day before the renting, please contact customer service if the change is necessary",
       });
     }
+
+    renting = await Renting.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
     res.status(200).json({ success: true, data: renting });
   } catch (err) {
