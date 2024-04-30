@@ -11,8 +11,8 @@ module.exports = router;
 /**
 * @swagger
 * tags:
-*   name: Payment
-*   description: The Payment System API
+*   name: Topup
+*   description: TopUp API
 */
 
 /**
@@ -21,7 +21,7 @@ module.exports = router;
 *    post:
 *      summary: Top up user balance
 *      description: Allows users and admins to top up balances, with admins being able to top up any user's balance.
-*      tags: [Payment]
+*      tags: [Topup]
 *      security:
 *        - bearerAuth: []
 *      requestBody:
