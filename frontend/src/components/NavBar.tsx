@@ -20,7 +20,7 @@ const NavBar = ({
   const router = useRouter();
   const isSticky = stickyState;
   return (
-    <div className={`py-12  sticky top-[-3rem] z-[100] ${className}`}>
+    <div className={`py-12  sticky top-[-3rem] z-50 ${className}`}>
       <div
         className={`flex flex-row  justify-between items-center px-12 h-20 ${
           isSticky
@@ -143,6 +143,7 @@ const NavBar = ({
                 >
                   Balance
                 </button>
+
                 <button
                   className="p-2 hover:bg-slate-300 rounded-md text-black"
                   onClick={() => {
