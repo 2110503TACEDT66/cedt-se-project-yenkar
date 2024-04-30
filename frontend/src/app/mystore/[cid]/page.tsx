@@ -288,7 +288,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Brand |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 id="brandData" className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.brand ?? ""}
                     </h1>
                   </div>{" "}
@@ -296,7 +296,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       price |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 id="priceData" className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.price + " $" ?? ""}
                     </h1>
                   </div>{" "}
@@ -304,7 +304,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Plate number |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 id="licenseData" className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.vrm ?? ""}
                     </h1>
                   </div>{" "}
@@ -312,7 +312,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Doors |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 id="doorData" className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.doors ?? ""}
                     </h1>
                   </div>{" "}
@@ -320,7 +320,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       seats |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 id="seatsData" className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.seats ?? ""}
                     </h1>
                   </div>{" "}
@@ -328,7 +328,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       transmission |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 id="transData" className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.transmission ?? ""}
                     </h1>
                   </div>{" "}
@@ -336,7 +336,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       cargo |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 id="cargoData" className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.cargo ?? ""}
                     </h1>
                   </div>{" "}
@@ -344,7 +344,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       radio |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 id="radioData" className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.radio ? "Yes" : "No" ?? ""}
                     </h1>
                   </div>{" "}
@@ -352,7 +352,7 @@ const page = ({ params }: { params: { cid: string } }) => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       air conditioner |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 id="airData" className="text-xl font-Poppins  font-bold text-white">
                       {carItem?.air ? "Yes" : "No" ?? ""}
                     </h1>
                   </div>{" "}
