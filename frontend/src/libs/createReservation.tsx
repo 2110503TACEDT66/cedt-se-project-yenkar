@@ -4,7 +4,7 @@ export default async function createReservation(
   user: string,
   token: string,
   pid: string,
-  carModel?:string,
+  carModel?: string
 ) {
   const response = await fetch(
     `${process.env.BACKEND_URL}/api/v1/carproviders/${pid}/rentings/`,
@@ -18,7 +18,7 @@ export default async function createReservation(
         token: token,
         rentTo: rentTo,
         rentDate: rentDate,
-        carModel:carModel,
+        carModel: carModel,
         user: user,
         returned: false,
       }),
@@ -26,7 +26,8 @@ export default async function createReservation(
   );
 
   if (!response.ok) {
-    throw new Error("Failed to create reservation");
+    throw response;
   }
+
   return response.json();
 }

@@ -30,6 +30,7 @@ import { useToast } from "@/components/ui/use-toast";
 import getSingleCar from "@/libs/getSingleCar";
 import { CommandMenu } from "@/components/CommandMenu";
 import { CarItem } from "@/index";
+import createPaymentTransaction from "@/libs/createPaymentTransaction";
 
 //const page = ({ params }: { params: { pid: string, cid:string } }) => {
 const page = () => {
@@ -101,20 +102,43 @@ const page = () => {
         pid,
         carData?.model
       )
-        .then(() => {
-          toast({
-            title: "Reservation created",
-            description: "Your reservation has been created",
-            duration: 3000,
-          });
-          router.push("/manage");
-        })
-        .catch(() => {
-          toast({
-            title: "Failed to create reservation",
-            description: "Your reservation has not been created",
-            variant: "destructive",
-            duration: 3000,
+        .then(
+          (res) => {
+            if (res.success) {
+              createPaymentTransaction(
+                session?.user.token!,
+                carData?.price!,
+                session?.user._id!,
+                carData?.carProvider._id!,
+                res.data._id
+              ).then(() => {
+                toast({
+                  title: "Reservation created",
+                  description: "Your reservation has been created",
+                  duration: 3000,
+                });
+                router.push("/manage");
+              });
+            }
+          }
+          // else {
+          //   toast({
+          //     title: "Failed to create reservation",
+          //     description: res.message ?? "An error occurred",
+          //     variant: "destructive",
+          //     duration: 3000,
+          //   });
+          // }
+        )
+        .catch((err) => {
+          err.json().then((data: any) => {
+            console.log(err);
+            toast({
+              title: "Failed to create reservation",
+              description: data.message ?? "An error occurred",
+              variant: "destructive",
+              duration: 3000,
+            });
           });
         });
     }
