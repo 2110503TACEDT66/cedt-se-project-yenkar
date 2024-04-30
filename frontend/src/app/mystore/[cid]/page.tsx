@@ -274,7 +274,7 @@ const page = ({ params }: { params: { cid: string } }) => {
           <div className=" w-[65%] h-[100%] flex flex-col relative overflow-y-scroll no-scrollbar overflow-x-hidden">
             <div className="pt-5 pl-5">
               <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
-                <h1 className="text-4xl font-kiona text-white">
+                <h1 className="text-4xl font-kiona text-white" id="modelData">
                   {carItem?.model ?? "Loading..."}
                 </h1>
                 {/* <div className="flex flex-row gap-1 items-baseline pt-3">
