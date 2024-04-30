@@ -433,6 +433,7 @@ const page = ({ params }: { params: { id: string } }) => {
                     router.push("/add");
                   }}
                   className=" self-end w-fit mr-5 py-2 px-5 bg-white text-black rounded-lg hover:scale-105 transition duration-300 ease-in-out active:scale-100"
+                  id="addCar"
                 >
                   Add Car
                 </button>
