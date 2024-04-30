@@ -47,7 +47,12 @@ const carSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: [true, "Please provide car's rental price"],
-      min: [0, "Price can't below than 0"],
+      validate: {
+        validator: function(value) {
+          return value > 0;
+        },
+        message: "Price must be greater than 0"
+      }
     },
     src: {
       type: String,

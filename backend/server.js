@@ -119,9 +119,9 @@ const swaggerOptions={
   swaggerDefinition:{
       openapi : '3.1.0',
       info : {
-          title : 'Library API',
+          title : 'Yenkar API Library',
           version : '1.0.0',
-          description : 'Yenkar API'
+          description : 'Yenkar Inc.'
       },
       servers:[
           {

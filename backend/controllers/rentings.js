@@ -3,6 +3,7 @@ const Provider = require("../models/CarProvider");
 const User = require("../models/User");
 const Car = require("../models/Car");
 const Transaction = require("../models/Transaction");
+const PaymentTransactions = require("../models/PaymentTransactions");
 
 //@desc     Get all renting
 //@route    GET /api/v1/rentings
@@ -75,7 +76,7 @@ exports.getRentings = async (req, res, next) => {
 };
 
 //@desc     Get a renting
-//@route    GET /api/v1/rentings
+//@route    GET /api/v1/rentings/:id
 //@access   Public
 exports.getRenting = async (req, res, next) => {
   try {
@@ -208,20 +209,6 @@ exports.addRenting = async (req, res, next) => {
         .json({ success: false, message: `Your balance is not enough!` });
     }
 
-    // const newBalance = user.setBalance(user.balance - carProvider.price);
-    if (req.user.role != "admin") {
-      await user.updateOne({ $inc: { balance: -car[0].price } });
-      await carProvider.updateOne({ $inc: { balance: car[0].price } });
-      await Transaction.create({
-        amount: car[0].price,
-        userId: req.user.id,
-        carProviderId: req.params.carProviderId,
-        type: "payment",
-        stripeId: null,
-        direction: "userToCarProvider",
-      });
-    }
-
     /***************************************************************** */
 
     //renting limit
@@ -241,6 +228,20 @@ exports.addRenting = async (req, res, next) => {
       returned: returned,
       car: car[0],
     });
+
+    // const newBalance = user.setBalance(user.balance - carProvider.price);
+    if (req.user.role != "admin") {
+      await user.updateOne({ $inc: { balance: -car[0].price } });
+      await carProvider.updateOne({ $inc: { balance: car[0].price } });
+      await Transaction.create({
+        amount: car[0].price,
+        userId: req.user.id,
+        carProviderId: req.params.carProviderId,
+        type: "payment",
+        stripeId: null,
+        direction: "userToCarProvider",
+      });
+    }
 
     res.status(200).json({ success: true, data: renting });
   } catch (err) {
@@ -297,7 +298,7 @@ exports.updateRenting = async (req, res, next) => {
 };
 
 //@desc     Delete a Renting
-//@route    DELETE /api/v1/Renting/:id
+//@route    DELETE /api/v1/rentings/:id
 //@access   Private
 exports.deleteRenting = async (req, res, next) => {
   // Please Refund user's balance if User delete their renting

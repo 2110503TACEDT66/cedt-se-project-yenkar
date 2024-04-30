@@ -81,7 +81,7 @@ module.exports = router;
 
 /**
 * @swagger
-* /carProviders:
+* /carproviders:
 *   get:
 *     summary: Get all car providers
 *     tags: [CarProviders]
@@ -261,3 +261,34 @@ module.exports = router;
 *           description: Internal server error
 */
 
+/**
+*   @swagger 
+*   /carproviders/available:
+*     get:
+*       summary: Get car providers with available cars
+*       tags: [CarProviders]
+*       responses:
+*         '200':
+*           description: Successful response
+*           content:
+*             application/json:
+*               schema:
+*                 type: array
+*                 items:
+*                   $ref: '#/components/schemas/CarProvider'
+*         '400':
+*           description: User not found
+*           content:
+*             application/json:
+*               schema:
+*                 type: object
+*                 properties:
+*                   success:
+*                     type: boolean
+*                     example: false
+*                   message:
+*                     type: string
+*                     example: "No car provider found"
+*         '500':
+*           description: Internal server error 
+*/
