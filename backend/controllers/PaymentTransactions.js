@@ -1,7 +1,7 @@
 const PaymentTransaction = require("../models/PaymentTransactions");
 
 //@desc     Get all topUpTransaction
-//@route    GET /api/v1/topUpTransaction
+//@route    GET /api/v1/paymenttransactions
 //@access   Public
 
 exports.getPaymentTransactions = async (req, res, next) => {
@@ -46,7 +46,7 @@ exports.getPaymentTransactions = async (req, res, next) => {
 };
 
 //@desc     Get a topUpTransaction
-//@route    GET /api/v1/topUpTransaction/:id
+//@route    GET /api/v1/paymenttransactions/:id
 //@access   Public
 
 exports.getSinglePaymentTransaction = async (req, res, next) => {
@@ -69,7 +69,7 @@ exports.getSinglePaymentTransaction = async (req, res, next) => {
 };
 
 //@desc     Create a topUpTransaction
-//@route    POST /api/v1/topUpTransaction
+//@route    POST /api/v1/paymenttransactions
 //@access   Private
 
 exports.createPaymentTransaction = async (req, res, next) => {
