@@ -170,7 +170,7 @@ const page = () => {
             {/* Car information section */}
             <div className="">
               <div className=" w-full h-fit flex flex-col  space-y-3 pt-9 pl-6 mb-5">
-                <h1 className="text-4xl font-kiona text-white">
+                <h1 className="text-4xl font-kiona text-white" id="model">
                   {carData?.model ?? "Loading..."}
                 </h1>
                 {/* <div className="flex flex-row gap-1 items-baseline pt-3">
@@ -190,7 +190,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Brand |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white" id="brand">
                       {carData?.brand ?? ""}
                     </h1>
                   </div>{" "}
@@ -198,7 +198,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       price |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white" id="price">
                       {carData?.price + " $" ?? ""}
                     </h1>
                   </div>
@@ -206,7 +206,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Plate number |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white" id="vrm">
                       {carData?.vrm ?? ""}
                     </h1>
                   </div>
@@ -214,7 +214,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Doors |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white" id="doors">
                       {carData?.doors ?? ""}
                     </h1>
                   </div>
@@ -222,7 +222,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       Seats |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white" id="seats">
                       {carData?.seats ?? ""}
                     </h1>
                   </div>
@@ -230,7 +230,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       transmission |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white" id="transmission">
                       {carData?.transmission ?? ""}
                     </h1>
                   </div>
@@ -238,7 +238,7 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       cargo |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white" id="cargo">
                       {carData?.cargo ?? ""}
                     </h1>
                   </div>
@@ -246,13 +246,13 @@ const page = () => {
                     <h1 className="text-xl font-kiona text-zinc-400">
                       radio |
                     </h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white" id="radio">
                       {carData?.radio ? "Yes" : "No" ?? ""}
                     </h1>
                   </div>
                   <div className="flex flex-row gap-1 items-baseline">
                     <h1 className="text-xl font-kiona text-zinc-400">air |</h1>
-                    <h1 className="text-xl font-Poppins  font-bold text-white">
+                    <h1 className="text-xl font-Poppins  font-bold text-white" id="air">
                       {carData?.air ? "Yes" : "No" ?? ""}
                     </h1>
                   </div>

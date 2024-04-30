@@ -1,4 +1,4 @@
-describe('view Provider profile page', () => {
+describe('View provider profile page', () => {
     it('loads', () => {
       cy.visit('http://localhost:3000/sign-in')
       cy.get('#emailInput').as("email")
@@ -18,6 +18,9 @@ describe('view Provider profile page', () => {
       expect('@productCard').to.exist
     cy.get('img[alt=togglepic]').click()
     cy.contains('Auto Heaven').click()
+    cy.contains('Huayra').should('exist')
+    cy.contains('2021 Porsche 911 GT3').should('exist')
+    cy.contains('Jesko Absolut').should('exist')
     })
 
 })
@@ -42,7 +45,19 @@ describe('View Specific Car', () => {
       expect('@productCard').to.exist
     cy.get('img[alt=togglepic]').click()
     cy.contains('Auto Heaven').click()
+    cy.wait(5000);
     cy.contains('Huayra').click()
+    cy.wait(5000);
+    cy.get('#model').contains('Huayra').should('exist');
+    cy.get('#brand').contains('PAGANI').should('exist');
+    cy.get('#price').contains('2000').should('exist');
+    cy.get('#vrm').contains('WY23SID').should('exist');
+    cy.get('#doors').contains('2').should('exist');
+    cy.get('#seats').contains('2').should('exist');
+    cy.get('#transmission').contains('auto').should('exist');
+    cy.get('#cargo').contains('small').should('exist');
+    cy.get('#radio').contains('Yes').should('exist');
+    cy.get('#air').contains('Yes').should('exist');
     })
 
 })
