@@ -135,6 +135,11 @@ module.exports = router;
  *         src: 
  *           type: string 
  *           default: "YenKar/ivrxoeccbri8gxjb4pnx"
+ *         cars:
+*            type: array
+*            items:
+*              $ref: '#/components/schemas/Car'
+* 
  */
 
 
