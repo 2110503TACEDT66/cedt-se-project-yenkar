@@ -81,7 +81,7 @@ module.exports = router;
 
 /**
 * @swagger
-* /carProviders:
+* /carproviders:
 *   get:
 *     summary: Get all car providers
 *     tags: [CarProviders]

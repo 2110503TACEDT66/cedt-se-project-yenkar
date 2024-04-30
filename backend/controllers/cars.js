@@ -5,12 +5,13 @@ const Renting = require('../models/Renting');
 const User = require('../models/User');
 
 //@desc     add a Car to The Store
-//@route    POST /api/v1/carproviders/:carProviderId/cars
+//@route    POST /api/v1/carproviders/:id/cars
 //@access   Private
 exports.addCar = async (req, res, next) => {
     try {
         //ถือว่า user = carProvider
-        req.body.carProvider = req.user.id;
+        if(req.user.role != 'admin')req.body.carProvider = req.user.id;
+        else if(!req.body.carProvider)req.body.carProvider = req.params.id;
         //console.log(req.user);
     
         const carProvider = await Provider.findById(req.body.carProvider);
