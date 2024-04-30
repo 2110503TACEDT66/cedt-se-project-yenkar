@@ -11,7 +11,7 @@ describe('have more than 1 cars', () => {
     cy.get('Button[type="submit"]').click();
     cy.wait(2000);
     cy.visit('http://localhost:3000/mystore')
-    cy.get('.flex-grow') // Assuming this class identifies each CarProviderCard container
+    cy.get('.flex-grow') 
       .first() // Select the first CarProviderCard (you can adjust this based on your UI)
       .within(() => {
         // Get the text content of the element containing the model
@@ -22,7 +22,7 @@ describe('have more than 1 cars', () => {
       });
     cy.contains('Delete').click()
     cy.contains('This action cannot be undone. This will permanently delete your car from our servers.').should('exist')
-    cy.get('Button[type="button"]').contains('Delete').click();
+    cy.get('div[role="dialog"]').contains('Delete').click();
     cy.contains('@modelText').should('not.exist')
 
   })
@@ -52,7 +52,7 @@ describe('have only 1 car', () => {
       });
     cy.contains('Delete').click()
     cy.contains('This is your last car, If you proceed your profile will not show in the store.').should('exist')
-    cy.get('Button[type="button"]').contains('Delete').click();
+    cy.get('div[role="dialog"]').contains('Delete').click();
     cy.contains('@modelText').should('not.exist')
 
   })
