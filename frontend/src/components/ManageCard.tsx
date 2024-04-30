@@ -81,7 +81,8 @@ const ManageCard = ({
       values.rentDate,
       id,
       session?.user?.token ?? ""
-    ).then(() => {
+    )
+    .then(() => {
       toast({
         title: "Success",
         description: "Reservation updated successfully",
@@ -89,9 +90,17 @@ const ManageCard = ({
       });
       location.reload();
       setIsEditing(false);
+    })
+    .catch(() => {
+      toast({
+        title: "Failed",
+        description: "Your reservation has not been updated",
+        variant: "destructive",
+        duration: 3000,
+      });
     });
-    console.log(values);
   }
+
   return (
     <div className="w-full h-[31%]">
       <div className="flex flex-row w-full h-full bg-[#17191C]  rounded-lg shadow-lg relative">

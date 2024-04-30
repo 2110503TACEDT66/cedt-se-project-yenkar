@@ -23,5 +23,10 @@ export default async function editReservation(
   if (!response.status) {
     console.log(response);
   }
+
+  if (!response.ok) {
+    throw new Error("Failed to edit reservation.");
+  }
+
   return response.json();
 }
