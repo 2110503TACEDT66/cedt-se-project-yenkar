@@ -20,7 +20,7 @@ const NavBar = ({
   const router = useRouter();
   const isSticky = stickyState;
   return (
-    <div className={`py-12  sticky top-[-3rem] z-40${className}`}>
+    <div className={`py-12  sticky top-[-3rem] z-[40] ${className}`}>
       <div
         className={`flex flex-row  justify-between items-center px-12 h-20 ${
           isSticky

@@ -103,7 +103,7 @@ export default function Home() {
             </div>
           </div>
           <div className="absolute flex flex-row w-full h-fit justify-center left-0">
-            <div className=" rounded-2xl w-fit h-12 z-[40] flex flex-row justify-center items-center drop-shadow-md p-3 shadow-lg backdrop-blur-xl backdrop-brightness-150 ">
+            <div className=" rounded-2xl w-fit h-12 z-[35] flex flex-row justify-center items-center drop-shadow-md p-3 shadow-lg backdrop-blur-xl backdrop-brightness-150 ">
               <h1 className="text-white relative">⌘K to Show Command Menu</h1>
             </div>
           </div>
